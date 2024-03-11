@@ -62,6 +62,7 @@ function Reviews() {
                         {review.imageUrl && <img src={review.imageUrl} alt="Отзыв" className="review-image" />}
                     </div>
                 ))}
+                <label htmlFor="file-upload" className="custom-file-label">Выбрать фото</label> {/* Стилизованный лейбл */}
                 <form onSubmit={handleSubmit} className="review-form">
                     <textarea
                         value={comment}
@@ -76,6 +77,7 @@ function Reviews() {
                         <img src={imagePreviewUrl} alt="Preview" className="review-image-preview" />
                     )}
                     <input
+                        id="file-upload" // Уникальный идентификатор для инпута
                         type="file"
                         onChange={handleImageChange}
                         className="review-file-input"

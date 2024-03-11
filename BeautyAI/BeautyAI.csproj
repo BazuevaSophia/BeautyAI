@@ -43,6 +43,8 @@
     <None Remove="Migrations\" />
     <None Remove="ClientApp\src\components\Home\Fonts\" />
     <None Remove="ClientApp\src\components\BeautyBooth\Fonts\" />
+    <None Remove="ClientApp\src\components\ArtistRatings\Fonts\" />
+    <None Remove="ClientApp\src\components\FreshTrends\Fonts\" />
   </ItemGroup>
 
   <ItemGroup>
@@ -62,6 +64,8 @@
     <Folder Include="Migrations\" />
     <Folder Include="ClientApp\src\components\Home\Fonts\" />
     <Folder Include="ClientApp\src\components\BeautyBooth\Fonts\" />
+    <Folder Include="ClientApp\src\components\ArtistRatings\Fonts\" />
+    <Folder Include="ClientApp\src\components\FreshTrends\Fonts\" />
   </ItemGroup>
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">
     <!-- Ensure Node.js is installed -->

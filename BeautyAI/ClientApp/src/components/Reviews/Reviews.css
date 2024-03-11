@@ -39,8 +39,24 @@
     flex-direction: column;
     gap: 10px;
 }
-
-.review-file-input, .submit-button {
+.review-file-input {
+    display: none;
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+}
+.custom-file-label {
+    display: inline-block;
+    padding: 10px;
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 35px;
+    border-radius: 10px;
+    color: #FF4EAE;
+}
+.submit-button {
     width: 100%;
     padding: 8px;
     margin-bottom: 10px;
@@ -53,27 +69,33 @@
     transition: transform 0.3s ease;
     border: 1px solid #0F0F0F;
     overflow: hidden;
-    resize: none; /* Отключаем возможность изменения размера пользователем */
-    min-height: 50px; /* Минимальная высота */
+    resize: none; 
+    min-height: 50px; 
     background-color: rgba(78, 78, 78, 0.2);
     font-family: 'Angst', sans-serif;
+    margin-top: 20px;
+    width: 750px
 }
 
 .submit-button {
-    background-color: #4CAF51; /* Green */
-    color: white;
-    padding: 14px 20px;
+    font-family: 'Franklin Gothic Medium';
+    padding: 10px 40px;
+    border-radius: 30px;
     border: none;
-    border-radius: 4px;
+    background-color: #4DEAD7;
+    color: white;
+    font-size: 22px;
     cursor: pointer;
+    transition: background-color 0.3s ease;
+    width: 180px
 }
 
     .submit-button:hover {
-        background-color: #45a049;
+        background-color: #06BFA8;
     }
 
 .review-image-preview {
-    max-width: 20%;
+    max-width: 15%;
     height: auto;
 }
 

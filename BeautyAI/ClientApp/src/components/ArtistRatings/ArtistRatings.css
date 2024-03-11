@@ -1,4 +1,10 @@
-﻿.artist-ratings-page {
+﻿@font-face {
+    font-family: 'Angst';
+    src: url('./Fonts/AngstVF.woff2') format('woff2'), url('./Fonts/AngstVF.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+.artist-ratings-page {
     position: relative;
     font-family: Arial,sans-serif;
     color: #003EFF;
@@ -33,3 +39,21 @@
             background-color: rgba(255, 255, 255, 0.5);
             color: #DBAE0F;
         }
+.artist-ratings-list {
+    margin-top: 20px;
+}
+
+.artist-rating {
+    margin-bottom: 10px;
+}
+
+.artist-name {
+    font-size: 55px;
+    color: #FFFFFF;
+    font-family: 'Angst',sans-serif;
+}
+
+.artist-stars img {
+    width: 110px; /* Или любой другой размер, который вам нравится */
+    margin-right: 20px;
+}

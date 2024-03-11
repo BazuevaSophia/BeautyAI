@@ -1,4 +1,10 @@
-﻿.fresh-trends-page {
+﻿@font-face {
+    font-family: 'Angst';
+    src: url('./Fonts/AngstVF.woff2') format('woff2'), url('./Fonts/AngstVF.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+.fresh-trends-page {
     position: relative;
     font-family: Arial,sans-serif;
     color: #79DB02;
@@ -33,3 +39,90 @@
             background-color: rgba(255, 255, 255, 0.5);
             color: #FFBEBE;
         }
+.trend {
+    margin-bottom: 50px;
+    margin-top: 50px;
+}
+.trend-photo-container {
+    position: relative;
+    overflow: hidden;
+    display: inline-block; /* Или другой подходящий для вашей верстки display */
+}
+
+    .trend-photo-container img {
+        display: block;
+        width: 100%;
+        height: auto;
+    }
+
+    .trend-photo-container .blurred {
+        filter: blur(8px); /* Увеличьте значение для более сильного размытия */
+        position: absolute;
+        top: -10px;
+        left: -10px;
+        right: -10px;
+        bottom: -10px; /* Размеры должны быть больше, чем у focused */
+        z-index: 1;
+    }
+
+    .trend-photo-container .focused {
+        position: relative;
+        z-index: 2;
+    }
+
+.trend-photos {
+    text-align: center;
+    position: relative;
+    margin-bottom: 10px;
+}
+
+
+    .trend-photos button {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-20%);
+        background-color: transparent;
+        border: none;
+        font-size: 35px;
+        cursor: pointer;
+        color: #767575;
+        border-radius: 20px;
+    }
+
+    .trend-photos img {
+        max-width: 100%;
+        height: auto;
+    }
+
+    .trend-photos button:first-of-type {
+        left: 300px;
+    }
+
+    .trend-photos button:last-of-type {
+        right: 300px;
+    }
+
+.trend-dots {
+    text-align: center;
+}
+
+.dot {
+    height: 10px;
+    width: 10px;
+    margin: 0 5px;
+    background-color: #bbb;
+    display: inline-block;
+    border-radius: 50%;
+}
+
+    .dot.active {
+        background-color: #717171;
+    }
+
+.trend-description {
+    text-align: center;
+    padding: 20px;
+    font-size: 25px;
+    font-family: 'Angst', sans-serif;
+    color: #3C3B3B;
+}
