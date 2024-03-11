@@ -1,0 +1,35 @@
+﻿.artist-ratings-page {
+    position: relative;
+    font-family: Arial,sans-serif;
+    color: #003EFF;
+    background: linear-gradient(180deg, #4B9EFF 0%, #4FDFFF 100%);
+    min-height: 100vh;
+    padding: 20px;
+}
+
+    .artist-ratings-page h1 {
+        font-size: 80px;
+        font-weight: bold;
+        margin-bottom: 20px;
+    }
+
+.artist-ratings-links {
+    display: flex;
+    gap: 25px;
+}
+
+    .artist-ratings-links a {
+        text-decoration: none;
+        font-size: 20px;
+        color: #003EFF;
+        background-color: rgba(255, 255, 255, 0.3);
+        padding: 10px 50px;
+        border-radius: 20px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+        .artist-ratings-links a:hover {
+            background-color: rgba(255, 255, 255, 0.5);
+            color: #DBAE0F;
+        }

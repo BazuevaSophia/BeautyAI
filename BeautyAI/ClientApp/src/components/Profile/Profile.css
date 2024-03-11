@@ -1,0 +1,35 @@
+﻿.profile-page {
+    position: relative;
+    font-family: Arial,sans-serif;
+    color: #FF898F;
+    background: linear-gradient(180deg, #FFB6B9 0%, #FAE3D9 50%, #BBDED6 100%);
+    min-height: 100vh;
+    padding: 20px;
+}
+
+    .profile-page h1 {
+        font-size: 80px;
+        font-weight: bold;
+        margin-bottom: 20px;
+    }
+
+.profile-links {
+    display: flex;
+    gap: 25px;
+}
+
+    .profile-links a {
+        text-decoration: none;
+        font-size: 20px;
+        color: #FF898F;
+        background-color: rgba(255, 255, 255, 0.3);
+        padding: 10px 50px;
+        border-radius: 20px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+        .profile-links a:hover {
+            background-color: rgba(255, 255, 255, 0.5);
+            color: #81D7FE;
+        }

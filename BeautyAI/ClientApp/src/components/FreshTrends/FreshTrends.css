@@ -1,0 +1,35 @@
+﻿.fresh-trends-page {
+    position: relative;
+    font-family: Arial,sans-serif;
+    color: #79DB02;
+    background: linear-gradient(180deg, #CAF397 0%, #8195FF 100%);
+    min-height: 100vh;
+    padding: 20px;
+}
+
+    .fresh-trends-page h1 {
+        font-size: 80px;
+        font-weight: bold;
+        margin-bottom: 20px;
+    }
+
+.fresh-trends-links {
+    display: flex;
+    gap: 25px;
+}
+
+    .fresh-trends-links a {
+        text-decoration: none;
+        font-size: 20px;
+        color: #69BA08;
+        background-color: rgba(255, 255, 255, 0.3);
+        padding: 10px 50px;
+        border-radius: 20px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+        .fresh-trends-links a:hover {
+            background-color: rgba(255, 255, 255, 0.5);
+            color: #FFBEBE;
+        }

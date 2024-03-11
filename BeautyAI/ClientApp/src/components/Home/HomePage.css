@@ -1,0 +1,149 @@
+﻿@font-face {
+    font-family: 'Angst';
+    src: url('./Fonts/AngstVF.woff2') format('woff2'), url('./Fonts/AngstVF.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Genos';
+    src: url('./Fonts/Genos.woff2') format('woff2'), url('./Fonts/Genos.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+.homepage {
+    position: relative;
+    font-family: 'Arial', sans-serif;
+    color: #FF8E00;
+    background: linear-gradient(180deg, #FFD66D 0%, #FE7C6B 50%, #F4EEEE 100%);
+    min-height: 100vh;
+    padding: 20px;
+}
+
+    .top-right {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        display: flex;
+        gap: 10px;
+    }
+
+        .top-right a {
+            text-decoration: none;
+            color: #FF8E00;
+            background-color: rgba(255, 255, 255, 0.3);
+            padding: 10px 15px;
+            border-radius: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        .top-right a:hover {
+            background-color: rgba(255, 255, 255, 0.5);
+            color: #F9875E;
+        }
+    .homepage h1 {
+        font-size: 80px;
+        font-weight: bold;
+        margin: 0;
+        padding: 0;
+        margin-bottom: 20px;
+    }
+.main-links {
+    display: flex;
+    gap: 25px;
+}
+    .main-links a {
+        text-decoration: none;
+        font-size: 20px;
+        color: #FF8E00;
+        background-color: rgba(255, 255, 255, 0.3);
+        padding: 10px 50px;
+        border-radius: 20px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+        .main-links a:hover {
+            background-color: rgba(255, 255, 255, 0.5);
+            color: #DD7D03;
+        }
+.other-links {
+    display: flex;
+    flex-wrap: wrap; 
+    justify-content: center;
+    padding: 20px;
+    
+}
+
+    .other-links a {
+        color: #3C3B3B;
+        text-decoration: none;
+    }
+
+.link-item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50px;
+    padding: 20px;
+    margin: 5px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+    border: 1px solid #0F0F0F;
+    
+}
+
+    .link-item:hover {
+        transform: scale(1.20);
+    }
+
+
+.link-beauty-booth {
+    margin-left: 100px;
+    font-size: 60px;
+    width: 650px;
+    height: 100px;
+    background-color: rgba(78, 78, 78, 0.2);
+    font-family: 'Angst', sans-serif;
+}
+
+.link-makeup-artists {
+    margin-left: 510px;
+    font-size: 50px;
+    width: 480px;
+    height: 100px;
+    background-color: rgba(78, 78, 78, 0.2);
+    font-family: 'Angst', sans-serif;
+}
+.link-fresh-trends {
+    margin-left: -20px;
+    font-size: 65px;
+    width: 630px;
+    height: 100px;
+    background-color: rgba(78, 78, 78, 0.2);
+    font-family: 'Angst', sans-serif;
+}
+.link-artist-rating {
+    margin-left: 500px;
+    font-size: 50px;
+    width: 620px;
+    height: 100px;
+    background-color: rgba(78, 78, 78, 0.2);
+    font-family: 'Angst', sans-serif;
+}
+.link-reviews {
+    margin-left: 250px;
+    font-size: 60px;
+    width: 400px;
+    height: 90px;
+    background-color: rgba(78, 78, 78, 0.2);
+    font-family: 'Angst', sans-serif;
+}
+.star-image {
+    width: 1000px;
+    height: 1000px;
+    position: absolute; /* Абсолютное позиционирование относительно ближайшего предка с позиционированием, отличным от static */
+    bottom: 10px; /* Расстояние от нижнего края контейнера */
+    left: 50%; /* Располагаем по центру горизонтали */
+    transform: translateX(-50%); /* Смещение влево на половину своей ширины для центрирования */
+    z-index: -1; /* Устанавливаем наименьшее значение z-index, чтобы изображение находилось под другими элементами */
+}

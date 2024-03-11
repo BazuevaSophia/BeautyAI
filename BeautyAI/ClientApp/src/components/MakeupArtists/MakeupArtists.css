@@ -1,0 +1,35 @@
+﻿.makeup-artists-page {
+    position: relative;
+    font-family: Arial,sans-serif;
+    color: #173AF0;
+    background: linear-gradient(180deg, #8A9CF7 0%, #5D52DD 100%);
+    min-height: 100vh;
+    padding: 20px;
+}
+
+    .makeup-artists-page h1 {
+        font-size: 80px;
+        font-weight: bold;
+        margin-bottom: 20px;
+    }
+
+.makeup-artists-links {
+    display: flex;
+    gap: 25px;
+}
+
+    .makeup-artists-links a {
+        text-decoration: none;
+        font-size: 20px;
+        color: #173AF0;
+        background-color: rgba(255, 255, 255, 0.3);
+        padding: 10px 50px;
+        border-radius: 20px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+        .makeup-artists-links a:hover {
+            background-color: rgba(255, 255, 255, 0.5);
+            color: #0324D0;
+        }
