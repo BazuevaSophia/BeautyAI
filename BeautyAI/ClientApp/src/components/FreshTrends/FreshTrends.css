@@ -43,32 +43,7 @@
     margin-bottom: 50px;
     margin-top: 50px;
 }
-.trend-photo-container {
-    position: relative;
-    overflow: hidden;
-    display: inline-block; /* Или другой подходящий для вашей верстки display */
-}
 
-    .trend-photo-container img {
-        display: block;
-        width: 100%;
-        height: auto;
-    }
-
-    .trend-photo-container .blurred {
-        filter: blur(8px); /* Увеличьте значение для более сильного размытия */
-        position: absolute;
-        top: -10px;
-        left: -10px;
-        right: -10px;
-        bottom: -10px; /* Размеры должны быть больше, чем у focused */
-        z-index: 1;
-    }
-
-    .trend-photo-container .focused {
-        position: relative;
-        z-index: 2;
-    }
 
 .trend-photos {
     text-align: center;
@@ -80,14 +55,28 @@
     .trend-photos button {
         position: absolute;
         top: 50%;
-        transform: translateY(-20%);
-        background-color: transparent;
+        transform: translateY(-50%);
+        background-color: rgba(78, 78, 78, 0.2);
+        color: rgba(78, 78, 78, 0.0);
         border: none;
-        font-size: 35px;
+        border-radius: 50%; 
+        width: 30px; 
+        height: 80px; 
+        font-size: 16px; 
         cursor: pointer;
-        color: #767575;
-        border-radius: 20px;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.2); 
+        align-items: center;
+        justify-content: center;
+        display: flex;
     }
+
+        .trend-photos button:hover {
+            background-color: rgba(78, 78, 78, 0.5); /* Цвет фона при наведении */
+        }
+
+        .trend-photos button:focus {
+            outline: none;
+        }
 
     .trend-photos img {
         max-width: 100%;
@@ -120,9 +109,12 @@
     }
 
 .trend-description {
-    text-align: center;
-    padding: 20px;
-    font-size: 25px;
+    text-align: justify;
+    padding: 10px 15px;
+    font-size: 20px;
     font-family: 'Angst', sans-serif;
     color: #3C3B3B;
+    line-height: 1.6;
+    margin: 20px auto; 
+    max-width: 1000px;
 }

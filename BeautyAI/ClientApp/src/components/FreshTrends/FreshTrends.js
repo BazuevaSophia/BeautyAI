@@ -3,14 +3,7 @@ import { Link } from 'react-router-dom';
 import './FreshTrends.css'; // Убедитесь, что в этом файле описаны все необходимые стили
 
 
-function TrendPhoto({ src }) {
-    return (
-        <div className="trend-photo-container">
-            <img src={src} className="blurred" alt="Trend" />
-            <img src={src} className="focused" alt="Trend" />
-        </div>
-    );
-}
+
 // Компонент для карусели одного тренда
 function TrendCarousel({ photos, description }) {
     const [currentPhotoIndex, setCurrentPhotoIndex] = useState(0);
@@ -48,15 +41,15 @@ function FreshTrends() {
     const trends = [
         {
             photos: ['photo1.jpg', 'photo2.jpg', 'photo3.jpg'],
-            description: 'В этом сезоне среди главных модных мейкап...',
+            description: 'В этом сезоне, для обладательниц карих глаз, извесен модный тренд на синий цет. Это могут быть самые разные макияжи: полностью синие тени, стрелки, либо блестки с синим оттенком.',
         },
         {
             photos: ['photo4.jpg', 'photo5.jpg', 'photo6.jpg'],
-            description: 'Следующий тренд описывается здесь...',
+            description: 'Каким же этой весной будет трендовый макияж? Весна 2024 несет с собой нежные оттенки теней. Легкий румянец и нюдовые блески для губ. все просто))',
         },
         {
             photos: ['photo7.jpg', 'photo8.jpg', 'photo9.jpg'],
-            description: 'Текст для последнего тренда...',
+            description: 'Вау!! самаыми трендовыми губами будут те на которых издалека сияет шиммер, влажный эффект, а также вкусный красный!! ',
         },
         // Можно добавить больше трендов
     ];

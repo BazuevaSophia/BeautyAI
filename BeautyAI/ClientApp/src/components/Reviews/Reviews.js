@@ -48,6 +48,7 @@ function Reviews() {
     };
 
     return (
+
         <div className="reviews-page">
             <h1>BeautyAI</h1>
             <div className="reviews-links">
