@@ -33,3 +33,26 @@
             background-color: rgba(255, 255, 255, 0.5);
             color: #81D7FE;
         }
+.visit {
+    border-radius: 20px;
+    padding: 20px;
+    margin: 5px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+    border: 1px solid #0F0F0F;
+    overflow: hidden;
+    resize: none;
+    min-height: 50px;
+    background-color: rgba(78, 78, 78, 0.2);
+    font-family: 'Angst', sans-serif;
+    margin-top: 30px;
+    width: 400px;
+}
+
+    /* Дополнительные стили для текста и расстояний между абзацами внутри .visit */
+    .visit p {
+        margin-bottom: 8px;
+        color: #333; /* Это для цвета текста */
+        font-size: 16px; /* Размер текста */
+    }
+

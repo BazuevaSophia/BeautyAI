@@ -1,6 +1,12 @@
-﻿.profile-page {
+﻿@font-face {
+    font-family: 'Genos';
+    src: url('./Fonts/Genos.woff2') format('woff2'), url('./Fonts/Genos.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+.profile-page {
     position: relative;
-    font-family: Arial,sans-serif;
+    font-family: Arial, sans-serif;
     color: #FF898F;
     background: linear-gradient(180deg, #FFB6B9 0%, #FAE3D9 50%, #BBDED6 100%);
     min-height: 100vh;
@@ -33,3 +39,131 @@
             background-color: rgba(255, 255, 255, 0.5);
             color: #81D7FE;
         }
+
+.profile-content {
+    display: flex;
+    justify-content: start; /* Изменено для лучшего выравнивания содержимого */
+    align-items: flex-start;
+}
+
+.user-info {
+    display: flex;
+    flex-direction: row; /* Изменено для горизонтального расположения */
+    align-items: flex-start;
+    gap: 50px; /* Расстояние между деталями пользователя и фото */
+}
+
+.user-photo {
+    width: 200px;
+    height: 200px;
+    border: 3px solid #9EC1DA;
+    position: absolute;
+    margin-left: 15px;
+    margin-top: 30px;
+}
+    .user-photo img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+.photo-button {
+    margin-left: 20px;
+    margin-top: 100px;
+    cursor: pointer;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    background-color: rgba(78, 78, 78, 0.2);
+    border: 1px solid #0F0F0F;
+    border-radius: 20px;
+    font-size: 13px;
+    display: block;
+    width: 200px; /* Ширина кнопки будет растягиваться на всю доступную ширину родительского элемента */
+    padding: 10px 0; /* Добавлено для увеличения вертикального пространства внутри кнопки */
+    text-align: center; /* Убедитесь, что текст выравнивается по центру */
+    font-family: 'Angst', sans-serif;
+    color: #131414;
+    
+}
+    .photo-button:hover {
+        background-color: rgba(78, 78, 78, 0.3);
+        color: #4D4F4F;
+    }
+.user-details {
+    text-align: justify;
+    margin-left: 300px;
+    margin-top: 30px;
+    font-family: 'Angst', sans-serif;
+}
+    .user-details h2 {
+        font-size: 50px;
+        color: #78C0E0;
+    }
+    .user-details p {
+        font-size: 20px;
+    }
+
+
+.profile-actions {
+    display: flex;
+    flex-direction: column; 
+    gap: 10px; 
+    align-items: center; 
+    padding-top: 20px; 
+}
+.button-settings, .button-booking, .button-favorites {
+    padding: 10px 20px; 
+    font-size: 16px;
+    cursor: pointer; 
+    transition: all 0.3s ease; 
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    background-color: rgba(78, 78, 78, 0.2);
+    transition: transform 0.3s ease;
+    border: 1px solid #0F0F0F;
+    border-radius: 20px;
+    width: 15%; 
+    margin-top: 10px;
+    margin-left: -1160px;
+
+}
+
+.button-settings {
+    margin-top: 0;
+
+}
+
+    .button-settings:hover {
+        background-color: rgba(135, 216, 253, 1);
+        color: #4D4F4F;
+    }
+
+.button-booking {
+}
+
+    .button-booking:hover {
+        background-color: rgba(135, 216, 253, 1);
+        color: #4D4F4F;
+    }
+
+.button-favorites {
+}
+
+    .button-favorites:hover {
+        background-color: rgba(135, 216, 253, 1);
+        color: #4D4F4F;
+    }
+
+.feedback {
+    text-align: left;
+    position: absolute;
+    bottom: 10px;
+    margin-left: 1210px;
+    font-family: 'Angst', sans-serif;
+    color: black;
+}
+    .feedback h2 {
+        font-size: 20px;
+    }
+    .feedback p {
+        font-size: 18px;
+    }
+

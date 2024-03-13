@@ -4,9 +4,11 @@ using BeautyAI.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// Добавляем DbContext
 builder.Services.AddDbContext<BeautyAIDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
+// Добавляем контроллеры и представления
 builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
@@ -22,10 +24,8 @@ app.UseRouting();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller}/{action=Index}/{id?}");
+    pattern: "{controller=UsertController}/{action=Index}/{id?}");
 
 app.MapFallbackToFile("index.html");
 
 app.Run();
-
-

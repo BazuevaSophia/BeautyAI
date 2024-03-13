@@ -33,3 +33,75 @@
             background-color: rgba(255, 255, 255, 0.5);
             color: #0324D0;
         }
+.artists {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    margin-top: 30px;
+}
+
+.artist {
+    width: calc(40% - 20px);
+    box-sizing: border-box;
+    margin-bottom: 20px; 
+}
+
+    .artist img {
+        width: 100%;
+        height: auto; 
+        aspect-ratio: 1 / 1; 
+        object-fit: cover; 
+        border-radius: 10px; 
+        margin-bottom: 10px; 
+    }
+
+    .artist h2 {
+        margin: 10px 0;
+        text-align: center;
+        color: black;
+        font-family: 'Angst', sans-serif;
+    }
+
+.buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px; 
+
+}
+    
+
+    .buttons button, .middle-button {
+        flex-grow: 1; 
+        margin: 0 5px; 
+        padding: 5px 0; 
+        cursor: pointer;
+        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        background-color: rgba(78, 78, 78, 0.2);
+        transition: transform 0.3s ease;
+        border: 1px solid #0F0F0F;
+        border-radius: 20px;
+    }
+        .buttons button:hover {
+            background-color: rgba(78, 78, 78, 0.3);
+            color: #4D4F4F;
+        }
+        .middle-button:hover {
+            background-color: rgba(78, 78, 78, 0.3);
+            color: #4D4F4F;
+        }
+
+.middle-button {
+    margin-top: 10px; 
+    width: calc(100% - 10px); 
+    margin-left: 5px; 
+    margin-right: 5px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    background-color: rgba(78, 78, 78, 0.2);
+    transition: transform 0.3s ease;
+    border: 1px solid #0F0F0F;
+    border-radius: 20px;
+}
+    .middle-button:hover {
+        background-color: rgba(78, 78, 78, 0.3);
+        color: #4D4F4F;
+    }

@@ -18,16 +18,16 @@ function Registration() {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        // Проверяем, совпадают ли пароли
+      
         if (formData.password !== formData.confirmPassword) {
             alert("Пароли не совпадают.");
             return;
         }
 
-        // Создаем объект для отправки на сервер, включаем поле "role"
+       
         const userData = {
             ...formData,
-            role: "Клиент" // Добавляем роль "Клиент" для всех зарегистрированных пользователей
+            role: "Клиент" 
         };
 
         try {
@@ -42,11 +42,11 @@ function Registration() {
             if (response.ok) {
                 const data = await response.json();
                 console.log("Регистрация успешна:", data);
-                // Вы можете перенаправить пользователя на другую страницу или показать сообщение об успешной регистрации
+             
             } else {
                 const errorData = await response.json();
                 console.error("Ошибка регистрации:", errorData);
-                // Показываем сообщение об ошибке
+               
             }
         } catch (error) {
             console.error("Ошибка сети:", error);
