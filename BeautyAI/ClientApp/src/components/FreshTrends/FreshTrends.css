@@ -71,7 +71,7 @@
     }
 
         .trend-photos button:hover {
-            background-color: rgba(78, 78, 78, 0.5); /* Цвет фона при наведении */
+            background-color: rgba(78, 78, 78, 0.5); 
         }
 
         .trend-photos button:focus {

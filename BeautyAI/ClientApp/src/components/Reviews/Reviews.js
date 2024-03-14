@@ -15,12 +15,12 @@ function Reviews() {
     };
 
     const adjustTextareaHeight = (e) => {
-        e.target.style.height = "inherit"; // Сбросить высоту
-        e.target.style.height = `${e.target.scrollHeight}px`; // Установить новую высоту
+        e.target.style.height = "inherit"; 
+        e.target.style.height = `${e.target.scrollHeight}px`; 
     };
 
     useEffect(() => {
-        // Загрузка отзывов при монтировании компонента
+       
         axios.get('/api/reviews')
             .then(response => setReviews(response.data))
             .catch(error => console.error('Ошибка загрузки отзывов:', error));
@@ -40,9 +40,9 @@ function Reviews() {
             },
         })
             .then(response => {
-                setReviews([...reviews, response.data]); // Добавление нового отзыва к существующему списку
-                setComment(''); // Очистка поля комментария
-                setImage(null); // Сброс выбранного изображения
+                setReviews([...reviews, response.data]); 
+                setComment(''); 
+                setImage(null); 
             })
             .catch(error => console.error('Ошибка при отправке отзыва:', error));
     };
@@ -63,7 +63,7 @@ function Reviews() {
                         {review.imageUrl && <img src={review.imageUrl} alt="Отзыв" className="review-image" />}
                     </div>
                 ))}
-                <label htmlFor="file-upload" className="custom-file-label">Выбрать фото</label> {/* Стилизованный лейбл */}
+                <label htmlFor="file-upload" className="custom-file-label">Выбрать фото</label> 
                 <form onSubmit={handleSubmit} className="review-form">
                     <textarea
                         value={comment}
@@ -78,7 +78,7 @@ function Reviews() {
                         <img src={imagePreviewUrl} alt="Preview" className="review-image-preview" />
                     )}
                     <input
-                        id="file-upload" // Уникальный идентификатор для инпута
+                        id="file-upload" 
                         type="file"
                         onChange={handleImageChange}
                         className="review-file-input"

@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import './History.css';
 
 function History() {
-    // Данные о визитах
+  
     const visits = [
         {
             description: "вечерний макияж",

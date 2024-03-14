@@ -13,7 +13,7 @@ function Authorization() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        // Здесь должна быть логика отправки данных для авторизации
+        
         console.log(formData);
     };
 

@@ -42,15 +42,15 @@
 
 .profile-content {
     display: flex;
-    justify-content: start; /* Изменено для лучшего выравнивания содержимого */
+    justify-content: start; 
     align-items: flex-start;
 }
 
 .user-info {
     display: flex;
-    flex-direction: row; /* Изменено для горизонтального расположения */
+    flex-direction: row; 
     align-items: flex-start;
-    gap: 50px; /* Расстояние между деталями пользователя и фото */
+    gap: 50px; 
 }
 
 .user-photo {
@@ -77,9 +77,9 @@
     border-radius: 20px;
     font-size: 13px;
     display: block;
-    width: 200px; /* Ширина кнопки будет растягиваться на всю доступную ширину родительского элемента */
-    padding: 10px 0; /* Добавлено для увеличения вертикального пространства внутри кнопки */
-    text-align: center; /* Убедитесь, что текст выравнивается по центру */
+    width: 200px; 
+    padding: 10px 0;
+    text-align: center; 
     font-family: 'Angst', sans-serif;
     color: #131414;
     

@@ -3,31 +3,31 @@ import { Link } from 'react-router-dom';
 import './Profile.css';
 
 function Profile() {
-    const [userPhoto, setUserPhoto] = useState(null); // Изначальное состояние для фотографии пользователя
+    const [userPhoto, setUserPhoto] = useState(null); 
     const fileInputRef = useRef(null);
 
-    // Допустим, что данные пользователя захардкожены для этого примера
+   
     const userProfile = {
         name: 'Софья',
         phoneNumber: '+7(909)054-48-27',
         email: 'bazuevasd@gmail.com'
     };
 
-    // Обработчик для изменения фотографии пользователя
+   
     const handlePhotoChange = (event) => {
         const file = event.target.files[0];
         if (file) {
             const reader = new FileReader();
             reader.onload = (e) => {
-                setUserPhoto(e.target.result); // Обновляем состояние фото пользователя
+                setUserPhoto(e.target.result); 
             };
-            reader.readAsDataURL(file); // Читаем файл как Data URL
+            reader.readAsDataURL(file); 
         }
     };
 
-    // Вызывается при клике на кнопку
+   
     const handleClick = () => {
-        fileInputRef.current.click(); // Имитируем клик на скрытый input type="file"
+        fileInputRef.current.click(); 
     };
 
     return (

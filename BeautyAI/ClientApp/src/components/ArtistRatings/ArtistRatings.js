@@ -1,17 +1,16 @@
 ﻿import React from 'react';
 import { Link } from 'react-router-dom';
-import './ArtistRatings.css'; // Убедитесь, что вы стилизовали ваш CSS соответствующим образом
+import './ArtistRatings.css'; 
 
 function ArtistRatings() {
-    // Это массив объектов с именами визажистов и их рейтингами
+  
     const artists = [
         { name: 'София', rating: 5 },
         { name: 'Анастасия', rating: 4 },
         { name: 'Ирина', rating: 3 },
-        // ... добавьте других визажистов по необходимости
+        
     ];
 
-    // Функция для отображения звездного рейтинга
     const renderStars = (rating) => {
         let stars = [];
         for (let i = 0; i < rating; i++) {

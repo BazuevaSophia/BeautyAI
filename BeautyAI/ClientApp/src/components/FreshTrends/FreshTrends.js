@@ -1,10 +1,8 @@
 ﻿import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import './FreshTrends.css'; // Убедитесь, что в этом файле описаны все необходимые стили
+import './FreshTrends.css';
 
 
-
-// Компонент для карусели одного тренда
 function TrendCarousel({ photos, description }) {
     const [currentPhotoIndex, setCurrentPhotoIndex] = useState(0);
 
@@ -51,7 +49,7 @@ function FreshTrends() {
             photos: ['photo7.jpg', 'photo8.jpg', 'photo9.jpg'],
             description: 'Вау!! самаыми трендовыми губами будут те на которых издалека сияет шиммер, влажный эффект, а также вкусный красный!! ',
         },
-        // Можно добавить больше трендов
+        
     ];
 
     return (

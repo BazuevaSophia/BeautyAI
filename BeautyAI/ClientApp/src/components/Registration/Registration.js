@@ -31,7 +31,7 @@ function Registration() {
         };
 
         try {
-            const response = await fetch('http://localhost:44476/api/users/register', {
+            const response = await fetch('https://localhost:7125/api/user/register', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

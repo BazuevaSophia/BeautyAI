@@ -8,12 +8,12 @@ namespace BeautyAI.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-public class UsersController : ControllerBase
+public class UserController : ControllerBase
 {
     private readonly BeautyAIDbContext _context;
-    private readonly ILogger<UsersController> _logger;
+    private readonly ILogger<UserController> _logger;
 
-    public UsersController(BeautyAIDbContext context, ILogger<UsersController> logger)
+    public UserController(BeautyAIDbContext context, ILogger<UserController> logger)
     {
         _context = context;
         _logger = logger; 

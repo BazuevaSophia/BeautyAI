@@ -5,31 +5,31 @@ import './BeautyBooth.css';
 function BeautyBooth() {
     const [selectedImage, setSelectedImage] = useState(null);
     const [selectedImageFile, setSelectedImageFile] = useState(null);
-    const [selectedFeature, setSelectedFeature] = useState('lips'); // Состояние для выбранной функции макияжа
+    const [selectedFeature, setSelectedFeature] = useState('lips'); 
     const [isLoading, setIsLoading] = useState(false);
     const [originalImage, setOriginalImage] = useState(null);
 
     const handleImageChange = (e) => {
         if (e.target.files && e.target.files[0]) {
             const imageFile = e.target.files[0];
-            setSelectedImageFile(imageFile); // Сохраняем файл для отправки на сервер
+            setSelectedImageFile(imageFile); 
             const imagePreviewUrl = URL.createObjectURL(imageFile);
-            setOriginalImage(imagePreviewUrl); // Сохраняем исходное изображение для отката
+            setOriginalImage(imagePreviewUrl); 
             setSelectedImage(imagePreviewUrl);
         }
     };
 
     const applyMakeup = async () => {
-        if (!selectedImageFile || !selectedFeature) return; // Проверяем, что файл и функция макияжа выбраны
+        if (!selectedImageFile || !selectedFeature) return;
 
-        console.log(selectedImageFile); // Логируем выбранный файл для отладки
+        console.log(selectedImageFile); 
 
         setIsLoading(true);
         const formData = new FormData();
-        formData.append('file', selectedImageFile); // Добавляем файл в форму
+        formData.append('file', selectedImageFile); 
 
         try {
-            // Используем выбранную функцию макияжа в параметрах запроса
+            
             const response = await fetch(`http://127.0.0.1:8000/apply-makeup/?choice=${selectedFeature}`, {
                 method: 'POST',
                 body: formData,
@@ -39,18 +39,18 @@ function BeautyBooth() {
             }
             const data = await response.blob();
             const makeupImage = URL.createObjectURL(data);
-            setSelectedImage(makeupImage); // Устанавливаем обработанное изображение
+            setSelectedImage(makeupImage); 
         } catch (error) {
             console.error('Ошибка при отправке изображения: ', error);
         } finally {
-            setIsLoading(false); // Снимаем индикатор загрузки
+            setIsLoading(false); 
         }
     };
 
 
     const handleShowOriginal = () => {
         if (originalImage) {
-            setSelectedImage(originalImage); // Возвращаем оригинальное изображение
+            setSelectedImage(originalImage); 
         }
     };
    
