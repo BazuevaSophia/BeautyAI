@@ -1,4 +1,5 @@
 ﻿import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom'; 
 import './Registration.css';
 
 function Registration() {
@@ -8,8 +9,8 @@ function Registration() {
         phone: '',
         password: '',
         confirmPassword: '',
-
     });
+    const navigate = useNavigate();
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
@@ -42,6 +43,7 @@ function Registration() {
             if (response.ok) {
                 const data = await response.json();
                 console.log("Регистрация успешна:", data);
+                navigate('/Authorization'); 
              
             } else {
                 const errorData = await response.json();
