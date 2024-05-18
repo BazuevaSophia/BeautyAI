@@ -15,12 +15,11 @@ function Profile() {
                     headers: {
                         'Content-Type': 'application/json',
                     },
-                    credentials: 'include', // Включите отправку cookie
+                    credentials: 'include',
                 });
 
                 if (!response.ok) {
                     if (response.status === 401) {
-                        // Пользователь не авторизован, перенаправляем на страницу входа
                         window.location.href = '/Authorization';
                         return;
                     } else {
@@ -45,12 +44,12 @@ function Profile() {
         try {
             const response = await fetch('https://localhost:7125/api/authorization/logout', {
                 method: 'POST',
-                credentials: 'include', // Включите отправку cookie
+                credentials: 'include',
             });
 
             if (response.ok) {
                 alert('Вы успешно вышли из системы.');
-                window.location.href = '/'; // Перенаправление на главную страницу после выхода
+                window.location.href = '/';
             } else {
                 alert('Ошибка при выходе из системы');
             }
@@ -60,7 +59,7 @@ function Profile() {
     };
 
     if (isLoading) {
-        return <div>Загрузка...</div>; // Пока данные загружаются, отображаем сообщение о загрузке
+        return <div>Загрузка...</div>;
     }
 
     return (
@@ -74,7 +73,6 @@ function Profile() {
             <div className="profile-content">
                 <div className="user-info">
                     <div className="user-photo">
-                        {/* Если у пользователя есть фото, отображаем его */}
                         {userData.photo.length > 0 && <img src={userData.photo[0]} alt="Фото профиля" />}
                     </div>
                     <div className="user-details">

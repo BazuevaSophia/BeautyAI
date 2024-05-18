@@ -5,12 +5,38 @@ import './Authorization.css';
 function Authorization() {
     const [formData, setFormData] = useState({
         phone: '',
-        password: ''
+        password: '',
+        showPassword: false,
     });
     const navigate = useNavigate();
 
     const handleChange = (e) => {
-        setFormData({ ...formData, [e.target.name]: e.target.value });
+        const { name, value } = e.target;
+        if (name === 'phone') {
+            const formattedPhone = formatPhoneNumber(value);
+            setFormData({ ...formData, phone: formattedPhone });
+        } else {
+            setFormData({ ...formData, [name]: value });
+        }
+    };
+
+    const formatPhoneNumber = (value) => {
+        const cleaned = ('' + value).replace(/\D/g, '').substring(0, 11);
+        const match = cleaned.match(/(\d{0,1})(\d{0,3})(\d{0,3})(\d{0,2})(\d{0,2})/);
+        let formatted = '+7';
+        if (match[2]) {
+            formatted += `(${match[2]}`;
+            if (match[3]) {
+                formatted += `)${match[3]}`;
+                if (match[4]) {
+                    formatted += `-${match[4]}`;
+                    if (match[5]) {
+                        formatted += `-${match[5]}`;
+                    }
+                }
+            }
+        }
+        return formatted;
     };
 
     const handleSubmit = async (e) => {
@@ -37,6 +63,10 @@ function Authorization() {
         }
     };
 
+    const toggleShowPassword = () => {
+        setFormData({ ...formData, showPassword: !formData.showPassword });
+    };
+
     return (
         <div className="authorization-page">
             <h1>BeautyAI</h1>
@@ -47,20 +77,22 @@ function Authorization() {
                         name="phone"
                         className="input"
                         placeholder="+7(___)___-__-__"
-                        pattern="\+7\(\d{3}\)\d{3}-\d{2}-\d{2}"
                         value={formData.phone}
                         onChange={handleChange}
                     />
                 </div>
-                <div className="form-group">
+                <div className="form-group password-input-wrapper">
                     <input
-                        type="password"
+                        type={formData.showPassword ? "text" : "password"}
                         name="password"
                         className="input"
                         placeholder="Пароль"
                         value={formData.password}
                         onChange={handleChange}
                     />
+                    <button type="button" className="toggle-password" onClick={toggleShowPassword}>
+                        <img src={formData.showPassword ? "hide-eye.png" : "show-eye.png"} alt="Показать пароль" />
+                    </button>
                 </div>
                 <button type="submit" className="submit-button">Вход</button>
             </form>

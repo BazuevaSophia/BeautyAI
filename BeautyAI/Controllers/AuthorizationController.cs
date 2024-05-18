@@ -27,7 +27,7 @@ public class AuthorizationController : ControllerBase
         {
             var user = await _context.Users.SingleOrDefaultAsync(u => u.Phone == loginModel.Phone);
 
-            if (user == null || user.Password != loginModel.Password) // Используйте хеширование для паролей в продакшене
+            if (user == null || user.Password != loginModel.Password)
             {
                 _logger.LogWarning("Вход не выполнен. Неверные учетные данные.");
                 return Unauthorized(new { message = "Неверные учетные данные." });
@@ -61,8 +61,17 @@ public class AuthorizationController : ControllerBase
     [HttpPost("logout")]
     public async Task<IActionResult> Logout()
     {
-        await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-        return Ok(new { message = "Успешный выход." });
+        try
+        {
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            _logger.LogInformation("Пользователь успешно вышел из системы.");
+            return Ok(new { message = "Успешный выход." });
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Ошибка при попытке выхода из системы");
+            return StatusCode(500, new { message = "Произошла ошибка на сервере" });
+        }
     }
 }
 

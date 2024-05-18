@@ -24,12 +24,22 @@ function Registration() {
     };
 
     const formatPhoneNumber = (value) => {
-        const cleaned = ('' + value).replace(/\D/g, '');
-        const match = cleaned.match(/^(\d{1})(\d{3})(\d{3})(\d{2})(\d{2})$/);
-        if (match) {
-            return `+${match[1]}(${match[2]})${match[3]}-${match[4]}-${match[5]}`;
+        const cleaned = value.replace(/\D/g, '').substring(0, 11);
+        const match = cleaned.match(/(\d{0,1})(\d{0,3})(\d{0,3})(\d{0,2})(\d{0,2})/);
+        let formatted = '+7';
+        if (match[2]) {
+            formatted += `(${match[2]}`;
+            if (match[3]) {
+                formatted += `)${match[3]}`;
+                if (match[4]) {
+                    formatted += `-${match[4]}`;
+                    if (match[5]) {
+                        formatted += `-${match[5]}`;
+                    }
+                }
+            }
         }
-        return value;
+        return formatted;
     };
 
     const handleSubmit = async (e) => {
@@ -37,6 +47,16 @@ function Registration() {
 
         if (Object.values(formData).some(value => value === '')) {
             alert("Пожалуйста, заполните все поля.");
+            return;
+        }
+
+        if (formData.phone.replace(/\D/g, '').length !== 11) {
+            alert("Номер телефона должен содержать ровно 11 цифр.");
+            return;
+        }
+
+        if (formData.name.trim() === '') {
+            alert("Имя не может содержать только пробелы.");
             return;
         }
 
@@ -133,7 +153,7 @@ function Registration() {
                         <img src={formData.showPassword ? "hide-eye.png" : "show-eye.png"} alt="Показать пароль" />
                     </button>
                 </div>
-                <div className="form-group">
+                <div className="form-group password-input-wrapper">
                     <input
                         type={formData.showPassword ? "text" : "password"}
                         name="confirmPassword"

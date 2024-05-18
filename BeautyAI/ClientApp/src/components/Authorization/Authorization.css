@@ -52,6 +52,35 @@
         opacity: 1;
     }
 
+.password-input-wrapper {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+.toggle-password {
+    position: absolute;
+    right: 0;
+    padding-right: 20px;
+    top: 30%;
+    transform: translateY(-30%);
+    background: none;
+    border: none;
+    cursor: pointer;
+    outline: none;
+}
+
+    .toggle-password img {
+        width: 20px;
+        height: 20px;
+    }
+
+    .toggle-password:hover {
+        background: none;
+        border: none;
+    }
+
 button {
     font-family: 'Franklin Gothic Medium', 'Arial', sans-serif;
     padding: 10px 40px;

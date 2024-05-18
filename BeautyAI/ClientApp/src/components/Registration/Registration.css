@@ -61,10 +61,10 @@
 
 .toggle-password {
     position: absolute;
-    right: 0; /* Отступ от правого края */
-    padding-right: 20px; /* Отступ для глазка вправо */
-    top: 30%; /* Отступ сверху */
-    transform: translateY(-30%); /* Сдвиг вверх на половину высоты элемента */
+    right: 0; 
+    padding-right: 20px; 
+    top: 30%; 
+    transform: translateY(-30%); 
     background: none;
     border: none;
     cursor: pointer;

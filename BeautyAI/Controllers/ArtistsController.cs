@@ -24,7 +24,7 @@ public class ArtistsController : ControllerBase
             var artists = await _context.Artists.Select(a => new
             {
                 Name = a.Name,
-                Image = a.Photo // Непосредственное использование строки
+                Image = a.Photo 
             }).ToListAsync();
 
             return Ok(artists);
