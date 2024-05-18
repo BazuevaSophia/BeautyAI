@@ -2,7 +2,6 @@
   "name": "beautyai",
   "version": "0.1.0",
   "private": true,
-  "proxy": "http://127.0.0.1:8000",
   "dependencies": {
     "bootstrap": "^5.2.3",
     "http-proxy-middleware": "^2.0.6",
@@ -51,10 +50,11 @@
   },
   "scripts": {
     "prestart": "node aspnetcore-https && node aspnetcore-react",
-    "start": "rimraf ./build && react-scripts start",
+
     "build": "react-scripts build",
     "test": "cross-env CI=true react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
+    "start": "react-scripts --max-http-header-size=1024 start",
     "lint": "eslint ./src/"
   },
   "eslintConfig": {

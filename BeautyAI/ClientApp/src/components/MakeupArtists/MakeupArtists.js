@@ -1,14 +1,23 @@
-﻿import React from 'react';
+﻿import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import './MakeupArtists.css'; 
+import './MakeupArtists.css';
 
 function MakeupArtists() {
-    const artists = [
-        { name: 'София', image: 'art1.jpg' },
-        { name: 'Мария', image: 'art2.jpg' },
-        { name: 'Анастасия', image: 'art3.jpg' },
-        { name: 'Надежда', image: 'art4.jpg' },
-    ];
+    const [artists, setArtists] = useState([]);
+
+    useEffect(() => {
+        // Используйте полный URL если ваш front-end и API сервер размещены по разным адресам
+        const apiUrl = process.env.REACT_APP_API_URL || ''; // URL вашего API, если требуется
+        fetch(`${apiUrl}/makeup-artists/all-artists`)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                return response.json();
+            })
+            .then(data => setArtists(data))
+            .catch(error => console.error('Ошибка при загрузке данных артистов:', error));
+    }, []);
 
     return (
         <div className="makeup-artists-page">

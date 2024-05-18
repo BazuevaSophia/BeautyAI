@@ -1,6 +1,6 @@
 ﻿.registration-page {
     position: relative;
-    font-family: Arial,sans-serif;
+    font-family: Arial, sans-serif;
     color: #FF898F;
     display: flex;
     justify-content: center;
@@ -8,53 +8,79 @@
     min-height: 100vh;
     background: linear-gradient(180deg, #FFB6B9 0%, #FAE3D9 50%, #BBDED6 100%);
 }
+
     .registration-page h1 {
         position: absolute;
-        top: 0; 
-        left: 0; 
+        top: 0;
+        left: 0;
         font-size: 80px;
         font-weight: bold;
-        margin: 20px; 
+        margin: 20px;
         padding: 0;
     }
 
 .registration-form {
     background: rgba(255, 255, 255, 0);
-    backdrop-filter: blur(30px); 
+    backdrop-filter: blur(30px);
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
     padding: 40px;
-    border-radius: 20px; 
+    border-radius: 20px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    max-width: 600px; 
+    max-width: 600px;
     margin: auto;
 }
 
 .form-group {
     margin-bottom: 5px;
-    width: 100%; 
+    width: 100%;
 }
-
 
 .input {
     width: 100%;
     padding: 15px;
     margin: 5px 0 20px 0;
-    border-radius: 30px; 
+    border-radius: 30px;
     border: 1px solid #ccc;
     background-color: #f8f8f8;
-   
 }
 
     .input::placeholder {
         color: #aaa;
-        opacity: 1; 
+        opacity: 1;
     }
-   
 
-bubutton {
+.password-input-wrapper {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+.toggle-password {
+    position: absolute;
+    right: 0; /* Отступ от правого края */
+    padding-right: 20px; /* Отступ для глазка вправо */
+    top: 30%; /* Отступ сверху */
+    transform: translateY(-30%); /* Сдвиг вверх на половину высоты элемента */
+    background: none;
+    border: none;
+    cursor: pointer;
+    outline: none;
+}
+    .toggle-password img {
+        width: 20px;
+        height: 20px;
+    }
+
+    .toggle-password:hover {
+        background: none;
+        border: none;
+    }
+
+button {
     font-family: 'Franklin Gothic Medium';
     padding: 10px 40px;
     border-radius: 30px;
@@ -65,6 +91,7 @@ bubutton {
     cursor: pointer;
     transition: background-color 0.3s ease;
 }
+
     button:hover {
         background-color: #84BFDA;
     }

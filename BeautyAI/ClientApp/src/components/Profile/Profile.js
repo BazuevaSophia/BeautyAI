@@ -1,64 +1,96 @@
-﻿import React, { useState, useRef } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './Profile.css';
 
 function Profile() {
-    const [userPhoto, setUserPhoto] = useState(null); 
-    const fileInputRef = useRef(null);
+    const [userData, setUserData] = useState({ name: '', email: '', phone: '', photo: [] });
+    const [isLoading, setIsLoading] = useState(true);
+    const navigate = useNavigate();
 
-   
-    const userProfile = {
-        name: 'Софья',
-        phoneNumber: '+7(909)054-48-27',
-        email: 'bazuevasd@gmail.com'
-    };
+    useEffect(() => {
+        const fetchProfile = async () => {
+            try {
+                const response = await fetch('https://localhost:7125/api/profile/getProfile', {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    credentials: 'include', // Включите отправку cookie
+                });
 
-   
-    const handlePhotoChange = (event) => {
-        const file = event.target.files[0];
-        if (file) {
-            const reader = new FileReader();
-            reader.onload = (e) => {
-                setUserPhoto(e.target.result); 
-            };
-            reader.readAsDataURL(file); 
+                if (!response.ok) {
+                    if (response.status === 401) {
+                        // Пользователь не авторизован, перенаправляем на страницу входа
+                        window.location.href = '/Authorization';
+                        return;
+                    } else {
+                        throw new Error('Failed to fetch profile data');
+                    }
+                }
+
+                const result = await response.json();
+                setUserData(result);
+            } catch (error) {
+                console.error('Ошибка при загрузке данных профиля: ', error);
+                window.location.href = '/Authorization';
+            } finally {
+                setIsLoading(false);
+            }
+        };
+
+        fetchProfile();
+    }, [navigate]);
+
+    const handleLogout = async () => {
+        try {
+            const response = await fetch('https://localhost:7125/api/authorization/logout', {
+                method: 'POST',
+                credentials: 'include', // Включите отправку cookie
+            });
+
+            if (response.ok) {
+                alert('Вы успешно вышли из системы.');
+                window.location.href = '/'; // Перенаправление на главную страницу после выхода
+            } else {
+                alert('Ошибка при выходе из системы');
+            }
+        } catch (error) {
+            alert('Ошибка сети при попытке выхода');
         }
     };
 
-   
-    const handleClick = () => {
-        fileInputRef.current.click(); 
-    };
+    if (isLoading) {
+        return <div>Загрузка...</div>; // Пока данные загружаются, отображаем сообщение о загрузке
+    }
 
     return (
         <div className="profile-page">
             <h1>BeautyAI</h1>
             <div className="profile-links">
-                <Link to="/">Главная</Link>
-                <Link to="/history">История</Link>
-                <Link to="/profile">Профиль</Link>
+                <a href="/">Главная</a>
+                <a href="/history">История</a>
+                <a href="/profile">Профиль</a>
             </div>
             <div className="profile-content">
                 <div className="user-info">
-                    <div className="user-details">
-                        <h2>Софья</h2>
-                        <p><strong>Номер телефона:</strong>+7(909)054-48-27</p>
-                        <p><strong>Email:</strong> bazuevasd@gmail.com</p>
-                    </div>
                     <div className="user-photo">
-                        {userPhoto && <img src={userPhoto} alt="Фото профиля" />}
-                        
-                        <input type="file" ref={fileInputRef} style={{ display: 'none' }} accept="image/*" onChange={handlePhotoChange} />
+                        {/* Если у пользователя есть фото, отображаем его */}
+                        {userData.photo.length > 0 && <img src={userData.photo[0]} alt="Фото профиля" />}
                     </div>
-                    
+                    <div className="user-details">
+                        <h2>{userData.name}</h2>
+                        <p><strong>Номер телефона:</strong> {userData.phone}</p>
+                        <p><strong>Email:</strong> {userData.email}</p>
+                    </div>
                 </div>
             </div>
-            <button className="photo-button" onClick={handleClick}>Добавить или изменить фото</button>
+            <button className="photo-button" onClick={() => alert('Загрузка фото не реализована')}>Добавить или изменить фото</button>
             <div className="profile-actions">
                 <button className="button-settings">Настройки</button>
                 <button className="button-booking">Бронирование</button>
                 <button className="button-favorites">Избранное</button>
             </div>
+            <button onClick={handleLogout} className="photo-button">Выйти</button>
             <div className="feedback">
                 <h2>Обратная связь</h2>
                 <p>+7(909)-054-48-27</p>
@@ -68,7 +100,3 @@ function Profile() {
 }
 
 export default Profile;
-
-
-
-

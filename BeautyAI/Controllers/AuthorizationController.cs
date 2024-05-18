@@ -1,10 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using BeautyAI.Models;
 using BeautyAI.Data;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 namespace BeautyAI.Controllers;
 
@@ -22,32 +21,35 @@ public class AuthorizationController : ControllerBase
     }
 
     [HttpPost("login")]
-    public async Task<ActionResult> Login([FromBody] LoginModel loginModel)
+    public async Task<IActionResult> Login([FromBody] LoginModel loginModel)
     {
         try
         {
-            var user = await _context.Users
-                                     .SingleOrDefaultAsync(u => u.Phone == loginModel.Phone && u.Password == loginModel.Password);
+            var user = await _context.Users.SingleOrDefaultAsync(u => u.Phone == loginModel.Phone);
 
-            if (user == null)
+            if (user == null || user.Password != loginModel.Password) // Используйте хеширование для паролей в продакшене
             {
-                _logger.LogWarning("Вход не выполнен. Пользователь не найден или неверный пароль.");
-                return NotFound(new { message = "Пользователь не найден или неверный пароль." });
+                _logger.LogWarning("Вход не выполнен. Неверные учетные данные.");
+                return Unauthorized(new { message = "Неверные учетные данные." });
             }
 
             var claims = new List<Claim>
             {
-                new Claim(ClaimTypes.Name, user.Name),
-                
+                new Claim(ClaimTypes.NameIdentifier, user.UserId.ToString()),
+                new Claim(ClaimTypes.Name, user.Name)
             };
 
-            var claimsIdentity = new ClaimsIdentity(claims, "Cookies");
+            var authProperties = new AuthenticationProperties
+            {
+                IsPersistent = true,
+                ExpiresUtc = DateTimeOffset.UtcNow.AddMinutes(60)
+            };
 
-           
-            await HttpContext.SignInAsync("Cookies", new ClaimsPrincipal(claimsIdentity));
+            var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+            await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity), authProperties);
 
-            _logger.LogInformation("Пользователь {Email} успешно вошел в систему.", user.Email);
-            return Redirect("/profile"); 
+            _logger.LogInformation("Пользователь {Phone} успешно вошел в систему.", user.Phone);
+            return Ok(new { message = "Успешный вход." });
         }
         catch (Exception ex)
         {
@@ -55,10 +57,17 @@ public class AuthorizationController : ControllerBase
             return StatusCode(500, new { message = "Произошла ошибка на сервере" });
         }
     }
+
+    [HttpPost("logout")]
+    public async Task<IActionResult> Logout()
+    {
+        await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+        return Ok(new { message = "Успешный выход." });
+    }
 }
 
 public class LoginModel
 {
     public string Phone { get; set; } = string.Empty;
-    public string Password { get; set; }= string.Empty;
+    public string Password { get; set; } = string.Empty;
 }

@@ -1,5 +1,5 @@
 ﻿import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom'; 
+import { useNavigate } from 'react-router-dom';
 import './Registration.css';
 
 function Registration() {
@@ -9,26 +9,50 @@ function Registration() {
         phone: '',
         password: '',
         confirmPassword: '',
+        showPassword: false,
     });
     const navigate = useNavigate();
+
     const handleChange = (e) => {
-        setFormData({ ...formData, [e.target.name]: e.target.value });
+        const { name, value } = e.target;
+        if (name === 'phone') {
+            const formattedPhone = formatPhoneNumber(value);
+            setFormData({ ...formData, phone: formattedPhone });
+        } else {
+            setFormData({ ...formData, [name]: value });
+        }
     };
 
+    const formatPhoneNumber = (value) => {
+        const cleaned = ('' + value).replace(/\D/g, '');
+        const match = cleaned.match(/^(\d{1})(\d{3})(\d{3})(\d{2})(\d{2})$/);
+        if (match) {
+            return `+${match[1]}(${match[2]})${match[3]}-${match[4]}-${match[5]}`;
+        }
+        return value;
+    };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-      
+        if (Object.values(formData).some(value => value === '')) {
+            alert("Пожалуйста, заполните все поля.");
+            return;
+        }
+
         if (formData.password !== formData.confirmPassword) {
             alert("Пароли не совпадают.");
             return;
         }
 
-       
+        if (!validatePassword(formData.password)) {
+            alert("Пароль должен содержать не менее 8 символов, включая цифры, латинские буквы и как минимум один специальный символ (*, @, #, и т.д.).");
+            return;
+        }
+
         const userData = {
             ...formData,
-            role: "Клиент" 
+            role: "Клиент"
         };
 
         try {
@@ -43,16 +67,23 @@ function Registration() {
             if (response.ok) {
                 const data = await response.json();
                 console.log("Регистрация успешна:", data);
-                navigate('/Authorization'); 
-             
+                navigate('/Authorization');
             } else {
                 const errorData = await response.json();
                 console.error("Ошибка регистрации:", errorData);
-               
             }
         } catch (error) {
             console.error("Ошибка сети:", error);
         }
+    };
+
+    const validatePassword = (password) => {
+        const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
+        return passwordRegex.test(password);
+    };
+
+    const toggleShowPassword = () => {
+        setFormData({ ...formData, showPassword: !formData.showPassword });
     };
 
     return (
@@ -60,62 +91,58 @@ function Registration() {
             <h1>BeautyAI</h1>
             <form onSubmit={handleSubmit} className="registration-form">
                 <div className="form-group">
-                    <label className="label"></label>
                     <input
                         type="text"
                         name="name"
                         className="input"
-                        placeholder="Имя" 
+                        placeholder="Имя"
                         value={formData.name}
                         onChange={handleChange}
                     />
                 </div>
                 <div className="form-group">
-                    <label className="label"></label>
                     <input
                         type="email"
                         name="email"
                         className="input"
-                        placeholder="email" 
+                        placeholder="email"
                         value={formData.email}
                         onChange={handleChange}
                     />
                 </div>
                 <div className="form-group">
-                    <label className="label"></label>
                     <input
                         type="tel"
                         name="phone"
                         className="input"
                         placeholder="+7(___)___-__-__"
-                        pattern="\+7\(\d{3}\)\d{3}-\d{2}-\d{2}"
                         value={formData.phone}
                         onChange={handleChange}
                     />
                 </div>
-                <div className="form-group">
-                    <label className="label"></label>
+                <div className="form-group password-input-wrapper">
                     <input
-                        type="password"
+                        type={formData.showPassword ? "text" : "password"}
                         name="password"
                         className="input"
-                        placeholder="Пароль" 
+                        placeholder="Пароль"
                         value={formData.password}
                         onChange={handleChange}
                     />
+                    <button type="button" className="toggle-password" onClick={toggleShowPassword}>
+                        <img src={formData.showPassword ? "hide-eye.png" : "show-eye.png"} alt="Показать пароль" />
+                    </button>
                 </div>
                 <div className="form-group">
-                    <label className="label"></label>
                     <input
-                        type="password"
+                        type={formData.showPassword ? "text" : "password"}
                         name="confirmPassword"
                         className="input"
-                        placeholder="Повторите пароль" 
+                        placeholder="Повторите пароль"
                         value={formData.confirmPassword}
                         onChange={handleChange}
                     />
                 </div>
-                
                 <button type="submit" className="submit-button">Регистрация</button>
             </form>
         </div>

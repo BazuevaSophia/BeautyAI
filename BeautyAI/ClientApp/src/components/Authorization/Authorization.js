@@ -1,6 +1,6 @@
 ﻿import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import './Authorization.css'; 
+import './Authorization.css';
 
 function Authorization() {
     const [formData, setFormData] = useState({
@@ -8,6 +8,7 @@ function Authorization() {
         password: ''
     });
     const navigate = useNavigate();
+
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
@@ -15,26 +16,26 @@ function Authorization() {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-       // try {
+        try {
             const response = await fetch('https://localhost:7125/api/authorization/login', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
+                credentials: 'include',
                 body: JSON.stringify(formData),
             });
 
             if (response.ok) {
-                navigate('/profile'); 
+                navigate('/profile');
             } else {
                 const errorData = await response.json();
-                alert(errorData.message); 
+                alert(errorData.message);
             }
-       // } catch (error) {
-          //  alert("Ошибка сети при попытке входа");
-       // }
+        } catch (error) {
+            alert("Ошибка сети при попытке входа");
+        }
     };
-
 
     return (
         <div className="authorization-page">
@@ -68,4 +69,3 @@ function Authorization() {
 }
 
 export default Authorization;
-
