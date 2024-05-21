@@ -23,6 +23,7 @@ public class ArtistsController : ControllerBase
         {
             var artists = await _context.Artists.Select(a => new
             {
+                ArtistId = a.ArtistId,
                 Name = a.Name,
                 Image = a.Photo
             }).ToListAsync();

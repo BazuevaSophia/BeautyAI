@@ -25,7 +25,7 @@ function App() {
             <Route path="/makeup-artists" element={<MakeupArtists />} />
             <Route path="/fresh-trends" element={<FreshTrends />} />
             <Route path="/artist-ratings" element={<ArtistRatings />} />
-            <Route path="/portfolio" element={<Portfolio />} />
+            <Route path="/portfolio/:artistId" element={<Portfolio />} />
             <Route path="/reviews" element={<Reviews />} />
             <Route path="/history" element={<History />} />
             <Route path="/profile" element={<Profile />} />
