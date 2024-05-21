@@ -1,3 +1,35 @@
-﻿body {
+﻿.portfolio-page {
+    position: relative;
+    font-family: Arial, sans-serif;
+    color: #8000E6;
+    background: linear-gradient(180deg, #BF6DF2 0%, #D940AF 50%, #2CB3FF 100%);
+    min-height: 100vh;
+    padding: 20px;
 }
 
+    .portfolio-page h1 {
+        font-size: 80px;
+        font-weight: bold;
+        margin-bottom: 20px;
+    }
+
+.portfolio-links {
+    display: flex;
+    gap: 25px;
+}
+
+    .portfolio-links a {
+        text-decoration: none;
+        font-size: 20px;
+        color: #8000E6;
+        background-color: rgba(255, 255, 255, 0.3);
+        padding: 10px 50px;
+        border-radius: 20px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+        .portfolio-links a:hover {
+            background-color: rgba(255, 255, 255, 0.5);
+            color: #8000E6;
+        }

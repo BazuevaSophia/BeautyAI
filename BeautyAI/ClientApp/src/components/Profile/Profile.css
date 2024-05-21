@@ -4,6 +4,7 @@
     font-weight: normal;
     font-style: normal;
 }
+
 .profile-page {
     position: relative;
     font-family: Arial, sans-serif;
@@ -42,15 +43,15 @@
 
 .profile-content {
     display: flex;
-    justify-content: start; 
+    justify-content: flex-start;
     align-items: flex-start;
 }
 
 .user-info {
     display: flex;
-    flex-direction: row; 
+    flex-direction: row;
     align-items: flex-start;
-    gap: 50px; 
+    gap: 50px;
 }
 
 .user-photo {
@@ -61,6 +62,7 @@
     margin-left: 15px;
     margin-top: 30px;
 }
+
     .user-photo img {
         width: 100%;
         height: 100%;
@@ -77,58 +79,78 @@
     border-radius: 20px;
     font-size: 13px;
     display: block;
-    width: 200px; 
+    width: 200px;
     padding: 10px 0;
-    text-align: center; 
+    text-align: center;
     font-family: 'Angst', sans-serif;
     color: #131414;
-    
 }
+
     .photo-button:hover {
         background-color: rgba(78, 78, 78, 0.3);
         color: #4D4F4F;
     }
+
+.logout-button {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    text-decoration: none;
+    font-size: 20px;
+    color: #DA1212;
+    background-color: rgba(255, 255, 255, 0.3);
+    padding: 10px 30px;
+    border-radius: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+    .logout-button:hover {
+        background-color: rgba(255, 255, 255, 0.5);
+        color: #DA1212;
+    }
+
 .user-details {
     text-align: justify;
     margin-left: 300px;
     margin-top: 30px;
     font-family: 'Angst', sans-serif;
 }
+
     .user-details h2 {
         font-size: 50px;
         color: #78C0E0;
     }
+
     .user-details p {
         font-size: 20px;
     }
 
-
 .profile-actions {
     display: flex;
-    flex-direction: column; 
-    gap: 10px; 
-    align-items: center; 
-    padding-top: 20px; 
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+    padding-top: 20px;
 }
+
 .button-settings, .button-booking, .button-favorites {
-    padding: 10px 20px; 
+    padding: 10px 20px;
     font-size: 16px;
-    cursor: pointer; 
-    transition: all 0.3s ease; 
+    cursor: pointer;
+    transition: all 0.3s ease;
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
     background-color: rgba(78, 78, 78, 0.2);
     transition: transform 0.3s ease;
     border: 1px solid #0F0F0F;
     border-radius: 20px;
-    width: 15%; 
+    width: 15%;
     margin-top: 10px;
     margin-left: -1160px;
-
 }
 
 .button-settings {
     margin-top: 0;
-
 }
 
     .button-settings:hover {
@@ -160,10 +182,11 @@
     font-family: 'Angst', sans-serif;
     color: black;
 }
+
     .feedback h2 {
         font-size: 20px;
     }
+
     .feedback p {
         font-size: 18px;
     }
-

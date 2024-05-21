@@ -1,14 +1,14 @@
 ﻿import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import './MakeupArtists.css';
 
 function MakeupArtists() {
     const [artists, setArtists] = useState([]);
+    const navigate = useNavigate();
 
     useEffect(() => {
-        // Используйте полный URL если ваш front-end и API сервер размещены по разным адресам
-        const apiUrl = process.env.REACT_APP_API_URL || ''; // URL вашего API, если требуется
-        fetch(`${apiUrl}/makeup-artists/all-artists`)
+        const apiUrl = process.env.REACT_APP_API_URL || 'https://localhost:7125';
+        fetch(`${apiUrl}/api/artists/all-artists`)
             .then(response => {
                 if (!response.ok) {
                     throw new Error(`HTTP error! status: ${response.status}`);
@@ -18,6 +18,10 @@ function MakeupArtists() {
             .then(data => setArtists(data))
             .catch(error => console.error('Ошибка при загрузке данных артистов:', error));
     }, []);
+
+    const handleButtonClick = (path) => {
+        navigate(path);
+    };
 
     return (
         <div className="makeup-artists-page">
@@ -33,10 +37,10 @@ function MakeupArtists() {
                         <img src={artist.image} alt={artist.name} />
                         <h2>{artist.name}</h2>
                         <div className="buttons">
-                            <button>Записаться</button>
-                            <button>Портфолио</button>
+                            <button onClick={() => handleButtonClick('/sign-up')}>Записаться</button>
+                            <button onClick={() => handleButtonClick('/portfolio')}>Портфолио</button>
                         </div>
-                        <button className="middle-button">Отзывы</button>
+                        <button className="middle-button" onClick={() => handleButtonClick('/review-art')}>Отзывы</button>
                     </div>
                 ))}
             </div>

@@ -10,6 +10,10 @@ import ArtistRatings from './components/ArtistRatings/ArtistRatings';
 import Reviews from './components/Reviews/Reviews';
 import History from './components/History/History';
 import Profile from './components/Profile/Profile';
+import Portfolio from './components/Portfolio/Portfolio';
+import ReviewArt from './components/ReviewArt/ReviewArt';
+import SignUp from './components/SignUp/SignUp';
+
 
 function App() {
     return (
@@ -21,9 +25,13 @@ function App() {
             <Route path="/makeup-artists" element={<MakeupArtists />} />
             <Route path="/fresh-trends" element={<FreshTrends />} />
             <Route path="/artist-ratings" element={<ArtistRatings />} />
+            <Route path="/portfolio" element={<Portfolio />} />
             <Route path="/reviews" element={<Reviews />} />
             <Route path="/history" element={<History />} />
             <Route path="/profile" element={<Profile />} />
+            <Route path="/sign-up" element={<SignUp />} />
+            <Route path="/review-art" element={<ReviewArt />} />
+
         </Routes>
     );
 }

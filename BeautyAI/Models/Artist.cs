@@ -7,7 +7,7 @@ namespace BeautyAI.Models
     {
         public int ArtistId { get; set; }
         public string Name { get; set; } = string.Empty;
-        public string Photo { get; set; } = string.Empty; // Изменено с List<string> на string
+        public string Photo { get; set; } = string.Empty; 
         public string PersDescription { get; set; } = string.Empty;
         public string Password { get; set; } = string.Empty;
         public string Surname { get; set; } = string.Empty;

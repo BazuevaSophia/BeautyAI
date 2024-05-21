@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import './Profile.css';
 
 function Profile() {
-    const [userData, setUserData] = useState({ name: '', email: '', phone: '', photo: [] });
+    const [userData, setUserData] = useState({ name: '', email: '', phone: '', photo: '' });
     const [isLoading, setIsLoading] = useState(true);
     const navigate = useNavigate();
 
@@ -58,6 +58,31 @@ function Profile() {
         }
     };
 
+    const handlePhotoUpload = async (e) => {
+        const file = e.target.files[0];
+        if (file) {
+            const formData = new FormData();
+            formData.append('photo', file);
+
+            try {
+                const response = await fetch('https://localhost:7125/api/profile/uploadPhoto', {
+                    method: 'POST',
+                    credentials: 'include',
+                    body: formData,
+                });
+
+                if (response.ok) {
+                    const result = await response.json();
+                    setUserData({ ...userData, photo: result.photo });
+                } else {
+                    alert('Ошибка при загрузке фото');
+                }
+            } catch (error) {
+                alert('Ошибка сети при попытке загрузки фото');
+            }
+        }
+    };
+
     if (isLoading) {
         return <div>Загрузка...</div>;
     }
@@ -73,7 +98,11 @@ function Profile() {
             <div className="profile-content">
                 <div className="user-info">
                     <div className="user-photo">
-                        {userData.photo.length > 0 && <img src={userData.photo[0]} alt="Фото профиля" />}
+                        {userData.photo ? (
+                            <img src={userData.photo} alt="Фото профиля" />
+                        ) : (
+                            <p>Фото отсутствует</p>
+                        )}
                     </div>
                     <div className="user-details">
                         <h2>{userData.name}</h2>
@@ -82,13 +111,16 @@ function Profile() {
                     </div>
                 </div>
             </div>
-            <button className="photo-button" onClick={() => alert('Загрузка фото не реализована')}>Добавить или изменить фото</button>
+            <div className="photo-upload">
+                <input type="file" id="photoInput" style={{ display: 'none' }} onChange={handlePhotoUpload} />
+                <button className="photo-button" onClick={() => document.getElementById('photoInput').click()}>Добавить или изменить фото</button>
+            </div>
             <div className="profile-actions">
                 <button className="button-settings">Настройки</button>
                 <button className="button-booking">Бронирование</button>
                 <button className="button-favorites">Избранное</button>
             </div>
-            <button onClick={handleLogout} className="photo-button">Выйти</button>
+            <button onClick={handleLogout} className="logout-button">Выйти</button>
             <div className="feedback">
                 <h2>Обратная связь</h2>
                 <p>+7(909)-054-48-27</p>

@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 [ApiController]
-[Route("[controller]")]
+[Route("api/[controller]")]
 public class ArtistsController : ControllerBase
 {
     private readonly BeautyAIDbContext _context;
@@ -24,7 +24,7 @@ public class ArtistsController : ControllerBase
             var artists = await _context.Artists.Select(a => new
             {
                 Name = a.Name,
-                Image = a.Photo 
+                Image = a.Photo
             }).ToListAsync();
 
             return Ok(artists);
