@@ -11,6 +11,7 @@ namespace BeautyAI.Models
         public string Season { get; set; } 
         public short? Year { get; set; } 
         public List<string> Photo { get; set; }
+        public ICollection<User> Users { get; set; } = new List<User>();
 
         public Trend()
         {

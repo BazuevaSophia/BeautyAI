@@ -1,12 +1,6 @@
-﻿@font-face {
-    font-family: 'Angst';
-    src: url('./Fonts/AngstVF.woff2') format('woff2'), url('./Fonts/AngstVF.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
-}
-.fresh-trends-page {
+﻿.fresh-trends-page {
     position: relative;
-    font-family: Arial,sans-serif;
+    font-family: Arial, sans-serif;
     color: #79DB02;
     background: linear-gradient(180deg, #CAF397 0%, #8195FF 100%);
     min-height: 100vh;
@@ -39,18 +33,43 @@
             background-color: rgba(255, 255, 255, 0.5);
             color: #FFBEBE;
         }
+
+.search-filter {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+    .search-filter input {
+        padding: 10px;
+        border-radius: 20px;
+        border: 1px solid #ccc;
+        font-size: 16px;
+    }
+
+    .search-filter button {
+        padding: 10px 20px;
+        border-radius: 20px;
+        background-color: #69BA08;
+        color: white;
+        font-size: 16px;
+        cursor: pointer;
+    }
+
+        .search-filter button:hover {
+            background-color: #4a8a05;
+        }
+
 .trend {
     margin-bottom: 50px;
     margin-top: 50px;
 }
-
 
 .trend-photos {
     text-align: center;
     position: relative;
     margin-bottom: 10px;
 }
-
 
     .trend-photos button {
         position: absolute;
@@ -59,19 +78,19 @@
         background-color: rgba(78, 78, 78, 0.2);
         color: rgba(78, 78, 78, 0.0);
         border: none;
-        border-radius: 50%; 
-        width: 30px; 
-        height: 80px; 
-        font-size: 16px; 
+        border-radius: 50%;
+        width: 40px;
+        height: 80px;
+        font-size: 10px;
         cursor: pointer;
-        box-shadow: 0 2px 5px rgba(0,0,0,0.2); 
+        box-shadow: 0 2px 5px rgba(0,0,0,0.2);
         align-items: center;
         justify-content: center;
         display: flex;
     }
 
         .trend-photos button:hover {
-            background-color: rgba(78, 78, 78, 0.5); 
+            background-color: rgba(78, 78, 78, 0.5);
         }
 
         .trend-photos button:focus {
@@ -79,8 +98,8 @@
         }
 
     .trend-photos img {
-        max-width: 100%;
-        height: auto;
+        width: 400px;
+        height: 400px;
     }
 
     .trend-photos button:first-of-type {
@@ -115,6 +134,21 @@
     font-family: 'Angst', sans-serif;
     color: #3C3B3B;
     line-height: 1.6;
-    margin: 20px auto; 
-    max-width: 1000px;
+    margin: 20px auto;
+    max-width: 800px;
 }
+
+.favorite-button {
+    margin-top: 10px;
+    padding: 10px 20px;
+    border-radius: 20px;
+    background-color: #FFBEBE;
+    color: #69BA08;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+    .favorite-button:hover {
+        background-color: #ff8e8e;
+    }

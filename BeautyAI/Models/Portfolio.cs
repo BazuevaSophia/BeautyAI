@@ -8,8 +8,5 @@ namespace BeautyAI.Models
         public int PortfolioId { get; set; }
         public ICollection<Artist> Artists { get; set; } = new List<Artist>(); 
         public List<string> Photo { get; set; } = new List<string>(); 
-        public Portfolio()
-        {
-        }
     }
 }

@@ -90,6 +90,11 @@ namespace BeautyAI.Data
                 .HasForeignKey(s => s.ArtistId) 
                 .IsRequired();
 
+            modelBuilder.Entity<User>()
+                .HasMany(u => u.FavoriteTrends)
+                .WithMany(t => t.Users)
+                .UsingEntity(j => j.ToTable("UserFavoriteTrends"));
+
 
         }
     }
