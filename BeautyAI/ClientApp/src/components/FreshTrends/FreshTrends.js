@@ -64,42 +64,23 @@ function FreshTrends() {
         fetchTrends();
     }, []);
 
-    const handleSearch = async () => {
-        try {
-            const response = await fetch(`https://localhost:7125/api/trends/search-trends?query=${searchQuery}&year=${filterYear}&season=${filterSeason}`, {
-                credentials: 'include'
-            });
-            const result = await response.json();
-            if (Array.isArray(result)) {
-                setTrends(result);
-            } else {
-                console.error('Unexpected response format:', result);
-                setTrends([]);
-            }
-        } catch (error) {
-            console.error('Ошибка при поиске трендов: ', error);
-            setTrends([]);
-        }
-    };
     const handleAddToFavorites = async (trendId) => {
         try {
-            const response = await fetch('https://localhost:7125/api/trends/add-to-favorites', {
+            const response = await fetch(`https://localhost:7125/api/trends/add-to-favorites?trendId=${trendId}`, {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                credentials: 'include',
-                body: JSON.stringify({ trendId }),
+                credentials: 'include'
             });
-
-            if (response.ok) {
-                alert('Тренд добавлен в избранное.');
-            } else {
-                alert('Ошибка при добавлении тренда в избранное.');
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
             }
+            console.log('Trend added to favorites');
         } catch (error) {
             console.error('Ошибка при добавлении тренда в избранное: ', error);
         }
+    };
+
+    const handleSearch = () => {
+        // Логика фильтрации трендов по введённым параметрам
     };
 
     return (
