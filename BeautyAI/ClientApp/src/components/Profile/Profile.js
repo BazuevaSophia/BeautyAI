@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import './Profile.css';
 
 function Profile() {
@@ -118,7 +119,8 @@ function Profile() {
             <div className="profile-actions">
                 <button className="button-settings">Настройки</button>
                 <button className="button-booking">Бронирование</button>
-                <button className="button-favorites">Избранное</button>
+                <button className="button-favorites"><Link to="/favorites">Избранное</Link></button>
+
             </div>
             <button onClick={handleLogout} className="logout-button">Выйти</button>
             <div className="feedback">

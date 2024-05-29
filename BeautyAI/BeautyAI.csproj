@@ -53,6 +53,7 @@
     <None Remove="ClientApp\src\components\Portfolio\" />
     <None Remove="ClientApp\src\components\SignUp\" />
     <None Remove="ClientApp\src\components\ReviewArt\" />
+    <None Remove="ClientApp\src\components\Favorites\" />
   </ItemGroup>
 
   <ItemGroup>
@@ -79,6 +80,7 @@
     <Folder Include="ClientApp\src\components\Portfolio\" />
     <Folder Include="ClientApp\src\components\SignUp\" />
     <Folder Include="ClientApp\src\components\ReviewArt\" />
+    <Folder Include="ClientApp\src\components\Favorites\" />
   </ItemGroup>
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">
     <!-- Ensure Node.js is installed -->

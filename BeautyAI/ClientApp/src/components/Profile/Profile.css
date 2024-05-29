@@ -147,6 +147,7 @@
     width: 15%;
     margin-top: 10px;
     margin-left: -1160px;
+    text-decoration: none;
 }
 
 .button-settings {
@@ -164,6 +165,7 @@
     .button-booking:hover {
         background-color: rgba(135, 216, 253, 1);
         color: #4D4F4F;
+
     }
 
 .button-favorites {
@@ -172,6 +174,7 @@
     .button-favorites:hover {
         background-color: rgba(135, 216, 253, 1);
         color: #4D4F4F;
+        text-decoration: none;
     }
 
 .feedback {

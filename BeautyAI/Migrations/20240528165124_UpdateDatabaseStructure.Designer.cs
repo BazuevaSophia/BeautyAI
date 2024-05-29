@@ -13,8 +13,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace BeautyAI.Migrations
 {
     [DbContext(typeof(BeautyAIDbContext))]
-    [Migration("20240521234609_AddFavoriteTrendsToUser")]
-    partial class AddFavoriteTrendsToUser
+    [Migration("20240528165124_UpdateDatabaseStructure")]
+    partial class UpdateDatabaseStructure
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -302,17 +302,17 @@ namespace BeautyAI.Migrations
                     b.ToTable("users", (string)null);
                 });
 
-            modelBuilder.Entity("TrendUser", b =>
+            modelBuilder.Entity("BeautyAI.Models.UserFavoriteTrend", b =>
                 {
-                    b.Property<int>("FavoriteTrendsTrendId")
+                    b.Property<int>("UserId")
                         .HasColumnType("integer");
 
-                    b.Property<int>("UsersUserId")
+                    b.Property<int>("TrendId")
                         .HasColumnType("integer");
 
-                    b.HasKey("FavoriteTrendsTrendId", "UsersUserId");
+                    b.HasKey("UserId", "TrendId");
 
-                    b.HasIndex("UsersUserId");
+                    b.HasIndex("TrendId");
 
                     b.ToTable("UserFavoriteTrends", (string)null);
                 });
@@ -394,19 +394,23 @@ namespace BeautyAI.Migrations
                     b.Navigation("Artist");
                 });
 
-            modelBuilder.Entity("TrendUser", b =>
+            modelBuilder.Entity("BeautyAI.Models.UserFavoriteTrend", b =>
                 {
-                    b.HasOne("BeautyAI.Models.Trend", null)
-                        .WithMany()
-                        .HasForeignKey("FavoriteTrendsTrendId")
+                    b.HasOne("BeautyAI.Models.Trend", "Trend")
+                        .WithMany("Users")
+                        .HasForeignKey("TrendId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("BeautyAI.Models.User", null)
-                        .WithMany()
-                        .HasForeignKey("UsersUserId")
+                    b.HasOne("BeautyAI.Models.User", "User")
+                        .WithMany("FavoriteTrends")
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Trend");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("BeautyAI.Models.Artist", b =>
@@ -428,11 +432,18 @@ namespace BeautyAI.Migrations
                     b.Navigation("Bookings");
                 });
 
+            modelBuilder.Entity("BeautyAI.Models.Trend", b =>
+                {
+                    b.Navigation("Users");
+                });
+
             modelBuilder.Entity("BeautyAI.Models.User", b =>
                 {
                     b.Navigation("All_Reviews");
 
                     b.Navigation("Bookings");
+
+                    b.Navigation("FavoriteTrends");
 
                     b.Navigation("Reviews");
                 });

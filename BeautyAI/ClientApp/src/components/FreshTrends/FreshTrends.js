@@ -4,13 +4,23 @@ import './FreshTrends.css';
 
 function TrendCarousel({ photos, description, trendId, onAddToFavorites }) {
     const [currentPhotoIndex, setCurrentPhotoIndex] = useState(0);
+    const [isFavorite, setIsFavorite] = useState(false);
 
     const nextPhoto = () => {
-        setCurrentPhotoIndex((prevIndex) => (prevIndex + 1) % photos.length);
+        setCurrentPhotoIndex(prevIndex => (prevIndex + 1) % photos.length);
     };
 
     const prevPhoto = () => {
-        setCurrentPhotoIndex((prevIndex) => (prevIndex - 1 + photos.length) % photos.length);
+        setCurrentPhotoIndex(prevIndex => (prevIndex - 1 + photos.length) % photos.length);
+    };
+
+    const handleAddToFavorites = async () => {
+        try {
+            await onAddToFavorites(trendId);
+            setIsFavorite(true);
+        } catch (error) {
+            console.error('Ошибка при добавлении тренда в избранное: ', error);
+        }
     };
 
     return (
@@ -22,31 +32,29 @@ function TrendCarousel({ photos, description, trendId, onAddToFavorites }) {
             </div>
             <div className="trend-dots">
                 {photos.map((_, index) => (
-                    <span
-                        key={index}
-                        className={`dot ${index === currentPhotoIndex ? 'active' : ''}`}
-                    ></span>
+                    <span key={index} className={`dot ${index === currentPhotoIndex ? 'active' : ''}`}></span>
                 ))}
             </div>
-            <p className="trend-description">{description}</p>
-            <button className="favorite-button" onClick={() => onAddToFavorites(trendId)}>
-                ❤️ Добавить в избранное
+            <button
+                className={`favorite-button ${isFavorite ? 'favorite-button-active' : ''}`}
+                onClick={handleAddToFavorites}
+            >
+                Добавить в избранное
             </button>
+            
+            <p className="trend-description">{description}</p>
         </div>
     );
 }
 
 function FreshTrends() {
     const [trends, setTrends] = useState([]);
-    const [searchQuery, setSearchQuery] = useState('');
-    const [filterYear, setFilterYear] = useState('');
-    const [filterSeason, setFilterSeason] = useState('');
 
     useEffect(() => {
         const fetchTrends = async () => {
             try {
                 const response = await fetch('https://localhost:7125/api/trends/all-trends', {
-                    credentials: 'include'
+                    credentials: 'include',
                 });
                 const result = await response.json();
                 if (Array.isArray(result)) {
@@ -66,21 +74,24 @@ function FreshTrends() {
 
     const handleAddToFavorites = async (trendId) => {
         try {
-            const response = await fetch(`https://localhost:7125/api/trends/add-to-favorites?trendId=${trendId}`, {
+            const response = await fetch('https://localhost:7125/api/trends/add-to-favorites', {
                 method: 'POST',
-                credentials: 'include'
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ trendId }),
+                credentials: 'include',
             });
             if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
+                const errorData = await response.json();
+                throw new Error(`Ошибка: ${errorData.message}`);
             }
             console.log('Trend added to favorites');
         } catch (error) {
             console.error('Ошибка при добавлении тренда в избранное: ', error);
+            alert(`Ошибка при добавлении тренда в избранное: ${error.message}`);
+            throw error;
         }
-    };
-
-    const handleSearch = () => {
-        // Логика фильтрации трендов по введённым параметрам
     };
 
     return (
@@ -90,35 +101,6 @@ function FreshTrends() {
                 <Link to="/">Главная</Link>
                 <Link to="/history">История</Link>
                 <Link to="/profile">Профиль</Link>
-            </div>
-            <div className="search-filter">
-                <input
-                    type="text"
-                    placeholder="Поиск по названию"
-                    value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value)}
-                />
-                <select
-                    value={filterYear}
-                    onChange={(e) => setFilterYear(e.target.value)}
-                >
-                    <option value="">Год</option>
-                    {[...Array(8)].map((_, index) => {
-                        const year = 2017 + index;
-                        return <option key={year} value={year}>{year}</option>;
-                    })}
-                </select>
-                <select
-                    value={filterSeason}
-                    onChange={(e) => setFilterSeason(e.target.value)}
-                >
-                    <option value="">Сезон</option>
-                    <option value="Весна">Весна</option>
-                    <option value="Лето">Лето</option>
-                    <option value="Осень">Осень</option>
-                    <option value="Зима">Зима</option>
-                </select>
-                <button onClick={handleSearch}>Поиск</button>
             </div>
             {trends.map((trend, index) => (
                 <TrendCarousel

@@ -15,7 +15,7 @@ namespace BeautyAI.Models
         public string Phone { get; set; } = string.Empty;
         public string Photo { get; set; } = string.Empty;  
         public string Role { get; set; } = string.Empty;
-        public ICollection<Trend> FavoriteTrends { get; set; } = new List<Trend>();
+        public ICollection<UserFavoriteTrend> FavoriteTrends { get; set; } = new List<UserFavoriteTrend>();
 
         public User()
         {

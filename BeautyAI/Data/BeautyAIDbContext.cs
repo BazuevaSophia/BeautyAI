@@ -19,6 +19,7 @@ namespace BeautyAI.Data
         public DbSet<Booking> Bookings { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<Trend> Trends { get; set; }
+        public DbSet<UserFavoriteTrend> UserFavoriteTrends { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -31,6 +32,7 @@ namespace BeautyAI.Data
             modelBuilder.Entity<Booking>().ToTable("booking");
             modelBuilder.Entity<User>().ToTable("users");
             modelBuilder.Entity<Trend>().ToTable("trend");
+            modelBuilder.Entity<UserFavoriteTrend>().ToTable("UserFavoriteTrends");
 
             modelBuilder.Entity<All_review>()
                 .HasKey(r => r.ReviewId2);
@@ -90,10 +92,18 @@ namespace BeautyAI.Data
                 .HasForeignKey(s => s.ArtistId) 
                 .IsRequired();
 
-            modelBuilder.Entity<User>()
-                .HasMany(u => u.FavoriteTrends)
+            modelBuilder.Entity<UserFavoriteTrend>()
+                .HasKey(uf => new { uf.UserId, uf.TrendId });
+
+            modelBuilder.Entity<UserFavoriteTrend>()
+                .HasOne<User>(uf => uf.User)
+                .WithMany(u => u.FavoriteTrends)
+                .HasForeignKey(uf => uf.UserId);
+
+            modelBuilder.Entity<UserFavoriteTrend>()
+                .HasOne<Trend>(uf => uf.Trend)
                 .WithMany(t => t.Users)
-                .UsingEntity(j => j.ToTable("UserFavoriteTrends"));
+                .HasForeignKey(uf => uf.TrendId);
 
 
         }
