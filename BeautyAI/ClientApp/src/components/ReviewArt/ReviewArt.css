@@ -7,32 +7,32 @@
     padding: 20px;
 }
 
-    .review-art-page h1 {
-        font-size: 80px;
-        font-weight: bold;
-        margin-bottom: 20px;
-    }
+.review-art-page h1 {
+    font-size: 80px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
 
 .review-art-links {
     display: flex;
     gap: 25px;
 }
 
-    .review-art-links a {
-        text-decoration: none;
-        font-size: 20px;
-        color: #8000E6;
-        background-color: rgba(255, 255, 255, 0.3);
-        padding: 10px 50px;
-        border-radius: 20px;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        transition: background-color 0.3s ease, color 0.3s ease;
-    }
+.review-art-links a {
+    text-decoration: none;
+    font-size: 20px;
+    color: #8000E6;
+    background-color: rgba(255, 255, 255, 0.3);
+    padding: 10px 50px;
+    border-radius: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
 
-        .review-art-links a:hover {
-            background-color: rgba(255, 255, 255, 0.5);
-            color: #8000E6;
-        }
+.review-art-links a:hover {
+    background-color: rgba(255, 255, 255, 0.5);
+    color: #8000E6;
+}
 
 .back-button {
     position: absolute;
@@ -49,7 +49,68 @@
     cursor: pointer;
 }
 
-    .back-button:hover {
-        background-color: rgba(255, 255, 255, 0.5);
-        color: #000000;
-    }
+.back-button:hover {
+    background-color: rgba(255, 255, 255, 0.5);
+    color: #000000;
+}
+
+.reviews {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.review-wrapper {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    margin-top: 10px; 
+}
+
+.user-name {
+    color: white;
+    padding-right: 20px; 
+    text-align: left;
+    font-family: 'Angst', sans-serif;
+    margin-top: 50px;
+}
+
+.visit {
+    display: flex;
+    flex-direction: column;
+    border-radius: 20px;
+    padding: 20px;
+    margin: 5px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+    border: 1px solid #0F0F0F;
+    overflow: hidden;
+    resize: none;
+    min-height: 50px;
+    background-color: rgba(78, 78, 78, 0.2);
+    font-family: 'Angst', sans-serif;
+    width: 100%; 
+    max-width: 600px; 
+}
+
+.comment {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    color: #333;
+    font-size: 16px;
+}
+
+.photos {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.review-photo {
+    max-width: 100px;
+    max-height: 100px;
+    border-radius: 10px;
+}
+
+
+

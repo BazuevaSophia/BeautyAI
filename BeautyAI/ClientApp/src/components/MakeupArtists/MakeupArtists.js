@@ -19,8 +19,8 @@ function MakeupArtists() {
             .catch(error => console.error('Ошибка при загрузке данных артистов:', error));
     }, []);
 
-    const handleButtonClick = (path, artistId) => {
-        navigate(`${path}/${artistId}`);
+    const handleButtonClick = (path, artistId = '') => {
+        navigate(`${path}${artistId ? `/${artistId}` : ''}`);
     };
 
     return (
@@ -37,10 +37,10 @@ function MakeupArtists() {
                         <img src={artist.image} alt={artist.name} />
                         <h2>{artist.name}</h2>
                         <div className="buttons">
-                            <button onClick={() => handleButtonClick('/sign-up')}>Записаться</button>
+                            <button onClick={() => handleButtonClick('/services', artist.artistId)}>Записаться</button>
                             <button onClick={() => handleButtonClick('/portfolio', artist.artistId)}>Портфолио</button>
                         </div>
-                        <button className="middle-button" onClick={() => handleButtonClick('/review-art')}>Отзывы</button>
+                        <button className="middle-button" onClick={() => handleButtonClick('/review-art', artist.artistId)}>Отзывы</button>
                     </div>
                 ))}
             </div>
@@ -49,3 +49,4 @@ function MakeupArtists() {
 }
 
 export default MakeupArtists;
+

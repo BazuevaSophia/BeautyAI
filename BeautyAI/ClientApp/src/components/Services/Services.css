@@ -1,0 +1,130 @@
+﻿.services-page {
+    position: relative;
+    font-family: Arial, sans-serif;
+    color: #8000E6;
+    background: linear-gradient(180deg, #BF6DF2 0%, #D940AF 50%, #2CB3FF 100%);
+    min-height: 100vh;
+    padding: 20px;
+}
+
+    .services-page h1 {
+        font-size: 80px;
+        font-weight: bold;
+        margin-bottom: 20px;
+    }
+
+.services-links {
+    display: flex;
+    gap: 25px;
+}
+
+    .services-links a {
+        text-decoration: none;
+        font-size: 20px;
+        color: #8000E6;
+        background-color: rgba(255, 255, 255, 0.3);
+        padding: 10px 50px;
+        border-radius: 20px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+        .services-links a:hover {
+            background-color: rgba(255, 255, 255, 0.5);
+            color: #8000E6;
+        }
+
+.back-button {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    text-decoration: none;
+    font-size: 20px;
+    color: #000000;
+    background-color: rgba(255, 255, 255, 0.3);
+    padding: 7px 30px;
+    border-radius: 30px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease, color 0.3s ease;
+    cursor: pointer;
+}
+
+    .back-button:hover {
+        background-color: rgba(255, 255, 255, 0.5);
+        color: #000000;
+    }
+
+.services {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+}
+
+.service {
+    margin-top: 30px;
+    margin-left: 30px;
+    margin-bottom: 60px;
+    background-color: rgba(255, 255, 255, 0.3);
+    border-radius: 10px;
+    padding: 10px;
+    width: calc(30% - 30px);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+    .service:hover {
+        transform: scale(1.05);
+    }
+
+    .service img {
+        width: 100%;
+        height: auto;
+        border-radius: 10px;
+    }
+
+    .service h2 {
+        font-family: 'Angst', sans-serif;
+        font-size: 24px;
+        font-weight: bold;
+        color: #000;
+        text-align: center;
+    }
+
+    .service p {
+        margin-top: 20px;
+        color: #FFF;
+        font-size: 18px;
+    }
+
+    .service .details p {
+        color: #000;
+    }
+
+    .service button {
+        background-color: #8000E6;
+        color: #FFF;
+        border: none;
+        padding: 10px;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+        .service button:hover {
+            background-color: #5F00B2;
+        }
+.buttonServ {
+    background-color: #C06DF3;
+    color: #FFF;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 150px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+    .buttonServ:hover {
+        background-color: #5F00B2;
+        transform: scale(1.05);
+    }

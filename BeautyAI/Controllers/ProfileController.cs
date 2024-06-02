@@ -37,6 +37,7 @@ public class ProfileController : ControllerBase
             var user = await _context.Users
                                      .Where(u => u.UserId.ToString() == userId)
                                      .Select(u => new {
+                                         u.UserId,
                                          u.Name,
                                          u.Email,
                                          u.Phone,

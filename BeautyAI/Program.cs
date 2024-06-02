@@ -25,6 +25,7 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
                     options.Cookie.HttpOnly = true;
                     options.Cookie.SecurePolicy = CookieSecurePolicy.None;
                     options.Cookie.SameSite = SameSiteMode.Lax;
+
                 });
 
 builder.Services.AddDbContext<BeautyAIDbContext>(options =>

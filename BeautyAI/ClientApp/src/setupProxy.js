@@ -14,7 +14,7 @@ module.exports = function (app) {
     const appProxy = createProxyMiddleware(context, {
         target: target,
         onError: onError,
-        secure: false, // Установите false, если у вас нет SSL на localhost
+        secure: false, 
         headers: {
             Connection: 'Keep-Alive'
         }

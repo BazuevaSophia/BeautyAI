@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { Link } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import './Profile.css';
 
 function Profile() {
@@ -21,7 +20,7 @@ function Profile() {
 
                 if (!response.ok) {
                     if (response.status === 401) {
-                        window.location.href = '/Authorization';
+                        navigate('/authorization', { state: { from: window.location.pathname } });
                         return;
                     } else {
                         throw new Error('Failed to fetch profile data');
@@ -32,7 +31,7 @@ function Profile() {
                 setUserData(result);
             } catch (error) {
                 console.error('Ошибка при загрузке данных профиля: ', error);
-                window.location.href = '/Authorization';
+                navigate('/authorization', { state: { from: window.location.pathname } });
             } finally {
                 setIsLoading(false);
             }
@@ -50,7 +49,7 @@ function Profile() {
 
             if (response.ok) {
                 alert('Вы успешно вышли из системы.');
-                window.location.href = '/';
+                navigate('/');
             } else {
                 alert('Ошибка при выходе из системы');
             }
@@ -119,8 +118,7 @@ function Profile() {
             <div className="profile-actions">
                 <button className="button-settings">Настройки</button>
                 <button className="button-booking">Бронирование</button>
-                <button className="button-favorites"><Link to="/favorites">Избранное</Link></button>
-
+                <Link to="/favorites" className="button-favorites">Избранное</Link>
             </div>
             <button onClick={handleLogout} className="logout-button">Выйти</button>
             <div className="feedback">

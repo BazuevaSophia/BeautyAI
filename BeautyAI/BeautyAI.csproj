@@ -23,6 +23,7 @@
     <PackageReference Include="Microsoft.AspNetCore.SpaProxy" Version="6.0.0" />
     <PackageReference Include="Npgsql" Version="6.0.0" />
     <PackageReference Include="Microsoft.Extensions.Logging" Version="6.0.0" />
+    <PackageReference Include="System.Text.Json" Version="7.0.0" />
   </ItemGroup>
 
   <ItemGroup>
@@ -54,6 +55,7 @@
     <None Remove="ClientApp\src\components\SignUp\" />
     <None Remove="ClientApp\src\components\ReviewArt\" />
     <None Remove="ClientApp\src\components\Favorites\" />
+    <None Remove="ClientApp\src\components\Services\" />
   </ItemGroup>
 
   <ItemGroup>
@@ -81,6 +83,7 @@
     <Folder Include="ClientApp\src\components\SignUp\" />
     <Folder Include="ClientApp\src\components\ReviewArt\" />
     <Folder Include="ClientApp\src\components\Favorites\" />
+    <Folder Include="ClientApp\src\components\Services\" />
   </ItemGroup>
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">
     <!-- Ensure Node.js is installed -->

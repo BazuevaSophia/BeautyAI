@@ -1,5 +1,5 @@
 ﻿import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import './Authorization.css';
 
 function Authorization() {
@@ -9,6 +9,7 @@ function Authorization() {
         showPassword: false,
     });
     const navigate = useNavigate();
+    const location = useLocation();
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -53,7 +54,8 @@ function Authorization() {
             });
 
             if (response.ok) {
-                navigate('/profile');
+                const redirectUrl = location.state?.from || '/';
+                navigate(redirectUrl);
             } else {
                 const errorData = await response.json();
                 alert(errorData.message);

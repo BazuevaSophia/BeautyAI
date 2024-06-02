@@ -14,6 +14,7 @@ import Portfolio from './components/Portfolio/Portfolio';
 import ReviewArt from './components/ReviewArt/ReviewArt';
 import SignUp from './components/SignUp/SignUp';
 import Favorites from './components/Favorites/Favorites';
+import Services from './components/Services/Services';
 
 function App() {
     return (
@@ -29,9 +30,10 @@ function App() {
             <Route path="/reviews" element={<Reviews />} />
             <Route path="/history" element={<History />} />
             <Route path="/profile" element={<Profile />} />
-            <Route path="/sign-up" element={<SignUp />} />
-            <Route path="/review-art" element={<ReviewArt />} />
+            <Route path="/sign-up/:artistId/:serviceId" element={<SignUp />} />
+            <Route path="/review-art/:artistId" element={<ReviewArt />} />
             <Route path="/favorites" element={<Favorites />} />
+            <Route path="/services/:artistId" element={<Services />} />
 
         </Routes>
     );

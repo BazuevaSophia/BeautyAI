@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace BeautyAI.Models
 {
@@ -7,7 +6,7 @@ namespace BeautyAI.Models
     {
         public int ArtistId { get; set; }
         public string Name { get; set; } = string.Empty;
-        public string Photo { get; set; } = string.Empty; 
+        public string Photo { get; set; } = string.Empty;
         public string PersDescription { get; set; } = string.Empty;
         public string Password { get; set; } = string.Empty;
         public string Surname { get; set; } = string.Empty;
@@ -18,8 +17,8 @@ namespace BeautyAI.Models
         public ICollection<Booking> Bookings { get; set; } = new HashSet<Booking>();
         public ICollection<Review> Reviews { get; set; } = new HashSet<Review>();
         public ICollection<Service> Services { get; set; } = new HashSet<Service>();
+        public ICollection<SignUp> SignUps { get; set; } = new HashSet<SignUp>();
         public string Phone { get; set; } = string.Empty;
         public short Rating { get; set; }
     }
 }
-

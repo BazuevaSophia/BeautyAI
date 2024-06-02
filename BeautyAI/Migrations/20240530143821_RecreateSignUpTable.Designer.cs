@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using BeautyAI.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -12,9 +13,10 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace BeautyAI.Migrations
 {
     [DbContext(typeof(BeautyAIDbContext))]
-    partial class BeautyAIDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240530143821_RecreateSignUpTable")]
+    partial class RecreateSignUpTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -116,23 +118,18 @@ namespace BeautyAI.Migrations
                     b.Property<int>("ArtistId")
                         .HasColumnType("integer");
 
-                    b.Property<string>("Date")
-                        .IsRequired()
-                        .HasColumnType("text");
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<int>("ServiceId")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("SignUpId")
                         .HasColumnType("integer");
 
                     b.Property<string>("Status")
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("Time")
-                        .IsRequired()
-                        .HasColumnType("text");
+                    b.Property<TimeSpan>("Time")
+                        .HasColumnType("interval");
 
                     b.Property<int>("UserId")
                         .HasColumnType("integer");
@@ -142,8 +139,6 @@ namespace BeautyAI.Migrations
                     b.HasIndex("ArtistId");
 
                     b.HasIndex("ServiceId");
-
-                    b.HasIndex("SignUpId");
 
                     b.HasIndex("UserId");
 
@@ -248,7 +243,7 @@ namespace BeautyAI.Migrations
                     b.Property<int>("ArtistId")
                         .HasColumnType("integer");
 
-                    b.Property<string>("DayOfWeek")
+                    b.Property<string>("Days")
                         .IsRequired()
                         .HasColumnType("text");
 
@@ -381,12 +376,6 @@ namespace BeautyAI.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("BeautyAI.Models.SignUp", "SignUp")
-                        .WithMany("Bookings")
-                        .HasForeignKey("SignUpId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("BeautyAI.Models.User", "User")
                         .WithMany("Bookings")
                         .HasForeignKey("UserId")
@@ -396,8 +385,6 @@ namespace BeautyAI.Migrations
                     b.Navigation("Artist");
 
                     b.Navigation("Service");
-
-                    b.Navigation("SignUp");
 
                     b.Navigation("User");
                 });
@@ -479,11 +466,6 @@ namespace BeautyAI.Migrations
                 });
 
             modelBuilder.Entity("BeautyAI.Models.Service", b =>
-                {
-                    b.Navigation("Bookings");
-                });
-
-            modelBuilder.Entity("BeautyAI.Models.SignUp", b =>
                 {
                     b.Navigation("Bookings");
                 });

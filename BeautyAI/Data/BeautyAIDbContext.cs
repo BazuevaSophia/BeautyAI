@@ -8,22 +8,21 @@ namespace BeautyAI.Data
         public BeautyAIDbContext(DbContextOptions<BeautyAIDbContext> options)
             : base(options)
         {
-
         }
 
-        public DbSet<Artist> Artists { get; set; }
-        public DbSet<Service> Services { get; set; }
-        public DbSet<Portfolio> Portfolios { get; set; }
-        public DbSet<Review> Reviews { get; set; }
-        public DbSet<All_review> All_Reviews { get; set; }
-        public DbSet<Booking> Bookings { get; set; }
-        public DbSet<User> Users { get; set; }
-        public DbSet<Trend> Trends { get; set; }
-        public DbSet<UserFavoriteTrend> UserFavoriteTrends { get; set; }
+        public DbSet<Artist> Artists { get; set; } = null!;
+        public DbSet<Service> Services { get; set; } = null!;
+        public DbSet<Portfolio> Portfolios { get; set; } = null!;
+        public DbSet<Review> Reviews { get; set; } = null!;
+        public DbSet<All_review> All_Reviews { get; set; } = null!;
+        public DbSet<Booking> Bookings { get; set; } = null!;
+        public DbSet<User> Users { get; set; } = null!;
+        public DbSet<Trend> Trends { get; set; } = null!;
+        public DbSet<UserFavoriteTrend> UserFavoriteTrends { get; set; } = null!;
+        public DbSet<SignUp> SignUps { get; set; } = null!;
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            
             modelBuilder.Entity<Artist>().ToTable("artist");
             modelBuilder.Entity<Service>().ToTable("service");
             modelBuilder.Entity<Portfolio>().ToTable("portfolio");
@@ -33,6 +32,7 @@ namespace BeautyAI.Data
             modelBuilder.Entity<User>().ToTable("users");
             modelBuilder.Entity<Trend>().ToTable("trend");
             modelBuilder.Entity<UserFavoriteTrend>().ToTable("UserFavoriteTrends");
+            modelBuilder.Entity<SignUp>().ToTable("SignUp");
 
             modelBuilder.Entity<All_review>()
                 .HasKey(r => r.ReviewId2);
@@ -50,6 +50,8 @@ namespace BeautyAI.Data
                 .HasKey(u => u.TrendId);
             modelBuilder.Entity<User>()
                 .HasKey(u => u.UserId);
+            modelBuilder.Entity<SignUp>()
+                .HasKey(s => s.SignUpId);
 
             modelBuilder.Entity<All_review>()
                 .HasOne<User>(ar => ar.User)
@@ -76,6 +78,11 @@ namespace BeautyAI.Data
                 .WithMany(s => s.Bookings)
                 .HasForeignKey(b => b.ServiceId);
 
+            modelBuilder.Entity<Booking>()
+                .HasOne<SignUp>(b => b.SignUp)
+                .WithMany(s => s.Bookings)
+                .HasForeignKey(b => b.SignUpId);
+
             modelBuilder.Entity<Review>()
                 .HasOne<User>(r => r.User)
                 .WithMany(u => u.Reviews)
@@ -87,9 +94,9 @@ namespace BeautyAI.Data
                 .HasForeignKey(r => r.ArtistId);
 
             modelBuilder.Entity<Service>()
-                .HasOne<Artist>(s => s.Artist) 
-                .WithMany(a => a.Services) 
-                .HasForeignKey(s => s.ArtistId) 
+                .HasOne<Artist>(s => s.Artist)
+                .WithMany(a => a.Services)
+                .HasForeignKey(s => s.ArtistId)
                 .IsRequired();
 
             modelBuilder.Entity<UserFavoriteTrend>()
@@ -105,7 +112,10 @@ namespace BeautyAI.Data
                 .WithMany(t => t.Users)
                 .HasForeignKey(uf => uf.TrendId);
 
-
+            modelBuilder.Entity<SignUp>()
+                .HasOne(s => s.Artist)
+                .WithMany(a => a.SignUps)
+                .HasForeignKey(s => s.ArtistId);
         }
     }
 }

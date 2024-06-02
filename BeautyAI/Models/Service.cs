@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace BeautyAI.Models
 {
@@ -11,13 +10,8 @@ namespace BeautyAI.Models
         public string Description { get; set; } = string.Empty;
         public decimal Price { get; set; }
         public int ArtistId { get; set; }
-        public Artist Artist { get; set; } = null!; 
+        public Artist Artist { get; set; }
         public string Duration { get; set; } = string.Empty;
         public List<string> Photo { get; set; } = new List<string>();
-
-        public Service()
-        {
-           
-        }
     }
 }
