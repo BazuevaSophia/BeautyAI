@@ -7,32 +7,32 @@
     padding: 20px;
 }
 
-.review-art-page h1 {
-    font-size: 80px;
-    font-weight: bold;
-    margin-bottom: 20px;
-}
+    .review-art-page h1 {
+        font-size: 80px;
+        font-weight: bold;
+        margin-bottom: 20px;
+    }
 
 .review-art-links {
     display: flex;
     gap: 25px;
 }
 
-.review-art-links a {
-    text-decoration: none;
-    font-size: 20px;
-    color: #8000E6;
-    background-color: rgba(255, 255, 255, 0.3);
-    padding: 10px 50px;
-    border-radius: 20px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    transition: background-color 0.3s ease, color 0.3s ease;
-}
+    .review-art-links a {
+        text-decoration: none;
+        font-size: 20px;
+        color: #8000E6;
+        background-color: rgba(255, 255, 255, 0.3);
+        padding: 10px 50px;
+        border-radius: 20px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        transition: background-color 0.3s ease, color 0.3s ease;
+    }
 
-.review-art-links a:hover {
-    background-color: rgba(255, 255, 255, 0.5);
-    color: #8000E6;
-}
+        .review-art-links a:hover {
+            background-color: rgba(255, 255, 255, 0.5);
+            color: #8000E6;
+        }
 
 .back-button {
     position: absolute;
@@ -49,27 +49,29 @@
     cursor: pointer;
 }
 
-.back-button:hover {
-    background-color: rgba(255, 255, 255, 0.5);
-    color: #000000;
-}
+    .back-button:hover {
+        background-color: rgba(255, 255, 255, 0.5);
+        color: #000000;
+    }
 
 .reviews {
     display: flex;
     flex-direction: column;
     gap: 15px;
+    margin-bottom: 60px;
 }
 
 .review-wrapper {
     display: flex;
     align-items: flex-start;
     gap: 10px;
-    margin-top: 10px; 
+    margin-top: 10px;
+    position: relative;
 }
 
 .user-name {
     color: white;
-    padding-right: 20px; 
+    padding-right: 20px;
     text-align: left;
     font-family: 'Angst', sans-serif;
     margin-top: 50px;
@@ -89,8 +91,8 @@
     min-height: 50px;
     background-color: rgba(78, 78, 78, 0.2);
     font-family: 'Angst', sans-serif;
-    width: 100%; 
-    max-width: 600px; 
+    width: 100%;
+    max-width: 600px;
 }
 
 .comment {
@@ -112,5 +114,109 @@
     border-radius: 10px;
 }
 
+.review-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    max-width: 600px;
+    transform: translateX(-370px);
+    margin: 30px auto 40px auto;
+    position: relative;
+}
 
+.review-textarea {
+    border-radius: 20px;
+    padding: 20px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    border: 1px solid #0F0F0F;
+    overflow: hidden;
+    resize: none;
+    background-color: rgba(78, 78, 78, 0.2);
+    font-family: 'Angst', sans-serif;
+    min-height: 50px;
+}
 
+.custom-file-label {
+    display: inline-block;
+    padding: 10px;
+    width: 180px;
+    cursor: pointer;
+    margin: 0 auto 40px auto;
+    margin-left: 10px;
+    text-decoration: none;
+    font-size: 17px;
+    color: #000000;
+    background-color: rgba(255, 255, 255, 0.3);
+    padding: 7px 30px;
+    border-radius: 30px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease, color 0.3s ease;
+    cursor: pointer;
+}
+
+.rating-input {
+    margin-top: -90px;
+    display: flex;
+    align-items: center;
+    gap: 3px;
+    font-size: 25px;
+    color: #FFFFFF;
+    margin-left: 250px;
+}
+
+.star {
+    cursor: pointer;
+    transition: color 0.3s;
+    color: #E3C2FC;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+    .star.filled {
+        color: gold;
+    }
+
+.submit-button {
+    font-family: 'Franklin Gothic Medium';
+    padding: 10px 40px;
+    width: 120px;
+    border-radius: 30px;
+    border: none;
+    background-color: #FF4EAE;
+    color: white;
+    font-size: 22px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    position: relative;
+    top: -130px;
+    left: 600px;
+}
+
+    .submit-button:hover {
+        background-color: #06BFA8;
+    }
+
+.review-image-preview {
+    max-width: 50%;
+    height: auto;
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
+
+.delete-button {
+    position: absolute;
+    right: 0;
+    background-color: #FF1E70;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 10px;
+    cursor: pointer;
+    margin-top: 5px;
+    transition: background-color 0.3s ease;
+    right: 550px;
+    top: 60px;
+}
+
+    .delete-button:hover {
+        background-color: #FF4EAE;
+    }

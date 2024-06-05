@@ -116,7 +116,7 @@ function Profile() {
                 <button className="photo-button" onClick={() => document.getElementById('photoInput').click()}>Добавить или изменить фото</button>
             </div>
             <div className="profile-actions">
-                <button className="button-settings">Настройки</button>
+                <Link to="/setting" className="button-settings">Настройки</Link>
                 <Link to="/reservations" className="button-booking">Бронирования</Link> 
                 <Link to="/favorites" className="button-favorites">Избранное</Link>
             </div>

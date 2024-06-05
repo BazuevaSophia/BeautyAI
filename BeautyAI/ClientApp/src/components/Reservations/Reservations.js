@@ -59,19 +59,21 @@ function Reservations() {
     }, []);
 
     const handleCancel = async (bookingId) => {
-        try {
-            const response = await fetch(`https://localhost:7125/api/bookings/${bookingId}`, {
-                method: 'DELETE',
-                credentials: 'include',
-            });
+        if (window.confirm('Вы уверены, что хотите отменить бронирование?')) {
+            try {
+                const response = await fetch(`https://localhost:7125/api/bookings/${bookingId}`, {
+                    method: 'DELETE',
+                    credentials: 'include',
+                });
 
-            if (!response.ok) {
-                throw new Error('Failed to cancel booking');
+                if (!response.ok) {
+                    throw new Error('Failed to cancel booking');
+                }
+
+                setReservations(reservations.filter(booking => booking.bookingId !== bookingId));
+            } catch (error) {
+                console.error('Ошибка при отмене бронирования: ', error);
             }
-
-            setReservations(reservations.filter(booking => booking.bookingId !== bookingId));
-        } catch (error) {
-            console.error('Ошибка при отмене бронирования: ', error);
         }
     };
 
@@ -105,7 +107,7 @@ function Reservations() {
                                 <p><strong>Цена:</strong> {booking.price}Р</p>
                             </div>
                             <div className="booking-buttons">
-                                <button className="booking-button" onClick={() => handleCancel(booking.bookingId)}>Отменить</button>
+                                <button className="booking-button1" onClick={() => handleCancel(booking.bookingId)}>Отменить</button>
                                 <button className="booking-button" onClick={() => handleEdit(booking.bookingId, booking.artistId, booking.serviceId)}>Изменить</button>
                             </div>
                         </div>

@@ -1,0 +1,116 @@
+﻿.setting-page {
+    position: relative;
+    font-family: Arial, sans-serif;
+    color: #FF898F;
+    background: linear-gradient(180deg, #FFB6B9 0%, #FAE3D9 50%, #BBDED6 100%);
+    min-height: 100vh;
+    padding: 20px;
+}
+
+    .setting-page h1 {
+        font-size: 80px;
+        font-weight: bold;
+        margin-bottom: 20px;
+    }
+
+.setting-links {
+    display: flex;
+    gap: 25px;
+}
+
+    .setting-links a {
+        text-decoration: none;
+        font-size: 20px;
+        color: #FF898F;
+        background-color: rgba(255, 255, 255, 0.3);
+        padding: 10px 50px;
+        border-radius: 20px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+        .setting-links a:hover {
+            background-color: rgba(255, 255, 255, 0.5);
+            color: #81D7FE;
+        }
+
+.setting-form {
+    margin-top: 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    max-width: 600px;
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.3);
+    border-radius: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin-bottom: 60px;
+    margin-left: 400px;
+
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+    .form-group label {
+        margin-bottom: 5px;
+        font-size: 18px;
+        color: #696767;
+        font-family: 'Angst', sans-serif;
+    }
+
+    .form-group input {
+        padding: 10px;
+        font-size: 16px;
+        border-radius: 10px;
+        border: 1px solid #ccc;
+        background-color: #f8f8f8;
+    }
+
+.password-input-wrapper {
+    display: flex;
+    align-items: center;
+}
+
+.toggle-password {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #FF898F;
+    margin-left: 10px;
+}
+
+button[type="submit"] {
+    margin-left: 180px;
+    padding: 8px 2px;
+    font-size: 18px;
+    color: white;
+    background-color: #5FD4EE;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+    button[type="submit"]:hover {
+        background-color: #FF6F7A;
+    }
+.back-button {
+    margin-top: 50px;
+    text-decoration: none;
+    font-size: 20px;
+    color: #000000;
+    background-color: rgba(255, 255, 255, 0.3);
+    padding: 7px 30px;
+    border-radius: 30px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease, color 0.3s ease;
+    cursor: pointer;
+}
+
+    .back-button:hover {
+        background-color: rgba(255, 255, 255, 0.5);
+        color: #000000;
+    }

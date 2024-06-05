@@ -57,6 +57,7 @@
     <None Remove="ClientApp\src\components\Favorites\" />
     <None Remove="ClientApp\src\components\Services\" />
     <None Remove="ClientApp\src\components\Reservations\" />
+    <None Remove="ClientApp\src\components\Setting\" />
   </ItemGroup>
 
   <ItemGroup>
@@ -86,6 +87,7 @@
     <Folder Include="ClientApp\src\components\Favorites\" />
     <Folder Include="ClientApp\src\components\Services\" />
     <Folder Include="ClientApp\src\components\Reservations\" />
+    <Folder Include="ClientApp\src\components\Setting\" />
   </ItemGroup>
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">
     <!-- Ensure Node.js is installed -->

@@ -169,6 +169,54 @@ public class ProfileController : ControllerBase
             return StatusCode(500, new { message = "Произошла ошибка на сервере" });
         }
     }
+
+    [HttpPost("updateProfile")]
+    public async Task<IActionResult> UpdateProfile([FromBody] UpdateProfileModel model)
+    {
+        if (!User.Identity.IsAuthenticated)
+        {
+            return Unauthorized(new { message = "Пользователь не авторизован." });
+        }
+
+        try
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            if (!int.TryParse(userId, out int userIdInt))
+            {
+                return BadRequest(new { message = "Некорректный формат идентификатора пользователя." });
+            }
+
+            var user = await _context.Users.FindAsync(userIdInt);
+            if (user == null)
+            {
+                return NotFound(new { message = "Профиль пользователя не найден." });
+            }
+
+            if (!string.IsNullOrEmpty(model.OldPassword) && !string.IsNullOrEmpty(model.NewPassword))
+            {
+                if (user.Password != model.OldPassword)
+                {
+                    return BadRequest(new { message = "Старый пароль неверен." });
+                }
+
+                user.Password = model.NewPassword;
+            }
+
+            user.Email = model.Email;
+            user.Phone = model.Phone;
+
+            _context.Users.Update(user);
+            await _context.SaveChangesAsync();
+
+            return Ok(new { user.Email, user.Phone, message = "Данные профиля успешно обновлены." });
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Ошибка при обновлении профиля");
+            return StatusCode(500, new { message = "Произошла ошибка на сервере" });
+        }
+    }
+
 }
 
 public class PhotoModel
