@@ -1,0 +1,211 @@
+﻿.reservations-page {
+    position: relative;
+    font-family: Arial, sans-serif;
+    color: #FF898F;
+    background: linear-gradient(180deg, #FFB6B9 0%, #FAE3D9 50%, #BBDED6 100%);
+    min-height: 100vh;
+    padding: 20px;
+}
+
+    .reservations-page h1 {
+        font-size: 80px;
+        font-weight: bold;
+        margin-bottom: 20px;
+    }
+
+.reservations-links {
+    display: flex;
+    gap: 25px;
+}
+
+    .reservations-links a {
+        text-decoration: none;
+        font-size: 20px;
+        color: #FF898F;
+        background-color: rgba(255, 255, 255, 0.3);
+        padding: 10px 50px;
+        border-radius: 20px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+        .reservations-links a:hover {
+            background-color: rgba(255, 255, 255, 0.5);
+            color: #81D7FE;
+        }
+
+.back-button {
+    margin-top: 50px;
+    text-decoration: none;
+    font-size: 20px;
+    color: #000000;
+    background-color: rgba(255, 255, 255, 0.3);
+    padding: 7px 30px;
+    border-radius: 30px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease, color 0.3s ease;
+    cursor: pointer;
+}
+
+    .back-button:hover {
+        background-color: rgba(255, 255, 255, 0.5);
+        color: #000000;
+    }
+
+.reservations-content {
+    margin-top: 20px;
+    margin-bottom: 60px;
+}
+
+.booking-card {
+    border-radius: 20px;
+    padding: 20px;
+    margin: 5px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+    border: 1px solid #0F0F0F;
+    overflow: hidden;
+    resize: none;
+    min-height: 50px;
+    background-color: rgba(78, 78, 78, 0.2);
+    font-family: 'Angst', sans-serif;
+    margin-top: 30px;
+    width: 600px;
+}
+
+    .booking-card h2 {
+        margin-bottom: 8px;
+        color: #FFFFFF;
+        font-size: 20px;
+    }
+
+    .booking-card p {
+        margin-bottom: 8px;
+        color: #333;
+        font-size: 16px;
+    }
+
+.no-reserv-message {
+    font-size: 24px;
+    color: #000000;
+    text-align: center;
+    margin-top: 50px;
+    font-family: 'Angst', sans-serif;
+}
+
+.reservations-page {
+    position: relative;
+    font-family: Arial, sans-serif;
+    color: #FF898F;
+    background: linear-gradient(180deg, #FFB6B9 0%, #FAE3D9 50%, #BBDED6 100%);
+    min-height: 100vh;
+    padding: 20px;
+}
+
+    .reservations-page h1 {
+        font-size: 80px;
+        font-weight: bold;
+        margin-bottom: 20px;
+    }
+
+.reservations-links {
+    display: flex;
+    gap: 25px;
+}
+
+    .reservations-links a {
+        text-decoration: none;
+        font-size: 20px;
+        color: #FF898F;
+        background-color: rgba(255, 255, 255, 0.3);
+        padding: 10px 50px;
+        border-radius: 20px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+        .reservations-links a:hover {
+            background-color: rgba(255, 255, 255, 0.5);
+            color: #81D7FE;
+        }
+
+.back-button {
+    margin-top: 50px;
+    text-decoration: none;
+    font-size: 20px;
+    color: #000000;
+    background-color: rgba(255, 255, 255, 0.3);
+    padding: 7px 30px;
+    border-radius: 30px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease, color 0.3s ease;
+    cursor: pointer;
+}
+
+    .back-button:hover {
+        background-color: rgba(255, 255, 255, 0.5);
+        color: #000000;
+    }
+
+.booking-card {
+    border-radius: 20px;
+    padding: 20px;
+    margin: 5px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+    border: 1px solid #0F0F0F;
+    overflow: hidden;
+    resize: none;
+    min-height: 50px;
+    background-color: rgba(78, 78, 78, 0.2);
+    font-family: 'Angst', sans-serif;
+    margin-top: 30px;
+    width: 600px;
+}
+
+    .booking-card h2 {
+        margin-bottom: 8px;
+        color: #FFFFFF;
+        font-size: 20px;
+    }
+
+    .booking-card p {
+        margin-bottom: 8px;
+        color: #333;
+        font-size: 16px;
+    }
+
+.no-reserv-message {
+    font-size: 24px;
+    color: #000000;
+    text-align: center;
+    margin-top: 50px;
+    font-family: 'Angst', sans-serif;
+}
+
+.booking-wrapper {
+    display: flex;
+    align-items: center;
+}
+
+.booking-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-left: 20px;
+}
+
+.booking-button {
+    padding: 10px 20px;
+    font-size: 16px;
+    color: white;
+    background-color: #FF898F;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+    .booking-button:hover {
+        background-color: #FF6F7A;
+    }

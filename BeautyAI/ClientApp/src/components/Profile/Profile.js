@@ -117,7 +117,7 @@ function Profile() {
             </div>
             <div className="profile-actions">
                 <button className="button-settings">Настройки</button>
-                <button className="button-booking">Бронирование</button>
+                <Link to="/reservations" className="button-booking">Бронирования</Link> 
                 <Link to="/favorites" className="button-favorites">Избранное</Link>
             </div>
             <button onClick={handleLogout} className="logout-button">Выйти</button>

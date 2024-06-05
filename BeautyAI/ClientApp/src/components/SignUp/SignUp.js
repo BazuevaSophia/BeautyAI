@@ -1,5 +1,5 @@
 ﻿import React, { useEffect, useState } from 'react';
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams, useLocation } from 'react-router-dom';
 import './SignUp.css';
 
 function SignUp() {
@@ -7,7 +7,10 @@ function SignUp() {
     const [isLoading, setIsLoading] = useState(true);
     const { artistId, serviceId } = useParams();
     const navigate = useNavigate();
+    const { state } = useLocation();
     const [user, setUser] = useState(null);
+    const [showModal, setShowModal] = useState(false);
+    const [modalMessage, setModalMessage] = useState('');
 
     useEffect(() => {
         const fetchProfile = async () => {
@@ -58,14 +61,13 @@ function SignUp() {
         fetchSignUps();
     }, [artistId, navigate]);
 
-    const handleTimeClick = (signUpId, dayOfWeek, time) => {
+    const handleTimeClick = async (signUpId, dayOfWeek, time) => {
         if (!user) {
             console.error('User is not logged in');
             navigate('/authorization', { state: { from: window.location.pathname } });
             return;
         }
 
-        const apiUrl = process.env.REACT_APP_API_URL || 'https://localhost:7125';
         const bookingData = {
             userId: user.userId,
             serviceId: parseInt(serviceId),
@@ -78,27 +80,57 @@ function SignUp() {
 
         console.log('Booking Data being sent:', bookingData);
 
-        fetch(`${apiUrl}/api/bookings`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(bookingData)
-        })
-            .then(response => response.json().then(data => {
-                if (!response.ok) {
-                    console.error('Ошибка при создании бронирования:', data);
-                    throw new Error(data);
+        const apiUrl = process.env.REACT_APP_API_URL || 'https://localhost:7125';
+
+        try {
+            let response;
+            if (state && state.bookingId) {
+                console.log('Updating booking with ID:', state.bookingId);
+                response = await fetch(`${apiUrl}/api/bookings/${state.bookingId}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(bookingData)
+                });
+
+                if (response.status === 204) {
+                    console.log('Booking updated successfully with ID:', state.bookingId);
+                    setModalMessage(`Вы успешно изменили услугу на ${dayOfWeek} в ${time}. Управлять записью вы можете в своем профиле, перейдя по кнопке "Бронирования".`);
+                    setShowModal(true);
+                    return;
                 }
-                return data;
-            }))
-            .then(data => {
-                console.log('Booking created successfully:', data);
-                navigate('/'); 
-            })
-            .catch(error => console.error('Ошибка при создании бронирования:', error));
+            } else {
+                console.log('Creating new booking');
+                response = await fetch(`${apiUrl}/api/bookings`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(bookingData)
+                });
+            }
+
+            const data = await response.json();
+            if (!response.ok) {
+                throw new Error(data);
+            }
+
+            console.log('Booking created/updated successfully:', data);
+            setModalMessage(`Вы успешно ${state && state.bookingId ? 'изменили' : 'записались на'} услугу "${data.serviceName}" на ${data.date} в ${data.time}. Управлять записью вы можете в своем профиле, перейдя по кнопке "Бронирования".`);
+            setShowModal(true);
+        } catch (error) {
+            console.error('Ошибка при создании/изменении бронирования:', error);
+            setModalMessage('Произошла ошибка при создании/изменении бронирования. Пожалуйста, попробуйте снова.');
+            setShowModal(true);
+        }
     };
 
+
+    const closeModal = () => {
+        setShowModal(false);
+        navigate('/');
+    };
 
     if (isLoading) {
         return <div>Загрузка...</div>;
@@ -131,6 +163,14 @@ function SignUp() {
                     </div>
                 ))}
             </div>
+            {showModal && (
+                <div className="modal">
+                    <div className="modal-content">
+                        <p>{modalMessage}</p>
+                        <button onClick={closeModal}>OK</button>
+                    </div>
+                </div>
+            )}
         </div>
     );
 }

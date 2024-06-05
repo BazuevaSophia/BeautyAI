@@ -1,8 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using BeautyAI.Data;
+﻿using BeautyAI.Data;
 using BeautyAI.Models;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
+using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.Extensions.Logging;
+
 [ApiController]
 [Route("api/[controller]")]
 public class BookingsController : ControllerBase
@@ -51,15 +54,81 @@ public class BookingsController : ControllerBase
         await _context.SaveChangesAsync();
         _logger.LogInformation($"Booking created successfully with ID: {booking.BookingId}");
 
-        return Ok(new BookingDTO
+        var response = new
         {
-            UserId = booking.UserId,
-            ArtistId = booking.ArtistId,
-            ServiceId = booking.ServiceId,
-            SignUpId = booking.SignUpId,
-            Date = booking.Date,
-            Time = booking.Time,
-            Status = booking.Status
-        });
+            booking.BookingId,
+            ServiceName = booking.Service.Name,
+            booking.Date,
+            booking.Time
+        };
+
+        return Ok(response);
+    }
+
+    [HttpGet("user/{userId}")]
+    public async Task<IActionResult> GetUserBookings(int userId)
+    {
+        var bookings = await _context.Bookings
+            .Include(b => b.Service)
+            .Include(b => b.Artist)
+            .Where(b => b.UserId == userId && b.Status == "оформлен")
+            .Select(b => new BookingResponseDTO
+            {
+                BookingId = b.BookingId,
+                ServiceName = b.Service.Name,
+                Date = b.Date,
+                Time = b.Time,
+                ArtistName = b.Artist.Name,
+                Duration = b.Service.Duration,
+                Price = b.Service.Price,
+                ArtistId = b.ArtistId, 
+                ServiceId = b.ServiceId 
+            })
+            .ToListAsync();
+
+        return Ok(bookings);
+    }
+
+    [HttpDelete("{bookingId}")]
+    public async Task<IActionResult> DeleteBooking(int bookingId)
+    {
+        var booking = await _context.Bookings.FindAsync(bookingId);
+        if (booking == null)
+        {
+            return NotFound();
+        }
+
+        _context.Bookings.Remove(booking);
+        await _context.SaveChangesAsync();
+        return NoContent();
+    }
+
+    [HttpPut("{bookingId}")]
+    public async Task<IActionResult> UpdateBooking(int bookingId, [FromBody] BookingDTO bookingDTO)
+    {
+        _logger.LogInformation($"Received request to update booking with ID: {bookingId}");
+        _logger.LogInformation($"Booking data: {JsonConvert.SerializeObject(bookingDTO)}");
+
+        if (!ModelState.IsValid)
+        {
+            return BadRequest(ModelState);
+        }
+
+        var booking = await _context.Bookings.FindAsync(bookingId);
+        if (booking == null)
+        {
+            return NotFound();
+        }
+
+        booking.Date = bookingDTO.Date;
+        booking.Time = bookingDTO.Time;
+        booking.ServiceId = bookingDTO.ServiceId;
+
+        _context.Bookings.Update(booking);
+        await _context.SaveChangesAsync();
+
+        _logger.LogInformation($"Booking with ID: {bookingId} updated successfully");
+
+        return NoContent();
     }
 }

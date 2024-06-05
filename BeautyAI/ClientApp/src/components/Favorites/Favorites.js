@@ -1,5 +1,5 @@
 ﻿import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import './Favorites.css';
 
 function TrendCarousel({ photos, description, trendId, onRemoveFromFavorites }) {
@@ -47,6 +47,7 @@ function TrendCarousel({ photos, description, trendId, onRemoveFromFavorites }) 
 
 function Favorites() {
     const [favorites, setFavorites] = useState([]);
+    const navigate = useNavigate();
 
     useEffect(() => {
         const fetchFavorites = async () => {
@@ -122,6 +123,7 @@ function Favorites() {
                     </>
                 )}
             </div>
+            <button className="back-button" onClick={() => navigate(-1)}>Назад</button>
         </div>
     );
 }
