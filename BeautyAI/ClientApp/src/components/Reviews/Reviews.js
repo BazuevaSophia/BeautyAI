@@ -8,6 +8,31 @@ function Reviews() {
     const [comment, setComment] = useState('');
     const [image, setImage] = useState(null);
     const [imagePreviewUrl, setImagePreviewUrl] = useState('');
+    const [currentUser, setCurrentUser] = useState(null);
+
+    useEffect(() => {
+        const fetchProfile = async () => {
+            try {
+                const response = await axios.get('/api/profile/getProfile', { withCredentials: true });
+                setCurrentUser(response.data);
+            } catch (error) {
+                console.error('Ошибка при загрузке профиля:', error);
+            }
+        };
+
+        const fetchReviews = async () => {
+            try {
+                const response = await axios.get('/api/general-reviews');
+                setReviews(response.data);
+            } catch (error) {
+                console.error('Ошибка при загрузке отзывов:', error);
+            }
+        };
+
+        fetchProfile();
+        fetchReviews();
+    }, []);
+
     const handleImageChange = (e) => {
         const file = e.target.files[0];
         setImage(file);
@@ -15,42 +40,54 @@ function Reviews() {
     };
 
     const adjustTextareaHeight = (e) => {
-        e.target.style.height = "inherit"; 
-        e.target.style.height = `${e.target.scrollHeight}px`; 
+        e.target.style.height = "inherit";
+        e.target.style.height = `${e.target.scrollHeight}px`;
     };
 
-    useEffect(() => {
-       
-        axios.get('/api/reviews')
-            .then(response => setReviews(response.data))
-            .catch(error => console.error('Ошибка загрузки отзывов:', error));
-    }, []);
-
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
-        const formData = new FormData();
-        formData.append('comment', comment);
-        if (image) {
-            formData.append('image', image);
+        if (!currentUser) {
+            alert('Вы не вошли в систему. Пожалуйста, войдите или зарегистрируйтесь.');
+            return;
         }
 
-        axios.post('/api/reviews', formData, {
-            headers: {
-                'Content-Type': 'multipart/form-data',
-            },
-        })
-            .then(response => {
-                setReviews([...reviews, response.data]); 
-                setComment(''); 
-                setImage(null); 
-            })
-            .catch(error => console.error('Ошибка при отправке отзыва:', error));
+        const formData = new FormData();
+        formData.append('comment', comment);
+        formData.append('userId', currentUser.userId);
+        if (image) {
+            formData.append('photo', image);
+        }
+
+        try {
+            const response = await axios.post('/api/general-reviews', formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                },
+                withCredentials: true,
+            });
+            setReviews([...reviews, response.data]);
+            setComment('');
+            setImage(null);
+            setImagePreviewUrl('');
+        } catch (error) {
+            console.error('Ошибка при отправке отзыва:', error);
+        }
+    };
+
+    const handleDelete = async (reviewId) => {
+        if (window.confirm('Вы уверены, что хотите удалить этот отзыв?')) {
+            try {
+                await axios.delete(`/api/general-reviews/${reviewId}`, { withCredentials: true });
+                setReviews(reviews.filter(review => review.ReviewId2 !== reviewId));
+            } catch (error) {
+                console.error('Ошибка при удалении отзыва:', error);
+            }
+        }
     };
 
     return (
-
         <div className="reviews-page">
-            <h1>BeautyAI</h1>
+            <h1>System Reviews</h1>
             <div className="reviews-links">
                 <Link to="/">Главная</Link>
                 <Link to="/history">История</Link>
@@ -58,12 +95,20 @@ function Reviews() {
             </div>
             <div className="reviews-content">
                 {reviews.map(review => (
-                    <div key={review.id} className="review-item">
-                        <p>{review.authorName}: {review.text}</p>
-                        {review.imageUrl && <img src={review.imageUrl} alt="Отзыв" className="review-image" />}
+                    <div key={review.ReviewId2} className="review-item">
+                        <p>{review.UserName}: {review.Comment}</p>
+                        {review.Photo && review.Photo.length > 0 && (
+                            <div className="photos">
+                                {review.Photo.map((photo, index) => (
+                                    <img key={`${review.ReviewId2}-${index}`} src={photo} alt="Review" className="review-photo" />
+                                ))}
+                            </div>
+                        )}
+                        {currentUser && currentUser.userId === review.UserId && (
+                            <button onClick={() => handleDelete(review.ReviewId2)} className="delete-button">Удалить</button>
+                        )}
                     </div>
                 ))}
-                <label htmlFor="file-upload" className="custom-file-label">Выбрать фото</label> 
                 <form onSubmit={handleSubmit} className="review-form">
                     <textarea
                         value={comment}
@@ -78,11 +123,12 @@ function Reviews() {
                         <img src={imagePreviewUrl} alt="Preview" className="review-image-preview" />
                     )}
                     <input
-                        id="file-upload" 
+                        id="file-upload"
                         type="file"
                         onChange={handleImageChange}
                         className="review-file-input"
                     />
+                    <label htmlFor="file-upload" className="custom-file-label">Выбрать фото</label>
                     <button type="submit" className="submit-button">Отправить</button>
                 </form>
             </div>

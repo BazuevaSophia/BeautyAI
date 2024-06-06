@@ -24,6 +24,7 @@
     <PackageReference Include="Npgsql" Version="6.0.0" />
     <PackageReference Include="Microsoft.Extensions.Logging" Version="6.0.0" />
     <PackageReference Include="System.Text.Json" Version="7.0.0" />
+    <PackageReference Include="LZStringCSharp" Version="1.4.0" />
   </ItemGroup>
 
   <ItemGroup>
@@ -58,6 +59,8 @@
     <None Remove="ClientApp\src\components\Services\" />
     <None Remove="ClientApp\src\components\Reservations\" />
     <None Remove="ClientApp\src\components\Setting\" />
+    <None Remove="ClientApp\src\components\ArtistAuth\" />
+    <None Remove="ClientApp\src\components\ProfileArtist\" />
   </ItemGroup>
 
   <ItemGroup>
@@ -88,6 +91,8 @@
     <Folder Include="ClientApp\src\components\Services\" />
     <Folder Include="ClientApp\src\components\Reservations\" />
     <Folder Include="ClientApp\src\components\Setting\" />
+    <Folder Include="ClientApp\src\components\ArtistAuth\" />
+    <Folder Include="ClientApp\src\components\ProfileArtist\" />
   </ItemGroup>
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">
     <!-- Ensure Node.js is installed -->

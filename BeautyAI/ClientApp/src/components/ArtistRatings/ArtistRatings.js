@@ -1,15 +1,23 @@
-﻿import React from 'react';
+﻿import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import './ArtistRatings.css'; 
+import axios from 'axios';
+import './ArtistRatings.css';
 
 function ArtistRatings() {
-  
-    const artists = [
-        { name: 'София', rating: 5 },
-        { name: 'Анастасия', rating: 4 },
-        { name: 'Ирина', rating: 3 },
-        
-    ];
+    const [artists, setArtists] = useState([]);
+
+    useEffect(() => {
+        const fetchArtists = async () => {
+            try {
+                const response = await axios.get('/api/artists/get-artist-ratings');
+                setArtists(response.data);
+            } catch (error) {
+                console.error('Ошибка при загрузке рейтингов визажистов:', error);
+            }
+        };
+
+        fetchArtists();
+    }, []);
 
     const renderStars = (rating) => {
         let stars = [];
@@ -42,4 +50,3 @@ function ArtistRatings() {
 }
 
 export default ArtistRatings;
-

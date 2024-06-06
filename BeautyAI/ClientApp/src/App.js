@@ -17,6 +17,8 @@ import Favorites from './components/Favorites/Favorites';
 import Services from './components/Services/Services';
 import Reservations from './components/Reservations/Reservations';
 import Setting from './components/Setting/Setting';
+import ArtistAuth from './components/ArtistAuth/ArtistAuth';
+import ProfileArtist from './components/ProfileArtist/ProfileArtist';
 
 function App() {
     return (
@@ -38,6 +40,8 @@ function App() {
             <Route path="/services/:artistId" element={<Services />} />
             <Route path="/reservations" element={<Reservations />} /> 
             <Route path="/setting" element={<Setting />} />
+            <Route path="/artist-auth" element={<ArtistAuth />} />
+            <Route path="/profile-artist" element={<ProfileArtist />} />
 
         </Routes>
     );

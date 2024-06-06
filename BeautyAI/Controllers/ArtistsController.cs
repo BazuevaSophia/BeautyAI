@@ -72,7 +72,7 @@ public class ArtistsController : ControllerBase
     {
         try
         {
-            var user = await _context.Users.FindAsync(reviewModel.UserId); 
+            var user = await _context.Users.FindAsync(reviewModel.UserId);
             if (user == null)
             {
                 return NotFound("Пользователь не найден.");
@@ -124,6 +124,9 @@ public class ArtistsController : ControllerBase
             _context.Reviews.Add(review);
             await _context.SaveChangesAsync();
 
+            
+            await UpdateArtistRating(artistId);
+
             var reviewDTO = new ReviewDTO
             {
                 ReviewId = review.ReviewId,
@@ -141,6 +144,28 @@ public class ArtistsController : ControllerBase
         {
             _logger.LogError("Ошибка при добавлении отзыва: {Error}", ex.ToString());
             return StatusCode(500, "Internal Server Error: " + ex.Message);
+        }
+    }
+
+
+    private async Task UpdateArtistRating(int artistId)
+    {
+        var artist = await _context.Artists
+            .Include(a => a.Reviews)
+            .FirstOrDefaultAsync(a => a.ArtistId == artistId);
+
+        if (artist != null)
+        {
+            if (artist.Reviews.Any())
+            {
+                artist.Rating = (short)Math.Round(artist.Reviews.Average(r => r.Rating));
+            }
+            else
+            {
+                artist.Rating = 0;
+            }
+
+            await _context.SaveChangesAsync();
         }
     }
 
@@ -235,4 +260,28 @@ public class ArtistsController : ControllerBase
             return StatusCode(500, "Internal Server Error: " + ex.Message);
         }
     }
+
+    [HttpGet("get-artist-ratings")]
+    public async Task<IActionResult> GetArtistRatings()
+    {
+        try
+        {
+            var artists = await _context.Artists
+                .OrderByDescending(a => a.Rating)
+                .Select(a => new
+                {
+                    a.Name,
+                    a.Rating
+                })
+                .ToListAsync();
+
+            return Ok(artists);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError("Ошибка при получении рейтингов визажистов: {Error}", ex.ToString());
+            return StatusCode(500, "Internal Server Error: " + ex.Message);
+        }
+    }
+
 }

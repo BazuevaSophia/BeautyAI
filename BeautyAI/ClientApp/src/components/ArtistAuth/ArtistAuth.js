@@ -1,15 +1,14 @@
 ﻿import React, { useState } from 'react';
-import { useNavigate, useLocation, Link } from 'react-router-dom';
-import './Authorization.css';
+import { useNavigate } from 'react-router-dom';
+import './ArtistAuth.css';
 
-function Authorization() {
+function ArtistAuth() {
     const [formData, setFormData] = useState({
         phone: '',
         password: '',
         showPassword: false,
     });
     const navigate = useNavigate();
-    const location = useLocation();
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -44,7 +43,7 @@ function Authorization() {
         e.preventDefault();
 
         try {
-            const response = await fetch('https://localhost:7125/api/authorization/login', {
+            const response = await fetch('https://localhost:7125/api/authartist/login', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -55,10 +54,10 @@ function Authorization() {
 
             if (response.ok) {
                 const userData = await response.json();
-                if (userData.role === 'Клиент') {
-                    navigate('/profile');
+                if (userData.role === 'визажист') {
+                    navigate('/profile-artist');
                 } else {
-                    alert('Вход разрешен только для клиентов.');
+                    alert('Вход разрешен только для визажистов.');
                 }
             } else {
                 const errorData = await response.json();
@@ -74,9 +73,9 @@ function Authorization() {
     };
 
     return (
-        <div className="authorization-page">
+        <div className="artist-auth-page">
             <h1>BeautyAI</h1>
-            <form onSubmit={handleSubmit} className="authorization-form">
+            <form onSubmit={handleSubmit} className="artist-auth-form">
                 <div className="form-group">
                     <input
                         type="tel"
@@ -101,10 +100,9 @@ function Authorization() {
                     </button>
                 </div>
                 <button type="submit" className="submit-button">Вход</button>
-                <Link to="/artist-auth" className="artist-auth-link">Вход для визажистов</Link>
             </form>
         </div>
     );
 }
 
-export default Authorization;
+export default ArtistAuth;

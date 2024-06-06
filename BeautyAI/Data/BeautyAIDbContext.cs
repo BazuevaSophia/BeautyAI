@@ -14,7 +14,7 @@ namespace BeautyAI.Data
         public DbSet<Service> Services { get; set; } = null!;
         public DbSet<Portfolio> Portfolios { get; set; } = null!;
         public DbSet<Review> Reviews { get; set; } = null!;
-        public DbSet<All_review> All_Reviews { get; set; } = null!;
+        public DbSet<All_review> All_Reviews { get; set; }
         public DbSet<Booking> Bookings { get; set; } = null!;
         public DbSet<User> Users { get; set; } = null!;
         public DbSet<Trend> Trends { get; set; } = null!;

@@ -1,4 +1,4 @@
-﻿.setting-page {
+﻿.settings-page {
     position: relative;
     font-family: Arial, sans-serif;
     color: #FF898F;
@@ -7,18 +7,18 @@
     padding: 20px;
 }
 
-    .setting-page h1 {
+    .settings-page h1 {
         font-size: 80px;
         font-weight: bold;
         margin-bottom: 20px;
     }
 
-.setting-links {
+.settings-links {
     display: flex;
     gap: 25px;
 }
 
-    .setting-links a {
+    .settings-links a {
         text-decoration: none;
         font-size: 20px;
         color: #FF898F;
@@ -29,12 +29,12 @@
         transition: background-color 0.3s ease, color 0.3s ease;
     }
 
-        .setting-links a:hover {
+        .settings-links a:hover {
             background-color: rgba(255, 255, 255, 0.5);
             color: #81D7FE;
         }
 
-.setting-form {
+.settings-form {
     margin-top: 40px;
     display: flex;
     flex-direction: column;
@@ -46,22 +46,21 @@
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     margin-bottom: 60px;
     margin-left: 400px;
-
 }
 
-.form-group {
+.settings-form-group {
     display: flex;
     flex-direction: column;
 }
 
-    .form-group label {
+    .settings-form-group label {
         margin-bottom: 5px;
         font-size: 18px;
         color: #696767;
         font-family: 'Angst', sans-serif;
     }
 
-    .form-group input {
+    .settings-form-group input {
         padding: 10px;
         font-size: 16px;
         border-radius: 10px;
@@ -74,7 +73,7 @@
     align-items: center;
 }
 
-.toggle-password {
+.toggle-password-btn {
     background: none;
     border: none;
     cursor: pointer;
@@ -82,23 +81,26 @@
     margin-left: 10px;
 }
 
-button[type="submit"] {
+.save-btn {
+    margin-top: 20px;
     margin-left: 180px;
     padding: 8px 2px;
+    width: 200px;
     font-size: 18px;
     color: white;
-    background-color: #5FD4EE;
+    background-color: #FF929A;
     border: none;
     border-radius: 10px;
     cursor: pointer;
     transition: background-color 0.3s ease;
 }
 
-    button[type="submit"]:hover {
-        background-color: #FF6F7A;
+    .save-btn:hover {
+        background-color: #5FD4EE;
     }
-.back-button {
-    margin-top: 50px;
+
+.back-btn {
+    top: 500px;
     text-decoration: none;
     font-size: 20px;
     color: #000000;
@@ -110,7 +112,7 @@ button[type="submit"] {
     cursor: pointer;
 }
 
-    .back-button:hover {
+    .back-btn:hover {
         background-color: rgba(255, 255, 255, 0.5);
         color: #000000;
     }

@@ -1,4 +1,4 @@
-﻿.review-art-page {
+﻿.reviewPage {
     position: relative;
     font-family: Arial, sans-serif;
     color: #8000E6;
@@ -7,18 +7,18 @@
     padding: 20px;
 }
 
-    .review-art-page h1 {
+    .reviewPage h1 {
         font-size: 80px;
         font-weight: bold;
         margin-bottom: 20px;
     }
 
-.review-art-links {
+.reviewLinks {
     display: flex;
     gap: 25px;
 }
 
-    .review-art-links a {
+    .reviewLinks a {
         text-decoration: none;
         font-size: 20px;
         color: #8000E6;
@@ -29,12 +29,12 @@
         transition: background-color 0.3s ease, color 0.3s ease;
     }
 
-        .review-art-links a:hover {
+        .reviewLinks a:hover {
             background-color: rgba(255, 255, 255, 0.5);
             color: #8000E6;
         }
 
-.back-button {
+.backButton {
     position: absolute;
     bottom: 20px;
     left: 20px;
@@ -49,7 +49,7 @@
     cursor: pointer;
 }
 
-    .back-button:hover {
+    .backButton:hover {
         background-color: rgba(255, 255, 255, 0.5);
         color: #000000;
     }
@@ -61,7 +61,7 @@
     margin-bottom: 60px;
 }
 
-.review-wrapper {
+.reviewWrapper {
     display: flex;
     align-items: flex-start;
     gap: 10px;
@@ -69,7 +69,7 @@
     position: relative;
 }
 
-.user-name {
+.userName {
     color: white;
     padding-right: 20px;
     text-align: left;
@@ -108,13 +108,13 @@
     margin-top: 10px;
 }
 
-.review-photo {
+.reviewPhoto {
     max-width: 100px;
     max-height: 100px;
     border-radius: 10px;
 }
 
-.review-form {
+.reviewForm {
     display: flex;
     flex-direction: column;
     gap: 10px;
@@ -124,7 +124,7 @@
     position: relative;
 }
 
-.review-textarea {
+.reviewTextarea {
     border-radius: 20px;
     padding: 20px;
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
@@ -136,7 +136,7 @@
     min-height: 50px;
 }
 
-.custom-file-label {
+.customFileLabel {
     display: inline-block;
     padding: 10px;
     width: 180px;
@@ -154,7 +154,7 @@
     cursor: pointer;
 }
 
-.rating-input {
+.ratingInput {
     margin-top: -90px;
     display: flex;
     align-items: center;
@@ -175,10 +175,10 @@
         color: gold;
     }
 
-.submit-button {
+.submitButton {
     font-family: 'Franklin Gothic Medium';
     padding: 10px 40px;
-    width: 120px;
+    width: 180px;
     border-radius: 30px;
     border: none;
     background-color: #FF4EAE;
@@ -188,21 +188,21 @@
     transition: background-color 0.3s ease;
     position: relative;
     top: -130px;
-    left: 600px;
+    left: 620px;
 }
 
-    .submit-button:hover {
-        background-color: #06BFA8;
+    .submitButton:hover {
+        background-color: #FF6EBD;
     }
 
-.review-image-preview {
+.reviewImagePreview {
     max-width: 50%;
     height: auto;
     border-radius: 10px;
     margin-bottom: 10px;
 }
 
-.delete-button {
+.deleteButton {
     position: absolute;
     right: 0;
     background-color: #FF1E70;
@@ -214,9 +214,15 @@
     margin-top: 5px;
     transition: background-color 0.3s ease;
     right: 550px;
-    top: 60px;
+    top: 50%;
+    transform: translateY(-50%);
 }
 
-    .delete-button:hover {
+    .deleteButton:hover {
         background-color: #FF4EAE;
     }
+.review-art-file-input {
+    visibility: hidden;
+    position: absolute;
+    z-index: -1;
+}

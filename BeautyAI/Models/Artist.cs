@@ -19,6 +19,6 @@ namespace BeautyAI.Models
         public ICollection<Service> Services { get; set; } = new HashSet<Service>();
         public ICollection<SignUp> SignUps { get; set; } = new HashSet<SignUp>();
         public string Phone { get; set; } = string.Empty;
-        public short Rating { get; set; }
+        public short? Rating { get; set; }
     }
 }

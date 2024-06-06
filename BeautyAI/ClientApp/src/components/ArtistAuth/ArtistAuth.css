@@ -1,4 +1,4 @@
-﻿.authorization-page {
+﻿.artist-auth-page {
     position: relative;
     font-family: Arial, sans-serif;
     color: #FF898F;
@@ -9,7 +9,7 @@
     background: linear-gradient(180deg, #FFB6B9 0%, #FAE3D9 50%, #BBDED6 100%);
 }
 
-    .authorization-page h1 {
+    .artist-auth-page h1 {
         position: absolute;
         top: 0;
         left: 0;
@@ -19,7 +19,7 @@
         padding: 0;
     }
 
-.authorization-form {
+.artist-auth-form {
     background: rgba(255, 255, 255, 0);
     backdrop-filter: blur(30px);
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
@@ -95,17 +95,4 @@ button {
 
     button:hover {
         background-color: #84BFDA;
-    }
-
-.artist-auth-link {
-    display: inline-block;
-    margin-top: 10px;
-    text-align: center;
-    text-decoration: none;
-    color: #007bff;
-    font-size: 14px;
-}
-
-    .artist-auth-link:hover {
-        text-decoration: underline;
     }

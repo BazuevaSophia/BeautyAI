@@ -1,8 +1,8 @@
 ﻿.reviews-page {
     position: relative;
-    font-family: Arial,sans-serif;
+    font-family: Arial, sans-serif;
     color: #1BD2B1;
-    background: linear-gradient(180deg, #98F1E1 0%, #FE80C4 50%, #FCFF76 100% );
+    background: linear-gradient(180deg, #98F1E1 0%, #FE80C4 50%, #FCFF76 100%);
     min-height: 100vh;
     padding: 20px;
 }
@@ -12,7 +12,6 @@
         font-weight: bold;
         margin-bottom: 20px;
     }
-
 
 .reviews-links {
     display: flex;
@@ -40,12 +39,14 @@
     flex-direction: column;
     gap: 10px;
 }
+
 .review-file-input {
     display: none;
     width: 100%;
     padding: 8px;
     margin-bottom: 10px;
 }
+
 .custom-file-label {
     display: inline-block;
     padding: 10px;
@@ -57,11 +58,13 @@
     border-radius: 10px;
     color: #FF4EAE;
 }
+
 .submit-button {
     width: 100%;
     padding: 8px;
     margin-bottom: 10px;
 }
+
 .review-textarea {
     border-radius: 20px;
     padding: 20px;
@@ -70,12 +73,12 @@
     transition: transform 0.3s ease;
     border: 1px solid #0F0F0F;
     overflow: hidden;
-    resize: none; 
-    min-height: 50px; 
+    resize: none;
+    min-height: 50px;
     background-color: rgba(78, 78, 78, 0.2);
     font-family: 'Angst', sans-serif;
     margin-top: 20px;
-    width: 750px
+    width: 750px;
 }
 
 .submit-button {
@@ -88,7 +91,7 @@
     font-size: 22px;
     cursor: pointer;
     transition: background-color 0.3s ease;
-    width: 180px
+    width: 180px;
 }
 
     .submit-button:hover {
@@ -99,4 +102,3 @@
     max-width: 15%;
     height: auto;
 }
-

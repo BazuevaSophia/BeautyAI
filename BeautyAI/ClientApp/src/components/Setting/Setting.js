@@ -145,87 +145,88 @@ function Setting() {
     }
 
     return (
-        <div className="setting-page">
+        <div className="settings-page">
             <h1>BeautyAI</h1>
-            <div className="setting-links">
+            <div className="settings-links">
                 <Link to="/">Главная</Link>
                 <Link to="/history">История</Link>
                 <Link to="/profile">Профиль</Link>
             </div>
-            <button className="back-button" onClick={() => navigate(-1)}>Назад</button>
-            <div className="setting-forms">
-                <form className="setting-form" onSubmit={(e) => { e.preventDefault(); handleUpdate('phone', userData.phone); }}>
-                    <div className="form-group">
+            
+            <div className="settings-forms">
+                <form className="settings-form" onSubmit={(e) => { e.preventDefault(); handleUpdate('phone', userData.phone); }}>
+                    <div className="settings-form-group">
                         <label>Телефон</label>
                         <input
                             type="tel"
                             name="phone"
                             value={userData.phone}
                             onChange={handleChange}
-                            className="input"
+                            className="settings-input"
                         />
                     </div>
-                    <button type="submit" className="submit-button">Сохранить телефон</button>
+                    <button type="submit" className="save-btn">Сохранить телефон</button>
                 </form>
-                <form className="setting-form" onSubmit={(e) => { e.preventDefault(); handleUpdate('email', userData.email); }}>
-                    <div className="form-group">
+                <form className="settings-form" onSubmit={(e) => { e.preventDefault(); handleUpdate('email', userData.email); }}>
+                    <div className="settings-form-group">
                         <label>Email</label>
                         <input
                             type="email"
                             name="email"
                             value={userData.email}
                             onChange={handleChange}
-                            className="input"
+                            className="settings-input"
                         />
                     </div>
-                    <button type="submit" className="submit-button">Сохранить email</button>
+                    <button type="submit" className="save-btn">Сохранить email</button>
                 </form>
-                <form className="setting-form" onSubmit={(e) => { e.preventDefault(); handleUpdate('newPassword', newPassword); }}>
-                    <div className="form-group">
+                <form className="settings-form" onSubmit={(e) => { e.preventDefault(); handleUpdate('newPassword', newPassword); }}>
+                    <div className="settings-form-group">
                         <label>Старый пароль</label>
                         <div className="password-input-wrapper">
                             <input
                                 type={showOldPassword ? "text" : "password"}
                                 value={oldPassword}
                                 onChange={(e) => setOldPassword(e.target.value)}
-                                className="input"
+                                className="settings-input"
                             />
-                            <button type="button" className="toggle-password" onClick={toggleShowOldPassword}>
+                            <button type="button" className="toggle-password-btn" onClick={toggleShowOldPassword}>
                                 <img src={showOldPassword ? "hide-eye.png" : "show-eye.png"} alt="Показать пароль" />
                             </button>
                         </div>
                     </div>
-                    <div className="form-group">
+                    <div className="settings-form-group">
                         <label>Новый пароль</label>
                         <div className="password-input-wrapper">
                             <input
                                 type={showNewPassword ? "text" : "password"}
                                 value={newPassword}
                                 onChange={(e) => setNewPassword(e.target.value)}
-                                className="input"
+                                className="settings-input"
                             />
-                            <button type="button" className="toggle-password" onClick={toggleShowNewPassword}>
+                            <button type="button" className="toggle-password-btn" onClick={toggleShowNewPassword}>
                                 <img src={showNewPassword ? "hide-eye.png" : "show-eye.png"} alt="Показать пароль" />
                             </button>
                         </div>
                         <small>Пароль должен содержать не менее 8 символов, включая цифры, латинские буквы и как минимум один специальный символ (*, @, #, и т.д.).</small>
                     </div>
-                    <div className="form-group">
+                    <div className="settings-form-group">
                         <label>Подтвердите новый пароль</label>
                         <div className="password-input-wrapper">
                             <input
                                 type={showConfirmPassword ? "text" : "password"}
                                 value={confirmPassword}
                                 onChange={(e) => setConfirmPassword(e.target.value)}
-                                className="input"
+                                className="settings-input"
                             />
-                            <button type="button" className="toggle-password" onClick={toggleShowConfirmPassword}>
+                            <button type="button" className="toggle-password-btn" onClick={toggleShowConfirmPassword}>
                                 <img src={showConfirmPassword ? "hide-eye.png" : "show-eye.png"} alt="Показать пароль" />
                             </button>
                         </div>
                     </div>
-                    <button type="submit" className="submit-button">Сохранить пароль</button>
+                    <button type="submit" className="save-btn">Сохранить пароль</button>
                 </form>
+                <button className="back-btn" onClick={() => navigate(-1)}>Назад</button>
             </div>
         </div>
     );

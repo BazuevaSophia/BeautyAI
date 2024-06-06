@@ -57,7 +57,7 @@ function ReviewArt() {
         const formData = new FormData();
         formData.append('comment', comment);
         formData.append('rating', rating);
-        formData.append('userId', currentUser.userId); 
+        formData.append('userId', currentUser.userId);
         if (image) {
             formData.append('photo', image);
         }
@@ -74,6 +74,8 @@ function ReviewArt() {
             setImage(null);
             setRating(0);
             setImagePreviewUrl('');
+
+            await axios.post(`/api/artists/updateRatings`);
         } catch (error) {
             console.error('Ошибка при отправке отзыва:', error);
         }
@@ -95,14 +97,14 @@ function ReviewArt() {
     };
 
     return (
-        <div className="review-art-page">
+        <div className="reviewPage">
             <h1>BeautyAI</h1>
-            <div className="review-art-links">
+            <div className="reviewLinks">
                 <Link to="/">Главная</Link>
                 <Link to="/history">История</Link>
                 <Link to="/profile">Профиль</Link>
             </div>
-            <form onSubmit={handleSubmit} className="review-form">
+            <form onSubmit={handleSubmit} className="reviewForm">
                 <textarea
                     value={comment}
                     onChange={(e) => {
@@ -111,19 +113,19 @@ function ReviewArt() {
                     }}
                     placeholder="Напишите ваш отзыв..."
                     required
-                    className="review-textarea"
+                    className="reviewTextarea"
                 />
                 {imagePreviewUrl && (
-                    <img src={imagePreviewUrl} alt="Preview" className="review-image-preview" />
+                    <img src={imagePreviewUrl} alt="Preview" className="reviewImagePreview" />
                 )}
                 <input
                     id="file-upload"
                     type="file"
                     onChange={handleImageChange}
-                    className="review-file-input"
+                    className="review-art-file-input"
                 />
-                <label htmlFor="file-upload" className="custom-file-label">Выбрать фото</label>
-                <div className="rating-input">
+                <label htmlFor="file-upload" className="customFileLabel">Выбрать фото</label>
+                <div className="ratingInput">
                     <label>Оценка:</label>
                     {[1, 2, 3, 4, 5].map(star => (
                         <span
@@ -135,31 +137,31 @@ function ReviewArt() {
                         </span>
                     ))}
                 </div>
-                <button type="submit" className="submit-button">Отправить</button>
+                <button type="submit" className="submitButton">Отправить</button>
             </form>
             <div className="reviews">
                 {reviews.map(review => (
-                    <div key={review.reviewId} className="review-wrapper">
-                        <div className="user-name-container">
-                            <p className="user-name"><strong>{review.userName}</strong></p>
+                    <div key={review.reviewId} className="reviewWrapper">
+                        <div className="userNameContainer">
+                            <p className="userName"><strong>{review.userName}</strong></p>
                         </div>
                         <div className="visit">
                             <p className="comment">{review.comment}</p>
                             {review.photos && review.photos.length > 0 && (
                                 <div className="photos">
                                     {review.photos.map((photo, index) => (
-                                        <img key={`${review.reviewId}-${index}`} src={photo} alt="Review" className="review-photo" />
+                                        <img key={`${review.reviewId}-${index}`} src={photo} alt="Review" className="reviewPhoto" />
                                     ))}
                                 </div>
                             )}
                         </div>
                         {currentUser && currentUser.userId === review.userId && (
-                            <button onClick={() => handleDelete(review.reviewId)} className="delete-button">Удалить</button>
+                            <button onClick={() => handleDelete(review.reviewId)} className="deleteButton">Удалить</button>
                         )}
                     </div>
                 ))}
             </div>
-            <button className="back-button" onClick={() => navigate(-1)}>Назад</button>
+            <button className="backButton" onClick={() => navigate(-1)}>Назад</button>
         </div>
     );
 }

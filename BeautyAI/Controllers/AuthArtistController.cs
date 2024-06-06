@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using BeautyAI.Data;
+using BeautyAI.Models;
 using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authentication;
@@ -9,40 +10,44 @@ namespace BeautyAI.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class AuthorizationController : ControllerBase
+    public class AuthArtistController : ControllerBase
     {
         private readonly BeautyAIDbContext _context;
-        private readonly ILogger<AuthorizationController> _logger;
+        private readonly ILogger<AuthArtistController> _logger;
 
-        public AuthorizationController(BeautyAIDbContext context, ILogger<AuthorizationController> logger)
+        public AuthArtistController(BeautyAIDbContext context, ILogger<AuthArtistController> logger)
         {
             _context = context;
             _logger = logger;
         }
 
         [HttpPost("login")]
-        public async Task<IActionResult> Login([FromBody] LoginModel loginModel)
+        public async Task<IActionResult> Login([FromBody] ArtistLoginModel loginModel)
         {
             try
             {
-                var user = await _context.Users.SingleOrDefaultAsync(u => u.Phone == loginModel.Phone);
+                var artist = await _context.Artists.SingleOrDefaultAsync(a => a.Phone == loginModel.Phone);
 
-                if (user == null || user.Password != loginModel.Password)
+                if (artist == null || artist.Password != (loginModel.Password ?? string.Empty))
                 {
                     _logger.LogWarning("Вход не выполнен. Неверные учетные данные.");
                     return Unauthorized(new { message = "Неверные учетные данные." });
                 }
 
-                if (user.Role != "Клиент")
+                
+                _logger.LogInformation("Роль пользователя: {Role}", artist.Role);
+
+                if (artist.Role.Trim() != "визажист")
                 {
-                    _logger.LogWarning("Вход не выполнен. Пользователь не является клиентом.");
-                    return Unauthorized(new { message = "Вход разрешен только для клиентов." });
+                    _logger.LogWarning("Вход не выполнен. Пользователь не является визажистом.");
+                    return Unauthorized(new { message = "Вход разрешен только для визажистов." });
                 }
 
                 var claims = new List<Claim>
                 {
-                    new Claim(ClaimTypes.NameIdentifier, user.UserId.ToString()),
-                    new Claim(ClaimTypes.Role, user.Role)
+                    new Claim(ClaimTypes.NameIdentifier, artist.ArtistId.ToString()),
+                    new Claim(ClaimTypes.Name, artist.Name),
+                    new Claim(ClaimTypes.Role, artist.Role)
                 };
 
                 var authProperties = new AuthenticationProperties
@@ -54,8 +59,8 @@ namespace BeautyAI.Controllers
                 var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
                 await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity), authProperties);
 
-                _logger.LogInformation("Пользователь {Phone} успешно вошел в систему.", user.Phone);
-                return Ok(new { message = "Успешный вход.", role = user.Role });
+                _logger.LogInformation("Пользователь {Phone} успешно вошел в систему.", artist.Phone);
+                return Ok(new { message = "Успешный вход.", role = artist.Role });
             }
             catch (Exception ex)
             {
@@ -79,11 +84,5 @@ namespace BeautyAI.Controllers
                 return StatusCode(500, new { message = "Произошла ошибка на сервере" });
             }
         }
-    }
-
-    public class LoginModel
-    {
-        public string Phone { get; set; } = string.Empty;
-        public string Password { get; set; } = string.Empty;
     }
 }

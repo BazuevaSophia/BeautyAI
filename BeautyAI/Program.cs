@@ -25,11 +25,26 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
                     options.Cookie.HttpOnly = true;
                     options.Cookie.SecurePolicy = CookieSecurePolicy.None;
                     options.Cookie.SameSite = SameSiteMode.Lax;
-
+                    options.Cookie.MaxAge = TimeSpan.FromMinutes(60);
+                    options.Events = new CookieAuthenticationEvents
+                    {
+                        OnSigningIn = context =>
+                        {
+                            context.Properties.IsPersistent = false;
+                            return Task.CompletedTask;
+                        }
+                    };
                 });
 
 builder.Services.AddDbContext<BeautyAIDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+builder.WebHost.ConfigureKestrel(serverOptions =>
+{
+    serverOptions.Limits.MaxRequestHeadersTotalSize = 262144;
+    serverOptions.Limits.MaxRequestHeaderCount = 200;
+    serverOptions.Limits.MaxRequestBodySize = 104857600; 
+});
 
 var app = builder.Build();
 
@@ -47,6 +62,16 @@ app.UseCors("AllowSpecificOrigin");
 
 app.UseAuthentication();
 app.UseAuthorization();
+
+app.Use(async (context, next) =>
+{
+    var headers = context.Request.Headers;
+    foreach (var header in headers)
+    {
+        Console.WriteLine($"{header.Key}: {header.Value}");
+    }
+    await next.Invoke();
+});
 
 app.MapControllerRoute(
     name: "default",
