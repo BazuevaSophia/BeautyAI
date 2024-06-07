@@ -33,7 +33,10 @@ public class ProfileArtistController : ControllerBase
                                           a.ArtistId,
                                           a.Name,
                                           a.Phone,
-                                          a.Photo
+                                          a.Photo,
+                                          a.Rating,
+                                          a.PersDescription,
+                                          a.Surname
                                       })
                                       .FirstOrDefaultAsync();
             if (artist == null)
@@ -153,7 +156,7 @@ public class ProfileArtistController : ControllerBase
     }
 
     [HttpPost("updateProfile")]
-    public async Task<IActionResult> UpdateProfile([FromBody] UpdateProfileModel model)
+    public async Task<IActionResult> UpdateProfile([FromBody] UpdateArtistProfileModel model)
     {
         try
         {
@@ -179,12 +182,20 @@ public class ProfileArtistController : ControllerBase
                 artist.Password = model.NewPassword;
             }
 
-            artist.Phone = model.Phone;
+            if (!string.IsNullOrEmpty(model.Phone))
+            {
+                artist.Phone = model.Phone;
+            }
+
+            if (!string.IsNullOrEmpty(model.PersDescription))
+            {
+                artist.PersDescription = model.PersDescription;
+            }
 
             _context.Artists.Update(artist);
             await _context.SaveChangesAsync();
 
-            return Ok(new { artist.Phone, message = "Данные профиля успешно обновлены." });
+            return Ok(new { artist.Phone, artist.PersDescription, message = "Данные профиля успешно обновлены." });
         }
         catch (Exception ex)
         {

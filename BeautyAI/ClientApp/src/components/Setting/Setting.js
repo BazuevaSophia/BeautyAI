@@ -220,7 +220,10 @@ function Setting() {
                                 className="settings-input"
                             />
                             <button type="button" className="toggle-password-btn" onClick={toggleShowConfirmPassword}>
-                                <img src={showConfirmPassword ? "hide-eye.png" : "show-eye.png"} alt="Показать пароль" />
+                                <img
+                                    src={showConfirmPassword ? "hide-eye.png" : "show-eye.png"}
+                                    alt="Показать пароль"
+                                />
                             </button>
                         </div>
                     </div>

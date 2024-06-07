@@ -61,6 +61,9 @@
     <None Remove="ClientApp\src\components\Setting\" />
     <None Remove="ClientApp\src\components\ArtistAuth\" />
     <None Remove="ClientApp\src\components\ProfileArtist\" />
+    <None Remove="ClientApp\src\components\MyPortfolio\" />
+    <None Remove="ClientApp\src\components\MyCalendar\" />
+    <None Remove="ClientApp\src\components\MyApplication\" />
   </ItemGroup>
 
   <ItemGroup>
@@ -93,6 +96,9 @@
     <Folder Include="ClientApp\src\components\Setting\" />
     <Folder Include="ClientApp\src\components\ArtistAuth\" />
     <Folder Include="ClientApp\src\components\ProfileArtist\" />
+    <Folder Include="ClientApp\src\components\MyPortfolio\" />
+    <Folder Include="ClientApp\src\components\MyCalendar\" />
+    <Folder Include="ClientApp\src\components\MyApplication\" />
   </ItemGroup>
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">
     <!-- Ensure Node.js is installed -->

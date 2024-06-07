@@ -5,7 +5,7 @@
     font-style: normal;
 }
 
-.profile-page {
+.new-profile-page {
     position: relative;
     font-family: Arial, sans-serif;
     color: #FF898F;
@@ -14,18 +14,18 @@
     padding: 20px;
 }
 
-    .profile-page h1 {
+    .new-profile-page h1 {
         font-size: 80px;
         font-weight: bold;
         margin-bottom: 20px;
     }
 
-.profile-links {
+.new-profile-links {
     display: flex;
     gap: 25px;
 }
 
-    .profile-links a {
+    .new-profile-links a {
         text-decoration: none;
         font-size: 20px;
         color: #FF898F;
@@ -36,25 +36,25 @@
         transition: background-color 0.3s ease, color 0.3s ease;
     }
 
-        .profile-links a:hover {
+        .new-profile-links a:hover {
             background-color: rgba(255, 255, 255, 0.5);
             color: #81D7FE;
         }
 
-.profile-content {
+.new-profile-content {
     display: flex;
     justify-content: flex-start;
     align-items: flex-start;
 }
 
-.user-info {
+.new-user-info {
     display: flex;
     flex-direction: row;
     align-items: flex-start;
     gap: 50px;
 }
 
-.user-photo {
+.new-user-photo {
     width: 200px;
     height: 200px;
     border: 3px solid #9EC1DA;
@@ -63,13 +63,13 @@
     margin-top: 30px;
 }
 
-    .user-photo img {
+    .new-user-photo img {
         width: 100%;
         height: 100%;
         object-fit: cover;
     }
 
-.photo-button {
+.new-photo-button {
     margin-left: 20px;
     margin-top: 100px;
     cursor: pointer;
@@ -86,12 +86,12 @@
     color: #131414;
 }
 
-    .photo-button:hover {
+    .new-photo-button:hover {
         background-color: rgba(78, 78, 78, 0.3);
         color: #4D4F4F;
     }
 
-.logout-button {
+.new-logout-button {
     position: absolute;
     top: 20px;
     right: 20px;
@@ -105,81 +105,96 @@
     transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-    .logout-button:hover {
+    .new-logout-button:hover {
         background-color: rgba(255, 255, 255, 0.5);
         color: #DA1212;
     }
 
-.user-details {
+.new-user-details {
     text-align: justify;
     margin-left: 300px;
     margin-top: 30px;
     font-family: 'Angst', sans-serif;
+    color: #FF75AF;
 }
 
-    .user-details h2 {
+    .new-user-details h2 {
         font-size: 50px;
         color: #78C0E0;
+
     }
 
-    .user-details p {
+    .new-user-details p {
         font-size: 20px;
+
     }
 
-.profile-actions {
+.new-profile-actions {
     display: flex;
     flex-direction: column;
     gap: 10px;
     align-items: center;
-    padding-top: 20px;
+    margin-top: -500px;
+    margin-left: 400px;
+
 }
 
-.button-settings, .button-booking, .button-favorites {
+.new-button-settings, .new-button-booking, .new-button-favorites {
     padding: 10px 20px;
     font-size: 20px;
     cursor: pointer;
     transition: all 0.3s ease;
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-    background-color: rgba(78, 78, 78, 0.2);
+    background-color: rgba(255, 63, 213, 0.2);
     transition: transform 0.3s ease;
     border: 1px solid #0F0F0F;
     border-radius: 20px;
     width: 15%;
     margin-top: 10px;
-    margin-left: -1160px;
     text-align: center;
     text-decoration: none;
     color: white;
 }
 
-.button-settings {
+.new-button-settings {
     margin-top: 0;
+    margin-left: 600px;
+    width: 250px;
+    height: 60px;
+    font-size: 25px;
 }
 
-    .button-settings:hover {
+    .new-button-settings:hover {
         background-color: rgba(135, 216, 253, 1);
         color: #4D4F4F;
     }
 
-.button-booking {
+.new-button-booking {
+    margin-left: 1px;
+    width: 220px;
+    height: 60px;
+    font-size: 25px;
 }
 
-    .button-booking:hover {
+    .new-button-booking:hover {
         background-color: rgba(135, 216, 253, 1);
         color: #4D4F4F;
-
     }
 
-.button-favorites {
+.new-button-favorites {
+    margin-left: 500px;
+    width: 250px;
+    height: 60px;
+    font-size: 25px;
 }
 
-    .button-favorites:hover {
+    .new-button-favorites:hover {
         background-color: rgba(135, 216, 253, 1);
         color: #4D4F4F;
         text-decoration: none;
     }
 
-.feedback {
+.new-feedback {
     text-align: left;
     position: absolute;
     bottom: 10px;
@@ -188,10 +203,95 @@
     color: black;
 }
 
-    .feedback h2 {
+    .new-feedback h2 {
         font-size: 20px;
     }
 
-    .feedback p {
+    .new-feedback p {
         font-size: 18px;
+    }
+
+.new-user-rating {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 10px;
+    margin-left: -130px;
+    color: #FF75AF;
+}
+
+    .new-user-rating .star {
+        font-size: 60px; 
+        color: #FFED8F; 
+        margin: 0 5px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 60px;
+        height: 60px;
+        line-height: 60px; 
+    }
+
+.new-user-description {
+    margin-top: 20px;
+    text-align: match-parent;
+    color: #FF75AF;
+    margin-left: -270px;
+}
+
+    .new-user-description p {
+        font-size: 18px;
+        margin-bottom: 10px;
+        font-size: 18px;
+        max-width: 700px;
+        margin-top: 20px;
+        color: #000000;
+        font-family: 'Angst', sans-serif;
+    }
+
+    .new-user-description textarea {
+        width: 100%;
+        max-width: 500px;
+        min-height: 100px;
+        padding: 10px;
+        font-size: 16px;
+        border-radius: 10px;
+        border: 1px solid #ccc;
+        background-color: #f8f8f8;
+        resize: vertical;
+    }
+
+    .new-user-description button {
+        margin-top: 10px;
+        padding: 10px 20px;
+        font-size: 16px;
+        color: white;
+        background-color: #FF929A;
+        border: none;
+        border-radius: 10px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+        .new-user-description button:hover {
+            background-color: #5FD4EE;
+        }
+.new-phone-number {
+    font-size: 23px;
+    color: #000; 
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+}
+.new-photo-button {
+    width: 300px;
+    height: 60px;
+    font-size: 18px;
+    background-color: rgba(255, 63, 213, 0.2);
+    color: white;
+    font-family: Arial, sans-serif;
+}
+    .new-photo-button:hover {
+        background-color: rgba(135, 216, 253, 1);
+        color: #4D4F4F;
     }

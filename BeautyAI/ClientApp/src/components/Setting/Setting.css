@@ -51,6 +51,7 @@
 .settings-form-group {
     display: flex;
     flex-direction: column;
+
 }
 
     .settings-form-group label {
@@ -66,20 +67,34 @@
         border-radius: 10px;
         border: 1px solid #ccc;
         background-color: #f8f8f8;
+
     }
 
 .password-input-wrapper {
     display: flex;
     align-items: center;
+
 }
 
 .toggle-password-btn {
-    background: none;
-    border: none;
-    cursor: pointer;
-    color: #FF898F;
+    background: none; 
+    border: none; 
+    padding: 0; 
+    cursor: pointer; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center;
     margin-left: 10px;
 }
+
+    .toggle-password-btn img {
+        width: 20px; 
+        height: 20px; 
+    }
+
+    .toggle-password-btn:hover {
+        background: none; 
+    }
 
 .save-btn {
     margin-top: 20px;
@@ -116,3 +131,12 @@
         background-color: rgba(255, 255, 255, 0.5);
         color: #000000;
     }
+
+.settings-input {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    background-color: #f8f8f8;
+}

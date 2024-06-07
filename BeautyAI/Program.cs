@@ -2,6 +2,8 @@
 using BeautyAI.Models;
 using BeautyAI.Data;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.Extensions.DependencyInjection;
+using System;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -43,7 +45,7 @@ builder.WebHost.ConfigureKestrel(serverOptions =>
 {
     serverOptions.Limits.MaxRequestHeadersTotalSize = 262144;
     serverOptions.Limits.MaxRequestHeaderCount = 200;
-    serverOptions.Limits.MaxRequestBodySize = 104857600; 
+    serverOptions.Limits.MaxRequestBodySize = 104857600;
 });
 
 var app = builder.Build();
@@ -78,5 +80,6 @@ app.MapControllerRoute(
     pattern: "{controller}/{action=Index}/{id?}");
 
 app.MapFallbackToFile("index.html");
+
 
 app.Run();

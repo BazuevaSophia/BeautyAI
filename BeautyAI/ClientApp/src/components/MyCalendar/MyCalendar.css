@@ -1,0 +1,123 @@
+﻿.my-calendar-page {
+    position: relative;
+    font-family: Arial, sans-serif;
+    color: #FF898F;
+    background: linear-gradient(180deg, #FFB6B9 0%, #FAE3D9 50%, #BBDED6 100%);
+    min-height: 100vh;
+    padding: 20px;
+}
+
+    .my-calendar-page h1 {
+        font-size: 80px;
+        font-weight: bold;
+        margin-bottom: 20px;
+    }
+
+.calendar-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+}
+
+.calendar-day {
+    flex: 1;
+    min-width: 250px;
+    padding: 10px;
+    background-color: rgba(255, 255, 255, 0.3);
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.top-row {
+    order: 1;
+}
+
+.bottom-row {
+    order: 2;
+}
+
+.time-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    justify-content: center;
+    margin-bottom: 10px;
+}
+
+.time-button {
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f8f8f8;
+    cursor: pointer;
+}
+
+    .time-button.selected {
+        background-color: #81D7FE;
+        color: white;
+    }
+
+    .time-button:disabled {
+        background-color: #ccc;
+        cursor: not-allowed;
+    }
+
+.confirm-button {
+    padding: 10px 20px;
+    font-size: 16px;
+    color: white;
+    background-color: #FF519A;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 10px;
+}
+
+    .confirm-button:hover {
+        background-color: #5FD4EE;
+    }
+
+.confirmed-times {
+    margin-top: 10px;
+}
+
+    .confirmed-times h3 {
+        font-size: 18px;
+        margin-bottom: 5px;
+    }
+
+    .confirmed-times ul {
+        list-style: none;
+        padding: 0;
+    }
+
+    .confirmed-times li {
+        font-size: 16px;
+    }
+
+.bck-buttn {
+    margin-top: 50px;
+    text-decoration: none;
+    font-size: 20px;
+    color: #000000;
+    background-color: rgba(255, 255, 255, 0.3);
+    padding: 7px 30px;
+    border-radius: 30px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease, color 0.3s ease;
+    cursor: pointer;
+}
+
+    .bck-buttn:hover {
+        background-color: rgba(255, 255, 255, 0.5);
+        color: #000000;
+    }
+.day-heading {
+    color: #FF88BA; /* Замените этот цвет на желаемый */
+    font-family: 'Angst', sans-serif;
+    font-size: 25px;
+}

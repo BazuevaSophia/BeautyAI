@@ -19,6 +19,8 @@ import Reservations from './components/Reservations/Reservations';
 import Setting from './components/Setting/Setting';
 import ArtistAuth from './components/ArtistAuth/ArtistAuth';
 import ProfileArtist from './components/ProfileArtist/ProfileArtist';
+import MyCalendar from './components/MyCalendar/MyCalendar';
+
 
 function App() {
     return (
@@ -42,6 +44,8 @@ function App() {
             <Route path="/setting" element={<Setting />} />
             <Route path="/artist-auth" element={<ArtistAuth />} />
             <Route path="/profile-artist" element={<ProfileArtist />} />
+            <Route path="/my-calendar" element={<MyCalendar />} />
+
 
         </Routes>
     );
