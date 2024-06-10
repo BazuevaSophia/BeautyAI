@@ -1,6 +1,6 @@
 ﻿.my-application-page {
     position: relative;
-    font-family: Arial,sans-serif;
+    font-family: Arial, sans-serif;
     color: #FF898F;
     background: linear-gradient(180deg, #FFB6B9 0%, #FAE3D9 50%, #BBDED6 100%);
     min-height: 100vh;
@@ -13,3 +13,69 @@
         margin-bottom: 20px;
     }
 
+.bookings-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.booking-container {
+    display: flex;
+    align-items: center;
+}
+
+.booking-card {
+    border-radius: 20px;
+    padding: 20px;
+    margin: 5px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+    border: 1px solid #0F0F0F;
+    overflow: hidden;
+    resize: none;
+    min-height: 50px;
+    background-color: rgba(78, 78, 78, 0.2);
+    font-family: 'Angst', sans-serif;
+    margin-top: 30px;
+    width: 450px;
+}
+
+    .booking-card p {
+        margin-bottom: 8px;
+        color: #333;
+        font-size: 18px;
+    }
+
+.complete-button {
+    color: white;
+    background-color: #E21717;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-left: 10px;
+    width: 180px;
+    align-items: center;
+}
+
+    .complete-button:hover {
+        background-color: #FF6670;
+    }
+
+.bck-buttn {
+    margin-top: 50px;
+    text-decoration: none;
+    font-size: 20px;
+    color: #000000;
+    background-color: rgba(255, 255, 255, 0.3);
+    padding: 7px 30px;
+    border-radius: 30px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease, color 0.3s ease;
+    cursor: pointer;
+}
+
+    .bck-buttn:hover {
+        background-color: rgba(255, 255, 255, 0.5);
+        color: #000000;
+    }

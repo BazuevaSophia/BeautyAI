@@ -1,60 +1,61 @@
 ﻿import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 import './BeautyBooth.css';
 
-function BeautyBooth() {
+const BeautyBooth = () => {
+    const [file, setFile] = useState(null);
     const [selectedImage, setSelectedImage] = useState(null);
-    const [selectedImageFile, setSelectedImageFile] = useState(null);
-    const [selectedFeature, setSelectedFeature] = useState('lips'); 
+    const [processedImage, setProcessedImage] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
-    const [originalImage, setOriginalImage] = useState(null);
+    const [remainingTime, setRemainingTime] = useState(0);
 
     const handleImageChange = (e) => {
-        if (e.target.files && e.target.files[0]) {
-            const imageFile = e.target.files[0];
-            setSelectedImageFile(imageFile); 
-            const imagePreviewUrl = URL.createObjectURL(imageFile);
-            setOriginalImage(imagePreviewUrl); 
-            setSelectedImage(imagePreviewUrl);
-        }
+        const selectedFile = e.target.files[0];
+        setFile(selectedFile);
+        setSelectedImage(URL.createObjectURL(selectedFile));
+        setProcessedImage(null); 
+    };
+
+    const handleShowOriginal = () => {
+        setProcessedImage(null);
+    };
+
+    const startTimer = (duration) => {
+        let timer = duration;
+        setRemainingTime(duration);
+        const interval = setInterval(() => {
+            setRemainingTime(timer);
+            if (--timer < 0) {
+                clearInterval(interval);
+            }
+        }, 1000);
     };
 
     const applyMakeup = async () => {
-        if (!selectedImageFile || !selectedFeature) return;
-
-        console.log(selectedImageFile); 
-
-        setIsLoading(true);
         const formData = new FormData();
-        formData.append('file', selectedImageFile); 
+        formData.append('file', file);
 
         try {
-            
-            const response = await fetch(`http://127.0.0.1:8000/apply-makeup/?choice=${selectedFeature}`, {
-                method: 'POST',
-                body: formData,
+            setIsLoading(true);
+            startTimer(10); 
+
+            const response = await axios.post('/api/ImageProcessing/upload', formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                },
+                responseType: 'blob'
             });
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
-            }
-            const data = await response.blob();
-            const makeupImage = URL.createObjectURL(data);
-            setSelectedImage(makeupImage); 
+
+            const imageBlob = new Blob([response.data]);
+            const imageUrl = URL.createObjectURL(imageBlob);
+            setProcessedImage(imageUrl);
+            setIsLoading(false);
         } catch (error) {
-            console.error('Ошибка при отправке изображения: ', error);
-        } finally {
-            setIsLoading(false); 
+            console.error("Error uploading the file", error);
+            setIsLoading(false);
         }
     };
-
-
-    const handleShowOriginal = () => {
-        if (originalImage) {
-            setSelectedImage(originalImage); 
-        }
-    };
-   
-
 
     return (
         <div className="beauty-booth-page">
@@ -69,29 +70,24 @@ function BeautyBooth() {
                 <Link to="/history">История</Link>
                 <Link to="/profile">Профиль</Link>
             </div>
-            <div className="select-container">
-                <label htmlFor="file" className="btn-choose-photo">Выбрать фото</label> 
-                <select value={selectedFeature} onChange={e => setSelectedFeature(e.target.value)}>
-                    <option value="lips">Помада</option>
-                    <option value="blush">Румяна</option>
-                </select>
-            </div>
+
             <img src="bot2.png" alt="Bot" className="bot-image" />
             <input type="file" id="file" onChange={handleImageChange} style={{ display: 'none' }} />
-            
+            <label htmlFor="file" className="choose-photo-button">Выбрать фото</label>
+
             <div className="beauty-booth-content">
                 <div className="photo-frame">
-                    {selectedImage && <img src={selectedImage} alt="Выбранное фото" className="photo-preview" />}
+                    {selectedImage && !processedImage && <img src={selectedImage} alt="Выбранное фото" className="photo-preview" />}
+                    {processedImage && <img src={processedImage} alt="Processed" className="photo-preview" />}
                 </div>
             </div>
             <div className="but">
                 <button onClick={applyMakeup} disabled={isLoading}>Применить макияж</button>
-                <button onClick={handleShowOriginal} disabled={!originalImage}>Показать оригинал</button>
-                {isLoading && <div>Загрузка...</div>}
+                <button onClick={handleShowOriginal} disabled={!processedImage}>Показать оригинал</button>
+                {isLoading && <div>Загрузка... {remainingTime} секунд осталось</div>}
             </div>
-           
-            </div>
-        );
-    }
+        </div>
+    );
+};
 
-    export default BeautyBooth;
+export default BeautyBooth;

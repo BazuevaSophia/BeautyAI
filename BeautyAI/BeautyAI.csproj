@@ -64,6 +64,7 @@
     <None Remove="ClientApp\src\components\MyPortfolio\" />
     <None Remove="ClientApp\src\components\MyCalendar\" />
     <None Remove="ClientApp\src\components\MyApplication\" />
+    <None Remove="ClientApp\src\components\MyService\" />
   </ItemGroup>
 
   <ItemGroup>
@@ -99,6 +100,7 @@
     <Folder Include="ClientApp\src\components\MyPortfolio\" />
     <Folder Include="ClientApp\src\components\MyCalendar\" />
     <Folder Include="ClientApp\src\components\MyApplication\" />
+    <Folder Include="ClientApp\src\components\MyService\" />
   </ItemGroup>
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">
     <!-- Ensure Node.js is installed -->

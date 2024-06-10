@@ -20,7 +20,9 @@ import Setting from './components/Setting/Setting';
 import ArtistAuth from './components/ArtistAuth/ArtistAuth';
 import ProfileArtist from './components/ProfileArtist/ProfileArtist';
 import MyCalendar from './components/MyCalendar/MyCalendar';
-
+import MyPortfolio from './components/MyPortfolio/MyPortfolio';
+import MyApplication from './components/MyApplication/MyApplication';
+import MyService from './components/MyService/MyService';
 
 function App() {
     return (
@@ -45,6 +47,10 @@ function App() {
             <Route path="/artist-auth" element={<ArtistAuth />} />
             <Route path="/profile-artist" element={<ProfileArtist />} />
             <Route path="/my-calendar" element={<MyCalendar />} />
+            <Route path="/my-portfolio" element={<MyPortfolio />} />
+            <Route path="/my-application" element={<MyApplication />} />
+            <Route path="/my-service" element={<MyService />} />
+
 
 
         </Routes>

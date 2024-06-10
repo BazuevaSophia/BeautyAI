@@ -1,0 +1,93 @@
+﻿.my-service-page {
+    position: relative;
+    font-family: Arial, sans-serif;
+    color: #FF898F;
+    background: linear-gradient(180deg, #FFB6B9 0%, #FAE3D9 50%, #BBDED6 100%);
+    min-height: 100vh;
+    padding: 20px;
+}
+
+    .my-service-page h1 {
+        font-size: 80px;
+        font-weight: bold;
+        margin-bottom: 20px;
+    }
+
+.services-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+}
+
+.service-card {
+    margin-top: 30px;
+    margin-left: 30px;
+    margin-bottom: 60px;
+    background-color: rgba(255, 255, 255, 0.3);
+    border-radius: 10px;
+    padding: 10px;
+    width: calc(30% - 30px);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+    .service-card:hover {
+        transform: scale(1.05);
+    }
+
+    .service-card img {
+        width: 100%;
+        height: auto;
+        border-radius: 10px;
+    }
+
+    .service-card h2 {
+        font-family: 'Angst', sans-serif;
+        font-size: 24px;
+        font-weight: bold;
+        color: #000;
+        text-align: center;
+    }
+
+    .service-card p {
+        margin-top: 20px;
+        color: #FFF;
+        font-size: 18px;
+    }
+
+    .service-card .details p {
+        color: #000;
+    }
+
+.add-button, .delete-button {
+    background-color: #FF898F;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-top: 10px;
+}
+
+    .add-button:hover, .delete-button:hover {
+        background-color: #FF6670;
+    }
+
+.bck-buttn {
+    margin-top: 50px;
+    text-decoration: none;
+    font-size: 20px;
+    color: #000000;
+    background-color: rgba(255, 255, 255, 0.3);
+    padding: 7px 30px;
+    border-radius: 30px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease, color 0.3s ease;
+    cursor: pointer;
+}
+
+    .bck-buttn:hover {
+        background-color: rgba(255, 255, 255, 0.5);
+        color: #000000;
+    }

@@ -9,7 +9,6 @@ function MyCalendar() {
     const navigate = useNavigate();
 
     useEffect(() => {
-        // Получение данных пользователя для получения artistId
         const fetchUserData = async () => {
             try {
                 const response = await fetch('https://localhost:7125/api/profileArtist/getProfile', {
@@ -28,14 +27,12 @@ function MyCalendar() {
 
         fetchUserData();
 
-        // Инициализация выбранных временных интервалов для каждого дня недели
         const initTimes = {};
         getWeekDates().forEach(date => {
             initTimes[formatDate(date)] = [];
         });
         setSelectedTimes(initTimes);
-
-        // Получение подтвержденных временных интервалов из базы данных
+     
         const fetchConfirmedTimes = async () => {
             try {
                 const response = await fetch('https://localhost:7125/api/schedule/confirmed', {
@@ -124,14 +121,11 @@ function MyCalendar() {
                 throw new Error('Ошибка при отправке данных');
             }
             alert('Время успешно сохранено!');
-
-            // Обновление подтвержденных времен после сохранения
             setConfirmedTimes({
                 ...confirmedTimes,
                 [formattedDate]: [...(confirmedTimes[formattedDate] || []), ...selectedForDate]
             });
 
-            // Очистка выбранных времен
             setSelectedTimes({
                 ...selectedTimes,
                 [formattedDate]: []

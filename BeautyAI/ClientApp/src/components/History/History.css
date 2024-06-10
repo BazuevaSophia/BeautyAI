@@ -16,6 +16,7 @@
 .history-links {
     display: flex;
     gap: 25px;
+    margin-bottom: 30px; 
 }
 
     .history-links a {
@@ -33,6 +34,11 @@
             background-color: rgba(255, 255, 255, 0.5);
             color: #81D7FE;
         }
+.visits {
+    display: flex;
+    flex-direction: column;
+    gap: 20px; 
+}
 .visit {
     border-radius: 20px;
     padding: 20px;

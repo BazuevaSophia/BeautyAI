@@ -49,7 +49,20 @@ function SignUp() {
                     throw new Error(`HTTP error! status: ${response.status}`);
                 }
                 const data = await response.json();
-                setSignUps(data);
+
+                const updatedSignUps = await Promise.all(
+                    data.map(async (signUp) => {
+                        const bookedResponse = await fetch(`${apiUrl}/api/artists/${artistId}/booked-times/${signUp.dayOfWeek}`);
+                        if (!bookedResponse.ok) {
+                            throw new Error(`HTTP error! status: ${bookedResponse.status}`);
+                        }
+                        const bookedTimes = await bookedResponse.json();
+                        const availableTimes = signUp.times.filter(time => !bookedTimes.includes(time));
+                        return { ...signUp, times: availableTimes };
+                    })
+                );
+
+                setSignUps(updatedSignUps);
             } catch (error) {
                 console.error('Ошибка при загрузке данных записей:', error);
             } finally {
@@ -113,7 +126,7 @@ function SignUp() {
 
             const data = await response.json();
             if (!response.ok) {
-                throw new Error(data);
+                throw new Error(data.message || 'Ошибка при создании бронирования');
             }
 
             console.log('Booking created/updated successfully:', data);
@@ -121,11 +134,10 @@ function SignUp() {
             setShowModal(true);
         } catch (error) {
             console.error('Ошибка при создании/изменении бронирования:', error);
-            setModalMessage('Произошла ошибка при создании/изменении бронирования. Пожалуйста, попробуйте снова.');
+            setModalMessage(`Произошла ошибка при создании/изменении бронирования. ${error.message}`);
             setShowModal(true);
         }
     };
-
 
     const closeModal = () => {
         setShowModal(false);

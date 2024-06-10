@@ -28,6 +28,14 @@ public class BookingsController : ControllerBase
             return BadRequest(ModelState);
         }
 
+        var existingBooking = await _context.Bookings
+            .FirstOrDefaultAsync(b => b.UserId == bookingDTO.UserId && b.ServiceId == bookingDTO.ServiceId && b.Date == bookingDTO.Date && b.Time == bookingDTO.Time && b.Status == "оформлен");
+
+        if (existingBooking != null)
+        {
+            return BadRequest(new { message = "Вы уже записаны на эту услугу на указанную дату и время." });
+        }
+
         var booking = new Booking
         {
             UserId = bookingDTO.UserId,
@@ -81,8 +89,8 @@ public class BookingsController : ControllerBase
                 ArtistName = b.Artist.Name,
                 Duration = b.Service.Duration,
                 Price = b.Service.Price,
-                ArtistId = b.ArtistId, 
-                ServiceId = b.ServiceId 
+                ArtistId = b.ArtistId,
+                ServiceId = b.ServiceId
             })
             .ToListAsync();
 
@@ -130,5 +138,36 @@ public class BookingsController : ControllerBase
         _logger.LogInformation($"Booking with ID: {bookingId} updated successfully");
 
         return NoContent();
+    }
+
+    [HttpGet("completed")]
+    public async Task<IActionResult> GetCompletedBookings()
+    {
+        try
+        {
+            var bookings = await _context.Bookings
+                .Where(b => b.Status == "выполнена")
+                .Include(b => b.Service)
+                .Include(b => b.Artist)
+                .Select(b => new CompletedBookingDTO
+                {
+                    BookingId = b.BookingId,
+                    Description = b.Service.Name,
+                    Date = b.Date, 
+                    Time = b.Time, 
+                    Master = b.Artist.Name,
+                    Duration = b.Service.Duration, 
+                    Price = b.Service.Price.ToString() 
+                })
+                .ToListAsync();
+            _logger.LogInformation($"Completed bookings: {JsonConvert.SerializeObject(bookings)}");
+
+            return Ok(bookings);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Ошибка при получении завершенных бронирований");
+            return StatusCode(500, "Внутренняя ошибка сервера");
+        }
     }
 }

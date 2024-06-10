@@ -284,4 +284,14 @@ public class ArtistsController : ControllerBase
         }
     }
 
+    [HttpGet("{artistId}/booked-times/{date}")]
+    public async Task<IActionResult> GetBookedTimes(int artistId, string date)
+    {
+        var bookedTimes = await _context.Bookings
+            .Where(b => b.ArtistId == artistId && b.Date == date && b.Status == "оформлен")
+            .Select(b => b.Time)
+            .ToListAsync();
+
+        return Ok(bookedTimes);
+    }
 }

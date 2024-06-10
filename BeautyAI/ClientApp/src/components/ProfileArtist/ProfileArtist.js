@@ -149,6 +149,7 @@ function ProfileArtist() {
                 <Link to="/my-calendar" className="new-button-settings">Мое расписание</Link>
                 <Link to="/my-application" className="new-button-booking">Мои заявки</Link>
                 <Link to="/my-portfolio" className="new-button-favorites">Мое портфолио</Link>
+                <Link to="/my-service" className="new-button-service">Мои услуги</Link>
             </div>
             <input type="file" id="photoInput" style={{ display: 'none' }} onChange={handlePhotoUpload} />
             <div className="new-feedback">
