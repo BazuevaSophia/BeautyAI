@@ -9,12 +9,15 @@ const BeautyBooth = () => {
     const [processedImage, setProcessedImage] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
     const [remainingTime, setRemainingTime] = useState(0);
+    const [showModal, setShowModal] = useState(false);
+    const [modalMessage, setModalMessage] = useState('');
 
     const handleImageChange = (e) => {
         const selectedFile = e.target.files[0];
         setFile(selectedFile);
         setSelectedImage(URL.createObjectURL(selectedFile));
         setProcessedImage(null);
+        setModalMessage('');
     };
 
     const handleShowOriginal = () => {
@@ -30,6 +33,41 @@ const BeautyBooth = () => {
                 clearInterval(interval);
             }
         }, 1000);
+    };
+
+    const detectFaceAndApplyMakeup = async () => {
+        if (!file) {
+            setModalMessage('Пожалуйста, загрузите фото.');
+            setShowModal(true);
+            return;
+        }
+
+        const formData = new FormData();
+        formData.append('file', file);
+
+        try {
+            setIsLoading(true);
+            const response = await axios.post('/api/FaceDetection/detect', formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            });
+
+            const { result } = response.data;
+
+            if (result.includes('Обнаружено')) {
+                applyMakeup(); 
+            } else {
+                setModalMessage('Лицо не обнаружено, загрузите другую фотографию.');
+                setShowModal(true);
+                setIsLoading(false);
+            }
+        } catch (error) {
+            console.error("Ошибка при обработке файла", error);
+            setModalMessage('Ошибка при обработке файла.');
+            setShowModal(true);
+            setIsLoading(false);
+        }
     };
 
     const applyMakeup = async () => {
@@ -82,10 +120,25 @@ const BeautyBooth = () => {
                 </div>
             </div>
             <div className="but">
-                <button onClick={applyMakeup} disabled={isLoading}>Применить макияж</button>
+                <button onClick={detectFaceAndApplyMakeup} disabled={isLoading}>Применить макияж</button>
                 <button onClick={handleShowOriginal} disabled={!processedImage}>Показать оригинал</button>
-                {isLoading && <div>Загрузка... {remainingTime} секунд осталось</div>}
+                {isLoading && (
+                    <div className="modal">
+                        <div className="modal-content">
+                            <p className="makeup-text">Применение макияжа... через {remainingTime} секунд</p>
+                        </div>
+                    </div>
+                )}
             </div>
+
+            {showModal && (
+                <div className="modal">
+                    <div className="modal-content">
+                        <p>{modalMessage}</p>
+                        <button onClick={() => setShowModal(false)}>OK</button>
+                    </div>
+                </div>
+            )}
         </div>
     );
 };

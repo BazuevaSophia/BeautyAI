@@ -67,7 +67,6 @@
     <None Remove="ClientApp\src\components\MyService\" />
     <None Remove="ClientApp\public\inp\" />
     <None Remove="PSGAN\" />
-    <None Remove="ClientApp\public\models\" />
   </ItemGroup>
 
   <ItemGroup>
@@ -106,7 +105,6 @@
     <Folder Include="ClientApp\src\components\MyService\" />
     <Folder Include="ClientApp\public\inp\" />
     <Folder Include="PSGAN\" />
-    <Folder Include="ClientApp\public\models\" />
   </ItemGroup>
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">
     <!-- Ensure Node.js is installed -->

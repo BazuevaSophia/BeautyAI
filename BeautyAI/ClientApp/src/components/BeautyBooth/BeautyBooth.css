@@ -128,4 +128,25 @@ select {
     font-size: 18px;
     margin-top: 10px;
 }
+.modl {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 40%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+}
 
+.modl-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 5px;
+    text-align: center;
+}
+.makeup-text {
+    font-size: 28px;
+    font-weight: bold;
+}

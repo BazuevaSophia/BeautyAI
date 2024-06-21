@@ -1,30 +1,44 @@
 ﻿import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 import './History.css';
 
 function History() {
     const [visits, setVisits] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
+    const [currentUser, setCurrentUser] = useState(null);
 
     useEffect(() => {
-        const fetchCompletedBookings = async () => {
+        const fetchProfile = async () => {
             try {
-                const response = await fetch('https://localhost:7125/api/bookings/completed');
-                if (!response.ok) {
-                    throw new Error('Ошибка при загрузке завершенных бронирований');
-                }
-                const data = await response.json();
-                console.log('Completed bookings:', data);
-                setVisits(data);
+                const response = await axios.get('https://localhost:7125/api/profile/getProfile', {
+                    withCredentials: true
+                });
+                setCurrentUser(response.data);
             } catch (error) {
-                console.error(error.message);
-            } finally {
-                setIsLoading(false);
+                console.error('Ошибка при загрузке данных профиля:', error);
             }
         };
 
-        fetchCompletedBookings();
+        fetchProfile();
     }, []);
+
+    useEffect(() => {
+        if (currentUser) {
+            const fetchCompletedBookings = async () => {
+                try {
+                    const response = await axios.get(`https://localhost:7125/api/bookings/completed/user/${currentUser.userId}`);
+                    setVisits(response.data);
+                } catch (error) {
+                    console.error('Ошибка при загрузке завершенных бронирований:', error);
+                } finally {
+                    setIsLoading(false);
+                }
+            };
+
+            fetchCompletedBookings();
+        }
+    }, [currentUser]);
 
     if (isLoading) {
         return <div>Загрузка...</div>;
@@ -43,7 +57,7 @@ function History() {
                     <div key={index} className="visit">
                         <p>Описание: {visit.description}</p>
                         <p>Дата: {visit.date}</p>
-                        <p>Время: {visit.time}</p> 
+                        <p>Время: {visit.time}</p>
                         <p>Мастер: {visit.master}</p>
                         <p>Длительность услуги: {visit.duration}</p>
                         <p>Цена: {visit.price}</p>

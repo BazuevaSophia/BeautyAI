@@ -170,4 +170,35 @@ public class BookingsController : ControllerBase
             return StatusCode(500, "Внутренняя ошибка сервера");
         }
     }
+
+    [HttpGet("completed/user/{userId}")]
+    public async Task<IActionResult> GetCompletedBookings(int userId)
+    {
+        try
+        {
+            var bookings = await _context.Bookings
+                .Where(b => b.Status == "выполнена" && b.UserId == userId) 
+                .Include(b => b.Service)
+                .Include(b => b.Artist)
+                .Select(b => new CompletedBookingDTO
+                {
+                    BookingId = b.BookingId,
+                    Description = b.Service.Name,
+                    Date = b.Date,
+                    Time = b.Time,
+                    Master = b.Artist.Name,
+                    Duration = b.Service.Duration,
+                    Price = b.Service.Price.ToString()
+                })
+                .ToListAsync();
+            _logger.LogInformation($"Completed bookings: {JsonConvert.SerializeObject(bookings)}");
+
+            return Ok(bookings);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Ошибка при получении завершенных бронирований");
+            return StatusCode(500, "Внутренняя ошибка сервера");
+        }
+    }
 }
