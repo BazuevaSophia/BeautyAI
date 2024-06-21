@@ -169,6 +169,7 @@ public class ArtistsController : ControllerBase
         }
     }
 
+
     [HttpDelete("reviews/{reviewId}")]
     public async Task<IActionResult> DeleteReview(int reviewId)
     {
@@ -294,4 +295,37 @@ public class ArtistsController : ControllerBase
 
         return Ok(bookedTimes);
     }
+
+    [HttpDelete("{artistId}/clear-old-signups")]
+    public async Task<IActionResult> ClearOldSignUps(int artistId)
+    {
+        var lastWeek = DateTime.Today.AddDays(-7);
+        var allSignUps = await _context.SignUps
+            .Where(s => s.ArtistId == artistId)
+            .ToListAsync();
+        DateTime ParseCustomDate(string dayOfWeek)
+        {
+            try
+            {
+                var datePart = dayOfWeek.Split(' ')[0];
+                return DateTime.ParseExact(datePart, "dd.MM", null);
+            }
+            catch (Exception)
+            {
+                return DateTime.MinValue;
+            }
+        }
+        var oldSignUps = allSignUps
+            .Where(s => ParseCustomDate(s.DayOfWeek) < lastWeek)
+            .ToList();
+
+        if (oldSignUps.Any())
+        {
+            _context.SignUps.RemoveRange(oldSignUps);
+            await _context.SaveChangesAsync();
+        }
+
+        return Ok(new { message = "Old sign-ups cleared successfully" });
+    }
+
 }

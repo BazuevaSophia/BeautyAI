@@ -98,15 +98,15 @@ function MyPortfolio() {
                         </button>
                     </div>
                 ))}
-                <div className="add-photo">
+                <div className="add-phot">
                     <input
                         type="file"
                         id="file-input"
                         style={{ display: 'none' }}
                         onChange={handleFileChange}
                     />
-                    <label htmlFor="file-input" className="custom-file-upload">
-                        <img src="add.png" alt="Выбрать фото" />
+                    <label htmlFor="file-input" className="custm-file-upload">
+                        <img src="add.png" alt="Выбрать фото" className="add-icn" />
                     </label>
                     <button className="upload-button" onClick={uploadPhoto}>
                         Загрузить

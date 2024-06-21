@@ -20,19 +20,12 @@ function MyCalendar() {
                 });
                 const result = await response.json();
                 setUserData(result);
+                await clearOldSignUps(result.artistId);
             } catch (error) {
                 alert('Ошибка при загрузке данных пользователя');
             }
         };
 
-        fetchUserData();
-
-        const initTimes = {};
-        getWeekDates().forEach(date => {
-            initTimes[formatDate(date)] = [];
-        });
-        setSelectedTimes(initTimes);
-     
         const fetchConfirmedTimes = async () => {
             try {
                 const response = await fetch('https://localhost:7125/api/schedule/confirmed', {
@@ -53,8 +46,34 @@ function MyCalendar() {
             }
         };
 
+        const initTimes = {};
+        getWeekDates().forEach(date => {
+            initTimes[formatDate(date)] = [];
+        });
+        setSelectedTimes(initTimes);
+
+        fetchUserData();
         fetchConfirmedTimes();
     }, []);
+
+    const clearOldSignUps = async (artistId) => {
+        try {
+            const response = await fetch(`https://localhost:7125/api/artists/${artistId}/clear-old-signups`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                credentials: 'include',
+            });
+            if (!response.ok) {
+                throw new Error('Ошибка при очистке устаревших записей');
+            }
+            console.log('Устаревшие записи успешно удалены');
+        } catch (error) {
+            console.error(error.message);
+        }
+    };
+
 
     const getWeekDates = () => {
         const weekDates = [];
@@ -135,7 +154,6 @@ function MyCalendar() {
         }
     };
 
-
     return (
         <div className="my-calendar-page">
             <h1>BeautyAI</h1>
@@ -182,4 +200,5 @@ function MyCalendar() {
 }
 
 export default MyCalendar;
+
 

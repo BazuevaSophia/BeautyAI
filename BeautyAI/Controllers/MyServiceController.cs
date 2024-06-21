@@ -34,46 +34,87 @@ public class MyServiceController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<IActionResult> AddService([FromBody] Service service)
+    public async Task<IActionResult> AddService([FromForm] ServiceCreateModel serviceModel)
     {
-        service.ArtistId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+        serviceModel.ArtistId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+
+        var service = new Service
+        {
+            Name = serviceModel.Name,
+            Description = serviceModel.Description,
+            Price = serviceModel.Price,
+            Duration = serviceModel.Duration,
+            ArtistId = serviceModel.ArtistId,
+            Photo = new List<string>()
+        };
+
+        if (serviceModel.Photo != null && serviceModel.Photo.Length > 0)
+        {
+            foreach (var photo in serviceModel.Photo)
+            {
+                using (var httpClient = _httpClientFactory.CreateClient())
+                {
+                    httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Client-ID", "de3f8ae7d493aae");
+                    using (var content = new MultipartFormDataContent())
+                    {
+                        using (var ms = new MemoryStream())
+                        {
+                            await photo.CopyToAsync(ms);
+                            var bytes = ms.ToArray();
+                            content.Add(new ByteArrayContent(bytes), "image", photo.FileName);
+                            var response = await httpClient.PostAsync("https://api.imgur.com/3/image", content);
+                            var responseString = await response.Content.ReadAsStringAsync();
+
+                            if (!response.IsSuccessStatusCode)
+                            {
+                                return StatusCode((int)response.StatusCode, new { message = "Ошибка при загрузке фото на Imgur." });
+                            }
+
+                            var imgurResponse = JsonConvert.DeserializeObject<ImgurUploadResponse>(responseString);
+                            if (imgurResponse == null || imgurResponse.Data == null || string.IsNullOrEmpty(imgurResponse.Data.Link))
+                            {
+                                return StatusCode(500, new { message = "Некорректный ответ от Imgur." });
+                            }
+
+                            service.Photo.Add(imgurResponse.Data.Link);
+                        }
+                    }
+                }
+            }
+        }
+
         _context.Services.Add(service);
         await _context.SaveChangesAsync();
         return Ok(service);
     }
 
     [HttpPut("{id}")]
-    public async Task<IActionResult> UpdateService(int id, [FromBody] Service service)
+    public async Task<IActionResult> UpdateService(int id, [FromForm] ServiceUpdateModel serviceUpdateModel)
     {
-        if (id != service.ServiceId)
+        if (id != serviceUpdateModel.ServiceId)
             return BadRequest();
 
         var existingService = await _context.Services.FindAsync(id);
         if (existingService == null)
             return NotFound();
 
-        existingService.Name = service.Name;
-        existingService.Description = service.Description;
-        existingService.Duration = service.Duration;
-        existingService.Price = service.Price;
-        existingService.Photo = service.Photo;
+        existingService.Name = serviceUpdateModel.Name;
+        existingService.Description = serviceUpdateModel.Description;
+        existingService.Duration = serviceUpdateModel.Duration;
+        existingService.Price = serviceUpdateModel.Price;
 
         await _context.SaveChangesAsync();
-        return NoContent();
+        return Ok(existingService);
     }
 
-    [HttpDelete("{id}")]
-    public async Task<IActionResult> DeleteService(int id)
+    public class ServiceUpdateModel
     {
-        var service = await _context.Services.FindAsync(id);
-        if (service == null)
-            return NotFound();
-
-        _context.Services.Remove(service);
-        await _context.SaveChangesAsync();
-        return NoContent();
+        public int ServiceId { get; set; }
+        public string Name { get; set; }
+        public string Description { get; set; }
+        public decimal Price { get; set; }
+        public string Duration { get; set; }
     }
-
     [HttpPost("uploadPhoto")]
     public async Task<IActionResult> UploadPhoto([FromForm] IFormFile photo)
     {
@@ -84,13 +125,6 @@ public class MyServiceController : ControllerBase
 
         try
         {
-            var artistId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
-            var artist = await _context.Artists.Include(a => a.Portfolio).FirstOrDefaultAsync(a => a.ArtistId == artistId);
-            if (artist == null)
-            {
-                return NotFound(new { message = "Профиль визажиста не найден." });
-            }
-
             using (var httpClient = _httpClientFactory.CreateClient())
             {
                 httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Client-ID", "de3f8ae7d493aae");
@@ -109,21 +143,16 @@ public class MyServiceController : ControllerBase
                             return StatusCode((int)response.StatusCode, new { message = "Ошибка при загрузке фото на Imgur." });
                         }
 
-                        var imgurResponse = JsonConvert.DeserializeObject<ImgurUploadResponseAlt>(responseString);
+                        var imgurResponse = JsonConvert.DeserializeObject<ImgurUploadResponse>(responseString);
                         if (imgurResponse == null || imgurResponse.Data == null || string.IsNullOrEmpty(imgurResponse.Data.Link))
                         {
                             return StatusCode(500, new { message = "Некорректный ответ от Imgur." });
                         }
 
-                        artist.Portfolio.Photo.Add(imgurResponse.Data.Link);
+                        return Ok(new { photoUrl = imgurResponse.Data.Link });
                     }
                 }
             }
-
-            _context.Artists.Update(artist);
-            await _context.SaveChangesAsync();
-
-            return Ok(new { photo = artist.Portfolio.Photo.Last() });
         }
         catch (Exception ex)
         {
@@ -131,14 +160,36 @@ public class MyServiceController : ControllerBase
             return StatusCode(500, new { message = "Произошла ошибка на сервере" });
         }
     }
-}
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> DeleteService(int id)
+    {
+        var service = await _context.Services.FindAsync(id);
+        if (service == null)
+        {
+            return NotFound();
+        }
 
-public class ImgurUploadResponseAlt
-{
-    public ImgurUploadDataAlt Data { get; set; }
-}
+        _context.Services.Remove(service);
+        await _context.SaveChangesAsync();
+        return NoContent();
+    }
 
-public class ImgurUploadDataAlt
-{
-    public string Link { get; set; }
+    public class ImgurUploadResponse
+    {
+        public ImgurUploadData Data { get; set; }
+    }
+
+    public class ImgurUploadData
+    {
+        public string Link { get; set; }
+    }
+    public class ServiceCreateModel
+    {
+        public string Name { get; set; }
+        public string Description { get; set; }
+        public decimal Price { get; set; }
+        public string Duration { get; set; }
+        public int ArtistId { get; set; }
+        public IFormFile[] Photo { get; set; }
+    }
 }

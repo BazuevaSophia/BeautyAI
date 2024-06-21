@@ -52,7 +52,7 @@
         box-shadow: none;
     }
 
-.add-photo {
+.add-phot {
     display: flex;
     align-items: center;
     gap: 10px;
@@ -66,8 +66,8 @@
 }
 
     .add-button img, .custom-file-upload img {
-        width: 50px; 
-        height: 50px; 
+        width: 30px; 
+        height: 30px; 
     }
 
 .bck-buttn {
@@ -102,14 +102,20 @@
         background-color: #FF6670;
     }
 
-.custom-file-upload {
+.custm-file-upload {
     display: inline-block;
     cursor: pointer;
-    padding: 10px 20px;
+    padding: 5px 5px;
 }
 
-    .custom-file-upload:hover {
+    .custm-file-upload:hover {
         background: none;
         outline: none;
         box-shadow: none;
     }
+.add-icn {
+    width: 30px; 
+    height: 30px; 
+    background: none; 
+    border: none; 
+}

@@ -14,7 +14,7 @@ const BeautyBooth = () => {
         const selectedFile = e.target.files[0];
         setFile(selectedFile);
         setSelectedImage(URL.createObjectURL(selectedFile));
-        setProcessedImage(null); 
+        setProcessedImage(null);
     };
 
     const handleShowOriginal = () => {
@@ -38,7 +38,7 @@ const BeautyBooth = () => {
 
         try {
             setIsLoading(true);
-            startTimer(10); 
+            startTimer(10);
 
             const response = await axios.post('/api/ImageProcessing/upload', formData, {
                 headers: {

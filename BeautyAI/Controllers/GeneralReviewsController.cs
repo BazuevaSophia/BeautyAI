@@ -25,13 +25,14 @@ public class GeneralReviewsController : ControllerBase
         try
         {
             var reviews = await _context.All_Reviews
+                .Include(r => r.User) 
                 .Select(r => new
                 {
                     r.ReviewId2,
                     r.UserId,
                     UserName = r.User.Name,
                     r.Comment,
-                    r.Photo
+                    Photo = r.Photo ?? new List<string>() 
                 })
                 .ToListAsync();
 
@@ -143,7 +144,7 @@ public class ReviewInputModel
 {
     public int UserId { get; set; }
     public string Comment { get; set; }
-    public IFormFile Photo { get; set; }
+    public IFormFile? Photo { get; set; } 
 }
 
 public class ImgurResponse

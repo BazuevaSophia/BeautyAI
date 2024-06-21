@@ -34,39 +34,32 @@
             color: #FFA4A4;
         }
 
-.review-form {
+.reviewForm {
     display: flex;
     flex-direction: column;
     gap: 10px;
+    top: 50px;
 }
 
-.review-file-input {
-    display: none;
-    width: 100%;
-    padding: 8px;
-    margin-bottom: 10px;
-}
 
-.custom-file-label {
-    display: inline-block;
-    padding: 10px;
-    background-color: #f0f0f0;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+.formSubmitButton {
+    font-family: 'Franklin Gothic Medium';
+    padding: 10px 40px;
+    width: 180px;
+    border-radius: 30px;
+    border: none;
+    background-color: #FF4EAE;
+    color: white;
+    font-size: 22px;
     cursor: pointer;
-    margin-top: 35px;
-    border-radius: 10px;
-    color: #FF4EAE;
-    width: 150px;
+    transition: background-color 0.3s ease;
+    position: relative;
+    top: -180px;
+    left: 650px;
+
 }
 
-.submit-button {
-    width: 100%;
-    padding: 8px;
-    margin-bottom: 10px;
-}
-
-.review-textarea {
+.reviewTextArea {
     border-radius: 20px;
     padding: 20px;
     margin: 5px;
@@ -82,24 +75,60 @@
     width: 750px;
 }
 
-.submit-button {
-    font-family: 'Franklin Gothic Medium';
-    padding: 10px 40px;
-    border-radius: 30px;
-    border: none;
-    background-color: #4DEAD7;
-    color: white;
-    font-size: 22px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    width: 180px;
+.reviewsContent {
+    margin-top: -30px; 
+}
+.formSubmitButton:hover {
+    background-color: #06BFA8;
 }
 
-    .submit-button:hover {
-        background-color: #06BFA8;
-    }
-
-.review-image-preview {
+.reviewImagePreview {
     max-width: 15%;
     height: auto;
+}
+
+.reviewItem {
+    margin-top: 20px;
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.reviewPhotos {
+    margin-top: 10px;
+}
+
+.deleteReviewButton {
+    background-color: #ff4e4e;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.reviewsContentArea {
+    margin-top: 20px;
+}
+
+.reviewFileInput {
+    display: none;
+}
+
+.customFile {
+    display: inline-block;
+    padding: 10px;
+    width: 180px;
+    cursor: pointer;
+    margin: 0 auto 40px auto;
+    text-decoration: none;
+    font-size: 17px;
+    color: #000000;
+    background-color: rgba(255, 255, 255, 0.3);
+    padding: 7px 30px;
+    border-radius: 30px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease, color 0.3s ease;
+    cursor: pointer;
 }

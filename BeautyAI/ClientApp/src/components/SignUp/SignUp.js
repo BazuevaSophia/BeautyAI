@@ -35,6 +35,7 @@ function SignUp() {
                 const result = await response.json();
                 setUser(result);
                 console.log('User profile data:', result);
+                await clearOldSignUps(artistId);
             } catch (error) {
                 console.error('Ошибка при загрузке данных профиля: ', error);
                 navigate('/authorization', { state: { from: window.location.pathname } });
@@ -73,6 +74,24 @@ function SignUp() {
         fetchProfile();
         fetchSignUps();
     }, [artistId, navigate]);
+
+    const clearOldSignUps = async (artistId) => {
+        try {
+            const response = await fetch(`https://localhost:7125/api/artists/${artistId}/clear-old-signups`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                credentials: 'include',
+            });
+            if (!response.ok) {
+                throw new Error('Ошибка при очистке устаревших записей');
+            }
+            console.log('Устаревшие записи успешно удалены');
+        } catch (error) {
+            console.error(error.message);
+        }
+    };
 
     const handleTimeClick = async (signUpId, dayOfWeek, time) => {
         if (!user) {

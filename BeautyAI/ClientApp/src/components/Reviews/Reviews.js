@@ -1,4 +1,4 @@
-﻿import React, { useState, useEffect } from 'react';
+﻿import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import './Reviews.css';
@@ -9,28 +9,24 @@ function Reviews() {
     const [image, setImage] = useState(null);
     const [imagePreviewUrl, setImagePreviewUrl] = useState('');
     const [currentUser, setCurrentUser] = useState(null);
+    const fileInputRef = useRef(null);  
+    const handleFileSelect = () => {
+        fileInputRef.current.click();
+    };
+
 
     useEffect(() => {
-        const fetchProfile = async () => {
+        async function fetchData() {
             try {
-                const response = await axios.get('/api/profile/getProfile', { withCredentials: true });
-                setCurrentUser(response.data);
+                const profileResponse = await axios.get('https://localhost:44476/api/profile/getProfile', { withCredentials: true });
+                setCurrentUser(profileResponse.data);
+                const reviewsResponse = await axios.get('https://localhost:44476/api/generalreviews');
+                setReviews(reviewsResponse.data);
             } catch (error) {
-                console.error('Ошибка при загрузке профиля:', error);
+                console.error('Ошибка при загрузке данных:', error);
             }
-        };
-
-        const fetchReviews = async () => {
-            try {
-                const response = await axios.get('/api/general-reviews');
-                setReviews(response.data);
-            } catch (error) {
-                console.error('Ошибка при загрузке отзывов:', error);
-            }
-        };
-
-        fetchProfile();
-        fetchReviews();
+        }
+        fetchData();
     }, []);
 
     const handleImageChange = (e) => {
@@ -39,30 +35,21 @@ function Reviews() {
         setImagePreviewUrl(file ? URL.createObjectURL(file) : '');
     };
 
-    const adjustTextareaHeight = (e) => {
-        e.target.style.height = "inherit";
-        e.target.style.height = `${e.target.scrollHeight}px`;
-    };
-
     const handleSubmit = async (event) => {
         event.preventDefault();
         if (!currentUser) {
             alert('Вы не вошли в систему. Пожалуйста, войдите или зарегистрируйтесь.');
             return;
         }
-
         const formData = new FormData();
         formData.append('comment', comment);
         formData.append('userId', currentUser.userId);
         if (image) {
             formData.append('photo', image);
         }
-
         try {
-            const response = await axios.post('/api/general-reviews', formData, {
-                headers: {
-                    'Content-Type': 'multipart/form-data',
-                },
+            const response = await axios.post('https://localhost:44476/api/generalreviews', formData, {
+                headers: { 'Content-Type': 'multipart/form-data' },
                 withCredentials: true,
             });
             setReviews([...reviews, response.data]);
@@ -77,8 +64,8 @@ function Reviews() {
     const handleDelete = async (reviewId) => {
         if (window.confirm('Вы уверены, что хотите удалить этот отзыв?')) {
             try {
-                await axios.delete(`/api/general-reviews/${reviewId}`, { withCredentials: true });
-                setReviews(reviews.filter(review => review.ReviewId2 !== reviewId));
+                await axios.delete(`https://localhost:44476/api/generalreviews/${reviewId}`, { withCredentials: true });
+                setReviews(reviews.filter(review => review.reviewId2 !== reviewId));
             } catch (error) {
                 console.error('Ошибка при удалении отзыва:', error);
             }
@@ -93,44 +80,47 @@ function Reviews() {
                 <Link to="/history">История</Link>
                 <Link to="/profile">Профиль</Link>
             </div>
-            <div className="reviews-content">
-                {reviews.map(review => (
-                    <div key={review.ReviewId2} className="review-item">
-                        <p>{review.UserName}: {review.Comment}</p>
-                        {review.Photo && review.Photo.length > 0 && (
-                            <div className="photos">
-                                {review.Photo.map((photo, index) => (
-                                    <img key={`${review.ReviewId2}-${index}`} src={photo} alt="Review" className="review-photo" />
-                                ))}
-                            </div>
-                        )}
-                        {currentUser && currentUser.userId === review.UserId && (
-                            <button onClick={() => handleDelete(review.ReviewId2)} className="delete-button">Удалить</button>
+            <form onSubmit={handleSubmit} className="reviewForm">
+                <textarea
+                    value={comment}
+                    onChange={(e) => setComment(e.target.value)}
+                    required
+                    className="reviewTextarea"
+                />
+                {imagePreviewUrl && (
+                    <img src={imagePreviewUrl} alt="Preview" className="reviewImagePreview" />
+                )}
+                <input
+                    id="file-upload"
+                    type="file"
+                    onChange={handleImageChange}
+                    ref={fileInputRef}
+                    className="reviewFileInput"
+                />
+                <label htmlFor="file-upload" className="customFile" onClick={handleFileSelect}>Выбрать фото</label>  
+                <button type="submit" className="formSubmitButton">Отправить</button>
+            </form>
+            <div className="reviewsContent">
+                {reviews.length > 0 ? reviews.map(review => (
+                    <div key={review.reviewId2} className="reviewWrapper">
+                        <div className="userNameContainer">
+                            <p className="userName"><strong>{review.userName}</strong></p>
+                        </div>
+                        <div className="visit">
+                            <p className="comment">{review.comment}</p>
+                            {review.photo && review.photo.length > 0 && (
+                                <div className="photos">
+                                    {review.photo.map((photo, index) => (
+                                        <img key={`${review.reviewId2}-${index}`} src={photo} alt="Review" className="reviewPhoto" />
+                                    ))}
+                                </div>
+                            )}
+                        </div>
+                        {currentUser && currentUser.userId === review.userId && (
+                            <button onClick={() => handleDelete(review.reviewId2)} className="deleteButton">Удалить</button>
                         )}
                     </div>
-                ))}
-                <form onSubmit={handleSubmit} className="review-form">
-                    <textarea
-                        value={comment}
-                        onChange={(e) => {
-                            setComment(e.target.value);
-                            adjustTextareaHeight(e);
-                        }}
-                        required
-                        className="review-textarea"
-                    />
-                    {imagePreviewUrl && (
-                        <img src={imagePreviewUrl} alt="Preview" className="review-image-preview" />
-                    )}
-                    <input
-                        id="file-upload"
-                        type="file"
-                        onChange={handleImageChange}
-                        className="review-file-input"
-                    />
-                    <label htmlFor="file-upload" className="custom-file-label">Выбрать фото</label>
-                    <button type="submit" className="submit-button">Отправить</button>
-                </form>
+                )) : <p>Отзывов пока нет.</p>}
             </div>
         </div>
     );
