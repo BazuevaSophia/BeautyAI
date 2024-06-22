@@ -139,10 +139,9 @@
     font-size: 20px;
     cursor: pointer;
     transition: all 0.3s ease;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);
     background-color: rgba(78, 78, 78, 0.2);
     transition: transform 0.3s ease;
-    border: 1px solid #0F0F0F;
     border-radius: 20px;
     width: 15%;
     margin-top: 10px;

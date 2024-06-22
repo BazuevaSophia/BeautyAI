@@ -102,6 +102,7 @@ function Authorization() {
                 </div>
                 <button type="submit" className="submit-button">Вход</button>
                 <Link to="/artist-auth" className="artist-auth-link">Вход для визажистов</Link>
+                <Link to="/Registration" className="reg-link">Регистрация</Link>
             </form>
         </div>
     );

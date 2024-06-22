@@ -109,3 +109,15 @@ button {
     .artist-auth-link:hover {
         text-decoration: underline;
     }
+.reg-link {
+    display: inline-block;
+    margin-top: 10px;
+    text-align: center;
+    text-decoration: none;
+    color: #ffffff;
+    font-size: 20px;
+}
+
+    .reg-link:hover {
+        text-decoration: underline;
+    }

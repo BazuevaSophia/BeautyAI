@@ -5,6 +5,7 @@ using System.Net.Http.Headers;
 using System.IO;
 using Newtonsoft.Json;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
 
 [ApiController]
 [Route("api/[controller]")]
@@ -25,14 +26,14 @@ public class GeneralReviewsController : ControllerBase
         try
         {
             var reviews = await _context.All_Reviews
-                .Include(r => r.User) 
+                .Include(r => r.User)
                 .Select(r => new
                 {
                     r.ReviewId2,
                     r.UserId,
                     UserName = r.User.Name,
                     r.Comment,
-                    Photo = r.Photo ?? new List<string>() 
+                    Photo = r.Photo ?? new List<string>()
                 })
                 .ToListAsync();
 
@@ -45,6 +46,7 @@ public class GeneralReviewsController : ControllerBase
         }
     }
 
+    [Authorize]
     [HttpPost]
     public async Task<IActionResult> AddReview([FromForm] ReviewInputModel reviewModel)
     {
@@ -116,6 +118,7 @@ public class GeneralReviewsController : ControllerBase
         }
     }
 
+    [Authorize]
     [HttpDelete("{reviewId}")]
     public async Task<IActionResult> DeleteReview(int reviewId)
     {
@@ -144,7 +147,7 @@ public class ReviewInputModel
 {
     public int UserId { get; set; }
     public string Comment { get; set; }
-    public IFormFile? Photo { get; set; } 
+    public IFormFile? Photo { get; set; }
 }
 
 public class ImgurResponse

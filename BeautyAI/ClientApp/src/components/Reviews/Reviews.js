@@ -1,6 +1,6 @@
 ﻿import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import './Reviews.css';
 
 function Reviews() {
@@ -9,19 +9,25 @@ function Reviews() {
     const [image, setImage] = useState(null);
     const [imagePreviewUrl, setImagePreviewUrl] = useState('');
     const [currentUser, setCurrentUser] = useState(null);
-    const fileInputRef = useRef(null);  
+    const fileInputRef = useRef(null);
+    const navigate = useNavigate();
+
     const handleFileSelect = () => {
         fileInputRef.current.click();
     };
 
-
     useEffect(() => {
         async function fetchData() {
             try {
-                const profileResponse = await axios.get('https://localhost:44476/api/profile/getProfile', { withCredentials: true });
-                setCurrentUser(profileResponse.data);
                 const reviewsResponse = await axios.get('https://localhost:44476/api/generalreviews');
                 setReviews(reviewsResponse.data);
+
+                try {
+                    const profileResponse = await axios.get('https://localhost:44476/api/profile/getProfile', { withCredentials: true });
+                    setCurrentUser(profileResponse.data);
+                } catch (error) {
+                    console.error('Ошибка при загрузке данных профиля:', error);
+                }
             } catch (error) {
                 console.error('Ошибка при загрузке данных:', error);
             }
@@ -38,7 +44,7 @@ function Reviews() {
     const handleSubmit = async (event) => {
         event.preventDefault();
         if (!currentUser) {
-            alert('Вы не вошли в систему. Пожалуйста, войдите или зарегистрируйтесь.');
+            navigate('/authorization'); 
             return;
         }
         const formData = new FormData();
@@ -97,7 +103,7 @@ function Reviews() {
                     ref={fileInputRef}
                     className="reviewFileInput"
                 />
-                <label htmlFor="file-upload" className="customFile" onClick={handleFileSelect}>Выбрать фото</label>  
+                <label htmlFor="file-upload" className="customFile" onClick={handleFileSelect}>Выбрать фото</label>
                 <button type="submit" className="formSubmitButton">Отправить</button>
             </form>
             <div className="reviewsContent">
