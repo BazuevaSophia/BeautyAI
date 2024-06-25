@@ -21,14 +21,15 @@ function MyCalendar() {
                 const result = await response.json();
                 setUserData(result);
                 await clearOldSignUps(result.artistId);
+                await fetchConfirmedTimes(result.artistId); // Передаем artistId
             } catch (error) {
                 alert('Ошибка при загрузке данных пользователя');
             }
         };
 
-        const fetchConfirmedTimes = async () => {
+        const fetchConfirmedTimes = async (artistId) => {
             try {
-                const response = await fetch('https://localhost:7125/api/schedule/confirmed', {
+                const response = await fetch(`https://localhost:7125/api/schedule/confirmed/${artistId}`, {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json',
@@ -53,7 +54,6 @@ function MyCalendar() {
         setSelectedTimes(initTimes);
 
         fetchUserData();
-        fetchConfirmedTimes();
     }, []);
 
     const clearOldSignUps = async (artistId) => {

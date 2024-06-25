@@ -79,3 +79,12 @@
         background-color: rgba(255, 255, 255, 0.5);
         color: #000000;
     }
+.no-bookings-message {
+    text-align: center;
+    font-size: 18px;
+    color: #000;
+    margin-top: 20px;
+    font-family: 'Angst', sans-serif;
+    font-size: 25px;
+}
+

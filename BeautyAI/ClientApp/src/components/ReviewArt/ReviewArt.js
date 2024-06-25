@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams, useLocation } from 'react-router-dom';
 import axios from 'axios';
 import './ReviewArt.css';
 
 function ReviewArt() {
     const navigate = useNavigate();
+    const location = useLocation();
     const { artistId } = useParams();
     const [reviews, setReviews] = useState([]);
     const [comment, setComment] = useState('');

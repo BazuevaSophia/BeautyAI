@@ -65,11 +65,11 @@ namespace BeautyAI.Controllers
         }
 
 
-        [HttpGet("confirmed")]
-        public async Task<IActionResult> GetConfirmedTimes()
+        [HttpGet("confirmed/{artistId}")]
+        public async Task<IActionResult> GetConfirmedTimes(int artistId)
         {
             var confirmedTimes = await _context.SignUps
-                .Include(s => s.Artist)
+                .Where(s => s.ArtistId == artistId)
                 .ToListAsync();
 
             var result = confirmedTimes

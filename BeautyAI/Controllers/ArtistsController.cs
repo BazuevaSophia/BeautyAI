@@ -28,7 +28,8 @@ public class ArtistsController : ControllerBase
             {
                 ArtistId = a.ArtistId,
                 Name = a.Name,
-                Image = a.Photo
+                Image = a.Photo,
+                Surname = a.Surname
             }).ToListAsync();
 
             return Ok(artists);

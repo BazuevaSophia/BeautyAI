@@ -16,8 +16,14 @@ function TrendCarousel({ photos, description, trendId, onAddToFavorites }) {
 
     const handleAddToFavorites = async () => {
         try {
-            await onAddToFavorites(trendId);
-            setIsFavorite(true);
+            const result = await onAddToFavorites(trendId);
+            if (result === 'already_favorite') {
+                alert('Этот тренд уже есть у вас в избранном');
+            } else if (result === 'not_authenticated') {
+                alert('Пожалуйста, войдите или зарегистрируйтесь, чтобы добавить тренд в избранное');
+            } else {
+                setIsFavorite(true);
+            }
         } catch (error) {
             console.error('Ошибка при добавлении тренда в избранное: ', error);
         }
@@ -41,7 +47,7 @@ function TrendCarousel({ photos, description, trendId, onAddToFavorites }) {
             >
                 Добавить в избранное
             </button>
-            
+
             <p className="trend-description">{description}</p>
         </div>
     );
@@ -82,11 +88,22 @@ function FreshTrends() {
                 body: JSON.stringify({ trendId }),
                 credentials: 'include',
             });
+
+            if (response.status === 401) {
+                return 'not_authenticated';
+            }
+
+            const errorData = await response.json();
+            if (errorData.message === 'Этот тренд уже в избранном') {
+                return 'already_favorite';
+            }
+
             if (!response.ok) {
-                const errorData = await response.json();
                 throw new Error(`Ошибка: ${errorData.message}`);
             }
+
             console.log('Trend added to favorites');
+            return 'success';
         } catch (error) {
             console.error('Ошибка при добавлении тренда в избранное: ', error);
             alert(`Ошибка при добавлении тренда в избранное: ${error.message}`);

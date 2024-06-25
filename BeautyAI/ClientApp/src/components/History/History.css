@@ -62,3 +62,12 @@
         font-size: 16px; 
     }
 
+.not-authenticated-message p {
+    text-align: center;
+    font-size: 18px;
+    color: #000;
+    margin-top: 20px;
+    font-family: 'Angst', sans-serif;
+    font-size: 20px;
+    margin-top: 100px;
+}

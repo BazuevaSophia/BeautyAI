@@ -34,8 +34,8 @@ function MakeupArtists() {
             <div className="artists">
                 {artists.map((artist, index) => (
                     <div key={index} className="artist">
-                        <img src={artist.image} alt={artist.name} />
-                        <h2>{artist.name}</h2>
+                        <img src={artist.image} alt={`${artist.name} ${artist.surname}`} />
+                        <h2>{artist.name} {artist.surname}</h2>
                         <div className="buttons">
                             <button onClick={() => handleButtonClick('/services', artist.artistId)}>Записаться</button>
                             <button onClick={() => handleButtonClick('/portfolio', artist.artistId)}>Портфолио</button>

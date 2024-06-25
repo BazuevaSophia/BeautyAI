@@ -57,19 +57,23 @@ function MyApplication() {
         <div className="my-application-page">
             <h1>BeautyAI</h1>
             <div className="bookings-container">
-                {bookings.map(booking => (
-                    <div key={booking.bookingId} className="booking-container">
-                        <div className="booking-card">
-                            <p>Дата: {booking.date}</p>
-                            <p>Время: {booking.time}</p>
-                            <p>Клиент: {booking.userName}</p>
-                            <p>Услуга: {booking.serviceName}</p>
+                {bookings.length > 0 ? (
+                    bookings.map(booking => (
+                        <div key={booking.bookingId} className="booking-container">
+                            <div className="booking-card">
+                                <p>Дата: {booking.date}</p>
+                                <p>Время: {booking.time}</p>
+                                <p>Клиент: {booking.userName}</p>
+                                <p>Услуга: {booking.serviceName}</p>
+                            </div>
+                            <button className="complete-button" onClick={() => completeBooking(booking.bookingId)}>
+                                Выполнена
+                            </button>
                         </div>
-                        <button className="complete-button" onClick={() => completeBooking(booking.bookingId)}>
-                            Выполнена
-                        </button>
-                    </div>
-                ))}
+                    ))
+                ) : (
+                    <p className="no-bookings-message">Актуальных заявок пока нет</p>
+                )}
             </div>
             <button className="bck-buttn" onClick={() => navigate(-1)}>Назад</button>
         </div>

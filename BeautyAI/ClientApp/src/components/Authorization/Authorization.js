@@ -56,7 +56,8 @@ function Authorization() {
             if (response.ok) {
                 const userData = await response.json();
                 if (userData.role === 'Клиент') {
-                    navigate('/profile');
+                    const from = location.state?.from?.pathname || '/profile';
+                    navigate(from, { replace: true });
                 } else {
                     alert('Вход разрешен только для клиентов.');
                 }

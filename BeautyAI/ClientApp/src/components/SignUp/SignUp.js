@@ -8,6 +8,7 @@ function SignUp() {
     const { artistId, serviceId } = useParams();
     const navigate = useNavigate();
     const { state } = useLocation();
+    const location = useLocation();
     const [user, setUser] = useState(null);
     const [showModal, setShowModal] = useState(false);
     const [modalMessage, setModalMessage] = useState('');
@@ -25,7 +26,7 @@ function SignUp() {
 
                 if (!response.ok) {
                     if (response.status === 401) {
-                        navigate('/authorization', { state: { from: window.location.pathname } });
+                        navigate('/authorization', { state: { from: location } });
                         return;
                     } else {
                         throw new Error('Failed to fetch profile data');
